@@ -1,10 +1,39 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 class AdminDashboard extends Component {
+  constructor(props){
+    super(props)
+
+    this.state={
+
+      students: null,
+      loading: true,
+
+
+    }
+  }
   handleAddscore()
   {
     window.location.href='/admin/addscore';
   }
+
+  componentDidMount(){
+    let _this = this;
+    axios.get("http://localhost:8080/api/listofstudents")
+    .then((response) => {
+      if(response.data.error) {
+        _this.setState({loading: false})
+      } else {
+        _this.setState({students: response.data , loading: false })
+      }
+    })
+      .catch((error) =>{
+        console.log(error)
+      })
+      
+
+  }
+
 render(){
   return (
   <div>
