@@ -1,0 +1,38 @@
+/* .register-form{
+    display: flex;
+    justify-content: space-between;
+} */
+.left-side{
+    display: inline-block;
+    margin: 20px;
+    padding: 10px;
+    vertical-align: top;
+}
+.right-side{
+    display: inline-block;
+    vertical-align: top;
+    margin: 20px;
+    padding: 10px;
+}
+body{
+    font-size: 20px;
+    margin-top: 30px;
+}
+h1{
+    margin-bottom: 50px;
+    margin-top: 20px;
+}
+.subbut{
+    display: block;
+    margin: 0 auto;
+    padding: 10px;
+    width: 100px;
+    height: 50px;
+
+}
+.form-group{
+    width: 350px;
+}
+input{
+    height: 50px;
+}
