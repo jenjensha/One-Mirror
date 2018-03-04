@@ -61,7 +61,7 @@ app.post('/api/student/register', [
       return Student.findOne({ email: value })
         .then(function (student) {
           if (student) {
-            throw new Error('this email is already in use');
+            throw new Error('This email is already in use');
           }
           //return value;
         })
@@ -72,7 +72,16 @@ app.post('/api/student/register', [
   // .not().isEmpty()
   //??check('video')
   check('ID')
-    .not().isEmpty(),
+    .not().isEmpty()
+    .custom(value => {
+      return Student.findOne({ StudentID: value })
+        .then(function (student) {
+          if (student) {
+            throw new Error('This student ID is already in use');
+          }
+          //return value;
+        })
+    }),
   check('status')
     .not().isEmpty(),
 
@@ -106,16 +115,16 @@ app.post('/api/student/register', [
       CV_link: req.body.CVlink
 
     })
-    .then(function(student) {
-      console.log(student)
-    })
-    .catch(function(error) {
-      console.log(error);
-    })
+      .then(function (student) {
+        console.log(student)
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
 
   })
 
-  //Showing the List of Students
+//Showing List of Students
 app.get('/api/listofstudents', function (req, res) {
   Student.find({})
     .sort({
@@ -125,16 +134,34 @@ app.get('/api/listofstudents', function (req, res) {
       res.send(students);
     }
     ).catch((error) => {
-      res.send({ status: error, message: 'Cannot find studens' });
+      res.send({ status: error, message: 'Cannot find students' });
+    })
+})
+
+//Admin Student View Profile
+app.get('/api/student/:StudentID/viewprofile', function (req, res) {
+  console.log(req.params);
+  Student.findOne({ StudentID: req.params.StudentID })
+
+    .then(function (result) {
+      res.send(result);
+      console.log(result);
+    })
+    .catch(function (error) {
+      console.log(error);
     })
 })
 
 
-//Editting the students
-app.post('/api/student/:id/edit', [
-check('firstName').not().isEmpty().withMessage('First name is required')
-  .isLength({ min: 2 }).withMessage('Firstname should be at least 2 letters')
-  .matches(/^([A-z]|\s)+$/).withMessage('Firstname cannot have numbers'),
+
+
+
+
+//Admin Editting the student
+app.post('/api/student/:StudentID/edit', [
+  check('firstName').not().isEmpty().withMessage('First name is required')
+    .isLength({ min: 2 }).withMessage('Firstname should be at least 2 letters')
+    .matches(/^([A-z]|\s)+$/).withMessage('Firstname cannot have numbers'),
   check('lastName')
     .not().isEmpty().withMessage('Last name is required')
     .isLength({ min: 2 }).withMessage('Lastname should be at least 2 letters')
@@ -171,7 +198,7 @@ check('firstName').not().isEmpty().withMessage('First name is required')
   if (!errors.isEmpty()) {
     return res.send({ errors: errors.mapped() });
   }
-  Student.findById(req.params.id)
+  Student.findOne({ StudentID: req.params.StudentID })
     .then(function (student) {
 
       student.FirstName = req.body.firstName,
@@ -193,9 +220,85 @@ check('firstName').not().isEmpty().withMessage('First name is required')
       student.save()
         .then(function (student) {
           res.send(student);
-        });
+        })
+        .catch(function(error){
+          console.log(error);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        })
     });
-  });
+});
 
 
 

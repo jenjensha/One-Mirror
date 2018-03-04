@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import {Link} from 'react-router-dom';
 class AdminDashboard extends Component {
   constructor(props){
     super(props)
@@ -62,8 +63,9 @@ let _this = this;
                   <th scope="row">{student.StudentID}</th>
                   <td colSpan={3}>{student.FirstName} {student.LastName}</td>        
                   <td><button type="button" className="btn btn-primary" >Edit</button></td>
-                  <td><button type="button" className="btn btn-info" >view Profile</button></td>
-                  <td><button type="button" className="btn btn-success" onClick={_this.handleAddscore}>Add Score</button></td>
+                  
+                  <td><Link className="btn btn-info" to="/students/profile/`${student.StudentId}`">View profile</Link></td>
+                  <td><Link className="btn btn-info" to="/students/profile/`${student.StudentId}`">Add Scores</Link></td>
                 </tr>
               )
               })}
