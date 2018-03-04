@@ -1,11 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-<<<<<<< HEAD
 var LinkSchema = mongoose.Schema({
-=======
-var AdminSchema = new Schema({
->>>>>>> master
 
     StudentID:{
         type: String,
@@ -34,8 +30,4 @@ var AdminSchema = new Schema({
 
 })
 
-<<<<<<< HEAD
 module.exports = mongoose.model('link', LinkSchema);
-=======
-module.exports = mongoose.model('Admin', AdminSchema);
->>>>>>> master
