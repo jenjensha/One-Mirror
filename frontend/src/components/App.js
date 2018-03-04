@@ -10,6 +10,11 @@ import EditStudentDetails from './EditStudentDetails'
 import StudentDashboard from './StudentDashboard';
 
 
+
+import StudentLogin from './StudentLogin';
+import StudentProfile from './StudentProfile';
+
+
 class App extends Component {
     render() {
         return (
@@ -25,7 +30,11 @@ class App extends Component {
                     <Route exact path='/' component={HomePage} />
                     <Route path='/student/login' component={StudentLogin} />
                     <Route path='/admin' component={AdminLog} />
+
                     <Route path='/student/dashboard' component={StudentDashboard} />
+
+
+                    <Route path='/student/profile' component={StudentProfile} />
 
                     <Route render={function(){
                         return <p> Not Found</p>
