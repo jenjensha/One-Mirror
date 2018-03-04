@@ -49,7 +49,7 @@ class StudentLogin extends Component {
         _this.setState({errorMessage: response.data.message})
       } else {
         _this.props.history.push(
-          { pathname: '',
+          { pathname: '/studentDashboard',
             state: {unicorn: response.data}
           }) //react router will sent user to this link
       }
@@ -71,8 +71,8 @@ class StudentLogin extends Component {
 
   render() {
     return (
-      <div>
-          <h1>Student Login</h1>
+      <div className="admin-log-main">
+        <h1>Student Login</h1>
           <form onSubmit={this.handleSubmit}>
               <div className="form-group">
                   <label htmlFor="exampleInputEmail2">StudentID</label>

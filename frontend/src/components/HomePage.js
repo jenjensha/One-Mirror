@@ -73,7 +73,7 @@ class HomePage extends React.Component{
   }
 
   handleStudentLogin(){
-    window.location.href = '/studentlogin';
+    window.location.href = '/student/login';
   }
 
   render(){
