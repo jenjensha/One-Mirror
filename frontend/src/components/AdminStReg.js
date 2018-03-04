@@ -32,7 +32,7 @@ class AdminStReg extends Component {
                 ID:'',
                 photo:'',
             },
-            success:''
+            success: null
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -46,7 +46,7 @@ class AdminStReg extends Component {
         })
     }
     handleSubmit(event){
-        event.preventdefault();
+        event.preventDefault();
         let _this = this;
         axios.post("http://localhost:8080/api/student/register", this.state.data)
             .then(res =>{
@@ -94,7 +94,7 @@ class AdminStReg extends Component {
                             ID:'',
                             photo:'',
                         },
-                        success:'Student Registerd successfuly'
+                        success:'Student Registerd successfully'
                     })
                 }
             })
@@ -113,8 +113,12 @@ class AdminStReg extends Component {
         return (
             <div className="register-std">
                 <h1>Student Register</h1>
+
+
+                {this.state.success && <p>{this.state.success}</p>}
+
                 <form onSubmit={this.handleSubmit} className="register-form">
-                    <div className="left-side"> 
+                    <div className="left-side">
                         <div className="form-group">
                             <label htmlFor="exampleInputFirstName">First Name</label>
                             <input type="text" name="firstName" value={this.state.data.firstName} onChange={this.handleChange} className="form-control" id="exampleInputFirstName" placeholder="First Name" />
@@ -127,14 +131,16 @@ class AdminStReg extends Component {
                         <p className="text-danger">{this.state.error.lastName}</p>
                         <div className="form-group">
                             <label htmlFor="exampleInputPassword">Password</label>
-                            <input type="text" name="Password" value={this.state.data.password} onChange={this.handleChange} className="form-control" id="exampleInputPassword" placeholder="Password" />
+                            <input type="text" name="password" value={this.state.data.password} onChange={this.handleChange} className="form-control" id="exampleInputPassword" placeholder="Password" />
                         </div>
                         <p className="text-danger">{this.state.error.password}</p>
+
                         <div className="form-group">
                             <label htmlFor="exampleInputDateOfBirth">Date of Birth</label>
                             <input type="date" name="dateOfBirth" value={this.state.dateOfBirth} onChange={this.handleChange} className="form-control" id="exampleInputDateOfBirth"/>
                         </div>
                         <p className="text-danger">{this.state.error.dateOfBirth}</p>
+
                         <div className="form-group">
                             <label htmlFor="exampleInputEmail">Student Email</label>
                             <input type="email" name="email" value={this.state.data.email} onChange={this.handleChange} className="form-control" id="exampleInputEmail" placeholder="Student Email" />
@@ -142,9 +148,10 @@ class AdminStReg extends Component {
                         <p className="text-danger">{this.state.error.email}</p>
                         <div className="form-group">
                             <label htmlFor="exampleInputShortDescription">Short Description</label>
-                            <input type="text" name="shortDescription" value={this.state.data.shortDescription} onChange={this.handleChange} className="form-control" id="exampleInputShortDescription" placeholder="Description" />
+                            <textarea type="text" name="shortDescription" value={this.state.data.shortDescription} onChange={this.handleChange} className="form-control" id="exampleInputShortDescription" placeholder="Description"></textarea>   
                         </div>
-                        <p></p>
+                        <p className="text-danger">{this.state.error.shortDescription}</p>
+
                         <div className="form-group">
                             <label htmlFor="exampleInputStatus">Status</label>
                             <input type="text" name="status" value={this.state.data.status} onChange={this.handleChange} className="form-control" id="exampleInputStatus" placeholder="Status" />
@@ -167,7 +174,7 @@ class AdminStReg extends Component {
                             <button className="btn btn-success" onClick={this.generateID}>Generate ID</button>
                             <input type="text" value={this.state.data.ID} onChange={this.handleChange} className="form-control" id="exampleInputID" placeholder="StudentID" />
                         </div>
-                        <p></p>
+                        <p className="text-danger">{this.state.error.ID}</p>
                         <div className="form-group">
                             <label htmlFor="exampleInputLindeinLink">Linkedin Link</label>
                             <input type="text" name="linkedinLink" value={this.state.data.linkedinLink} onChange={this.handleChange} className="form-control" id="exampleInputLindeinLink" placeholder="Student Linkedin (optinal)" />

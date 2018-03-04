@@ -22,12 +22,12 @@ class AdminChangeReqList extends Component {
                 })
             })
     }
-    handleEditProfile(id){
+    handleEditProfile(req){
         let _this = this;
-        props.history.push({
-            pathname:'',
-            state:req.text
-        })
+        // props.history.push({
+        //     pathname:'/admin/editprofile/'+req.studentID,
+        //     state:req.text
+        // })
     }
     handleDelete(id){
         let _this = this;
