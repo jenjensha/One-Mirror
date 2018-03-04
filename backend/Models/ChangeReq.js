@@ -26,8 +26,4 @@ var ChangeReqSchema = new Schema({
 
 })
 
-<<<<<<< HEAD
-module.exports = mongoose.model('Changereq', ChangeReqSchema);
-=======
 module.exports = mongoose.model('changereq', ChangeReqSchema);
->>>>>>> anthony
