@@ -59,13 +59,13 @@ let _this = this;
 
             {this.state.students && this.state.students.map(function(student) {
               return (
-                <tr>
+                <tr key={student._id}>
                   <th scope="row">{student.StudentID}</th>
                   <td colSpan={3}>{student.FirstName} {student.LastName}</td>        
                   <td><button type="button" className="btn btn-primary" >Edit</button></td>
                   
-                  <td><Link className="btn btn-info" to="/students/profile/`${student.StudentId}`">View profile</Link></td>
-                  <td><Link className="btn btn-info" to="/students/profile/`${student.StudentId}`">Add Scores</Link></td>
+                  <td><Link className="btn btn-info" to={`/students/profile/${student.StudentId}`}>View profile</Link></td>
+                  <td><Link className="btn btn-info" to={`/admin/${student.StudentID}/addscore`}>Add Scores</Link></td>
                 </tr>
               )
               })}

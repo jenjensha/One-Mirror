@@ -16,7 +16,7 @@ class App extends Component {
                     <Route exact path='/studentlogin' component={StudentLogin} />
                     <Route exact path='/admin' component={AdminLog} />
                     <Route exact path='/admin/dashboard' component={AdminDashboard}/>
-                    <Route exact path='/admin/addscore' component={AddScore}/>
+                    <Route exact path='/admin/:StudentID/addscore' component={AddScore}/>
                     <Route exact path='/admin/student/register' component={AdminStReg} />
                     
                     <Route render={function(){

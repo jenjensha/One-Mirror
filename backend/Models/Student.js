@@ -60,7 +60,6 @@ var StudentSchema = mongoose.Schema({
         required: false
     }
 
-
 })
 
 module.exports = mongoose.model('Student', StudentSchema);

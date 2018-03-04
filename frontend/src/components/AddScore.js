@@ -2,73 +2,130 @@ import React, { Component } from 'react';
 import axios from 'axios';
 class AddScore extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
-      this.state = {
-        challenge: '',
-        score:''
-      }
+    this.state = {
+      challenge: '',
+      score: '',
+      error: null,
+      success: null,
+      loading: true,
+      scorecard: null,
+    }
 
-  this.selectKey=this.selectKey.bind(this);
-  this.handleInputChange=this.handleInputChange.bind(this);
-}
+    this.selectKey = this.selectKey.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
 
   selectKey(event) {
-   this.setState({challenge:event.target.value})
- }
- handleInputChange(event){
-  this.setState({
-    [event.target.name]:event.target.value
-  })
-}
+    this.setState({ challenge: event.target.value })
+  }
+  handleInputChange(event) {
+    this.setState({
+      [event.target.name]: event.target.value
+    })
+  }
+  handleSubmit(event) {
+    event.preventDefault();
+    let _this = this;
+    console.log(this.props);
+    axios.post(`http://localhost:8080/api/admin/${this.props.match.params.StudentID}/addscores`, {
+      challenge: _this.state.challenge,
+      score: _this.state.score,
+    })
+      .then(function (response) {
+        _this.setState({
+          score: "",
 
-render(){
-  return (
-    <div>
-    <h2>Jen Jensha</h2>
-      <div className="challengTable">
-        <table className="table ">
-          <thead>
-            <tr>
-              <th scope="col">Challenge</th>
-              <th scope="col">Score</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
+        })
+        _this.getScoreCard();
 
-              <td>Front End Challenge</td>
-              <td>10</td>
-            </tr>
-            <tr>
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+  }
 
-              <td>Algorithm Challenge</td>
-              <td>10</td>
-            </tr>
-            <tr>
+  getScoreCard(){
+    let _this = this;
+    axios.get(`http://localhost:8080/api/admin/${this.props.match.params.StudentID}/scores`)
+      .then(function (response) {
 
-              <td>Backend Challenge</td>
-              <td>10</td>
-            </tr>
+        console.log(response);
 
-          </tbody>
-        </table>
-      </div>
-      <select name="challenge" onChange={this.selectKey}>
+        if (response.data.error) {
+
+          _this.setState({ loading: false })
+        } else {
+          _this.setState({ loading: false, scorecard: response.data })
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+
+
+  
+  }
+
+  componentDidMount() {
+
+   this.getScoreCard();
+  }
+
+  render() {
+    console.log(this.state);
+    return (
+      <div>
+        {this.state.scorecard && this.state.scorecard.student &&
+        <h2>{this.state.scorecard.student.FirstName}{this.state.scorecard.student.LastName}</h2>}
+        <div className="challengTable">
+          <table className="table ">
+            <thead>
+              <tr>
+                <th scope="col">Challenge</th>
+                <th scope="col">Score</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+                  {this.state.scorecard && this.state.scorecard.scores.map(function(score){
+                    return (
+
+                    <tr key={score._id}>
+                      <td>{score.ChallengeName}</td>
+                      <td>{score.Score}</td>
+                 
+    
+              </tr>
+                    )
+              })}
+
+            </tbody>
+          </table>
+        </div>
+
+
+        <form onSubmit={this.handleSubmit}>
+          <select name="challenge" onChange={this.selectKey}>
             <option key={1} value='frontend'>Front-end Challenge</option>
             <option key={2} value='algorithm'>Algorithm Challenge</option>
             <option key={3} value='lamp'>LAMP Challenge</option>
             <option key={4} value='mern'>MERN Challenge</option>
-    </select>
-    <p>{this.state.challenge}</p>
-    <div className="form-group">
-    <label htmlFor="inputScore">Score</label>
-    <input onChange={this.handleInputChange} name="score" type="text" value={this.state.score} className="form-control" id="inputScore" aria-describedby="Score" placeholder="Score"/>
+          </select>
+          <p>{this.state.challenge}</p>
+          <div className="form-group">
+            <label htmlFor="inputScore">Score</label>
+            <input onChange={this.handleInputChange} name="score" type="text" value={this.state.score} className="form-control" id="inputScore" aria-describedby="Score" placeholder="Score" />
+            <button type="submit" name="addScore" className="btn btn-primary" >Add Score</button>
+          </div>
+        </form>
 
-  </div>
 
-  </div>
-)
-}
+      </div>
+    )
+  }
 }
 export default AddScore;

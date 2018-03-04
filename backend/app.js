@@ -152,9 +152,87 @@ app.get('/api/student/:StudentID/viewprofile', function (req, res) {
     })
 })
 
+//Admin Adding Scores
+
+app.post('/api/admin/:StudentID/addscores', [
+  check('score')
+    .not()
+    .isEmpty()
+    .withMessage('Please add score')
+],
+  function (req, res) {
+    var errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.send({ errors: errors.mapped() });
+    }
+
+    console.log(req.body);
+    console.log(req.params);
+
+    // Score.update({
+    //   ChallengeName: req.body.challenge,
+    //   StudentID: req.params.StudentID,
+    //   Score: req.body.score,
+    // })
+
+    Score.findOne({
+      ChallengeName: req.body.challenge,
+      StudentID: req.params.StudentID,
+    })
+      .then(function (scoreDocument) {
+        console.log(scoreDocument);
+        if (scoreDocument) {
+          scoreDocument.Score = req.body.score
+          scoreDocument.save();
+          res.send(scoreDocument);
+        } else {
+          Score.create({
+            ChallengeName: req.body.challenge,
+            StudentID: req.params.StudentID,
+            Score: req.body.score
+
+          })
+            .then(function (score) {
+              console.log(score);
+              res.send(score);
+            })
+            .catch(function (error) {
+              console.log(error);
+            })
+        }
+      })
+
+  })
 
 
 
+
+//Get Request Add Scores 
+
+app.get('/api/admin/:StudentID/scores', function (req, res) {
+  Student.findOne({ StudentID: req.params.StudentID })
+    .then(function (student) {
+      console.log('student', student);
+      Score.find({ StudentID: req.params.StudentID })
+        .then(function (scores) {
+          // send back student and scores
+          var responseBody = {
+            student: student,
+            scores: scores,
+          }
+          console.log(responseBody);
+
+          res.send(responseBody);
+          //console.log(result);
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
+})
 
 
 //Admin Editting the student
@@ -206,97 +284,25 @@ app.post('/api/student/:StudentID/edit', [
         student.StudentID = req.body.ID,
         student.DateOfBirth = req.body.dateOfBirth,
         student.Email = req.body.email,
-        student.Video = req.body.video,
+        //student.Video = req.body.video,
         student.profilePic = req.body.photo,
 
         student.ShortDescription = req.body.shortDescription,
-        student.Password = req.body.password,
+        //student.Password = req.body.password,
         student.Status = req.body.status,
-        student.LinkedIn_link = req.body.linkedinLink,
-        student.Github_link = req.body.githubLink,
-        student.hackerRank_link = req.body.hackerRankLink,
-        student.CV_link = req.body.CVlink
-
-      student.save()
-        .then(function (student) {
-          res.send(student);
-        })
-        .catch(function(error){
-          console.log(error);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        })
+        // student.LinkedIn_link = req.body.linkedinLink,
+        // student.Github_link = req.body.githubLink,
+        // student.hackerRank_link = req.body.hackerRankLink,
+        // student.CV_link = req.body.CVlink
+
+        student.save()
+          .then(function (student) {
+            res.send(student);
+          })
+          .catch(function (error) {
+            console.log(error);
+
+          })
     });
 });
 
