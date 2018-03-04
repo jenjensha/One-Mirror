@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var ScoreSchema = mongoose.Schema({
+var ScoreSchema = new Schema({
 
     StudentID: {
         type: String,
@@ -17,4 +17,4 @@ var ScoreSchema = mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model('score', ScoreSchema);
+module.exports = mongoose.model('Score', ScoreSchema);

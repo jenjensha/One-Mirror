@@ -109,7 +109,7 @@ class AdminStReg extends Component {
                 {this.state.success && <p>{this.state.success}</p>}
 
                 <form onSubmit={this.handleSubmit} className="register-form">
-                    <div className="left-side"> 
+                    <div className="left-side">
                         <div className="form-group">
                             <label htmlFor="exampleInputFirstName">First Name</label>
                             <input type="text" name="firstName" value={this.state.data.firstName} onChange={this.handleChange} className="form-control" id="exampleInputFirstName" placeholder="First Name" />

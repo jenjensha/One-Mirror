@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-
+import HomePage from './HomePage';
 import AdminLog from './AdminLog';
 import StudentLogin from './StudentLogin';
 import AdminDashboard from './AdminDashboard';
-import AddScore from './AddScore';
 import AdminStReg from './AdminStReg';
+import AddScore from './AddScore';
+import EditStudentDetails from './EditStudentDetails'
+
 
 class App extends Component {
     render() {
@@ -18,7 +20,9 @@ class App extends Component {
                     <Route exact path='/admin/dashboard' component={AdminDashboard}/>
                     <Route exact path='/admin/:StudentID/addscore' component={AddScore}/>
                     <Route exact path='/admin/student/register' component={AdminStReg} />
-                    
+                     <Route path='/admin/editdetails' component={EditStudentDetails} />
+                    <Route exact path='/' component={HomePage} />
+
                     <Route render={function(){
                         return <p> Not Found</p>
                     }} />

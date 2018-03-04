@@ -35,6 +35,10 @@ class AdminDashboard extends Component {
 
   }
 
+  handleEdit()
+  {
+    window.location.href='/admin/editdetails';
+  }
 render(){
 let _this = this;
   console.log(this.state.students);
@@ -43,7 +47,7 @@ let _this = this;
     <h1>Admin Dashboard</h1>
     <nav className="nav">
         <a className="nav-link disabled" href="#">List Of Students</a>
-        <a className="nav-link active"  href="#">Registration</a>
+        <a className="nav-link active"  href="/admin/student/register">Registration</a>
       </nav>
     <div className="table-responsive-md">
     <table className="table table-hover">

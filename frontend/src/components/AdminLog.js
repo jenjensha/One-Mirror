@@ -40,9 +40,9 @@ class AdminLog extends Component {
     }
     render() {
         return (
-            <div>
+            <div className="admin-log-main">
                 <h1>Admin Login</h1>
-                <form onSubmit={this.handleSubmit}>  
+                <form onSubmit={this.handleSubmit}>
                     <div className="form-group">
                         <label htmlFor="exampleInputEmail2">Email address</label>
                         <input type="email" name="email" value={this.state.data.email} onChange={this.handleChange} className="form-control" id="exampleInputEmail2" aria-describedby="emailHelp" placeholder="Enter email" />

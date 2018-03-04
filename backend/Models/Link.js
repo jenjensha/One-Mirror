@@ -1,6 +1,11 @@
-const mongoose = require('mongoose');
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
+<<<<<<< HEAD
 var LinkSchema = mongoose.Schema({
+=======
+var AdminSchema = new Schema({
+>>>>>>> master
 
     StudentID:{
         type: String,
@@ -26,7 +31,11 @@ var LinkSchema = mongoose.Schema({
         type: String,
         defualt: "pending"
     }
-    
+
 })
 
+<<<<<<< HEAD
 module.exports = mongoose.model('link', LinkSchema);
+=======
+module.exports = mongoose.model('Admin', AdminSchema);
+>>>>>>> master

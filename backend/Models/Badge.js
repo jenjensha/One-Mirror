@@ -1,6 +1,7 @@
-const mongoose = require('mongoose');
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
-var BadgeSchema = mongoose.Schema({
+var BadgeSchema = new Schema({
 
     StudentID:{
         type: String,
@@ -14,7 +15,7 @@ var BadgeSchema = mongoose.Schema({
         type: String,
         Default: null
     }
-    
+
 })
 
-module.exports = mongoose.model('badge', BadgeSchema);
+module.exports = mongoose.model('Badge', BadgeSchema);
