@@ -1,21 +1,20 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var ScoreSchema = new Schema({
 
-    StudentID:{
+    StudentID: {
         type: String,
         required: true
     },
-    ChallengeName:{
+    ChallengeName: {
         type: String,
         required: true
     },
-    Score:{
+    Score: {
         type: Number,
         required: true
     }
-
 })
 
 module.exports = mongoose.model('Score', ScoreSchema);

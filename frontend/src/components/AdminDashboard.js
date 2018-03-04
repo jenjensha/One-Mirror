@@ -1,15 +1,47 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import {Link} from 'react-router-dom';
 class AdminDashboard extends Component {
+  constructor(props){
+    super(props)
+
+    this.state={
+
+      students: null,
+      loading: true,
+
+
+    }
+  }
   handleAddscore()
   {
     window.location.href='/admin/addscore';
   }
+
+  componentDidMount(){
+    let _this = this;
+    axios.get("http://localhost:8080/api/listofstudents")
+    .then((response) => {
+      if(response.data.error) {
+        _this.setState({loading: false})
+      } else {
+        _this.setState({students: response.data , loading: false })
+      }
+    })
+      .catch((error) =>{
+        console.log(error)
+      })
+      
+
+  }
+
   handleEdit()
   {
     window.location.href='/admin/editdetails';
   }
 render(){
+let _this = this;
+  console.log(this.state.students);
   return (
   <div>
     <h1>Admin Dashboard</h1>
@@ -28,28 +60,19 @@ render(){
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">12453</th>
-            <td colSpan={3}>Jac Thon</td>
-            <td><button type="button"  className="btn btn-primary" onClick={this.handleEdit}>Edit</button></td>
-            <td><button type="button"  className="btn btn-info" >view Profile</button></td>
-            <td><button type="button" className="btn btn-success" onClick={this.handleAddscore}>Add Score</button></td>
 
-          </tr>
-          <tr>
-            <th scope="row">22354</th>
-            <td colSpan={3}>Jacob Thornton</td>
-            <td><button type="button" className="btn btn-primary" onClick={this.handleEdit}>Edit</button></td>
-            <td><button type="button" className="btn btn-info">view Profile</button></td>
-            <td><button type="button" className="btn btn-success" onClick={this.handleAddscore}>Add Score</button></td>
-          </tr>
-          <tr>
-            <th scope="row">32653</th>
-            <td colSpan={3}>Larry the Bird</td>
-            <td><button type="button" className="btn btn-primary" onClick={this.handleEdit}>Edit</button></td>
-            <td><button type="button" className="btn btn-info">view Profile</button></td>
-            <td><button type="button" className="btn btn-success" onClick={this.handleAddscore}>Add Score</button></td>
-          </tr>
+            {this.state.students && this.state.students.map(function(student) {
+              return (
+                <tr key={student._id}>
+                  <th scope="row">{student.StudentID}</th>
+                  <td colSpan={3}>{student.FirstName} {student.LastName}</td>        
+                  <td><button type="button" className="btn btn-primary" >Edit</button></td>
+                  
+                  <td><Link className="btn btn-info" to={`/students/profile/${student.StudentId}`}>View profile</Link></td>
+                  <td><Link className="btn btn-info" to={`/admin/${student.StudentID}/addscore`}>Add Scores</Link></td>
+                </tr>
+              )
+              })}
         </tbody>
       </table>
     </div>
