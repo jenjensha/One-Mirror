@@ -115,6 +115,7 @@ app.post('/api/student/register', [
 
   })
 
+  //Showing the List of Students
 app.get('/api/listofstudents', function (req, res) {
   Student.find({})
     .sort({
@@ -128,6 +129,8 @@ app.get('/api/listofstudents', function (req, res) {
     })
 })
 
+
+//Editting the students
 app.post('/api/student/:id/edit', [
 check('firstName').not().isEmpty().withMessage('First name is required')
   .isLength({ min: 2 }).withMessage('Firstname should be at least 2 letters')
