@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-var AdminSchema = mongoose.Schema({
+var LinkSchema = mongoose.Schema({
 
     StudentID:{
         type: String,
@@ -29,4 +29,4 @@ var AdminSchema = mongoose.Schema({
     
 })
 
-module.exports = mongoose.model('admin', AdminSchema);
+module.exports = mongoose.model('link', LinkSchema);

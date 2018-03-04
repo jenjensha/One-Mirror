@@ -15,7 +15,7 @@ var ChangeReqSchema = mongoose.Schema({
         required: true
     },
     Text:{
-        type: Text,
+        type: String,
         required: true
     },
     status:{

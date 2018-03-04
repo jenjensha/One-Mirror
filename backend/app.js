@@ -41,7 +41,7 @@ app.get('/test', function (req, res) {
 })
 
 //Admin registration / create User and Validation
-app.post('api/student/register', [
+app.post('/api/student/register', [
   check('firstName').not().isEmpty().withMessage('First name is required')
     .isLength({ min: 2 }).withMessage('Firstname should be at least 2 letters')
     .matches(/^([A-z]|\s)+$/).withMessage('Firstname cannot have numbers'),
@@ -56,15 +56,15 @@ app.post('api/student/register', [
     .not().isEmpty().withMessage('Date of birth required'),
 
   check('email')
-    .isEmail()
+    .isEmail().withMessage('Invalid Email')
     .custom(value => {
       return Student.findOne({ email: value })
         .then(function (student) {
           if (student) {
             throw new Error('this email is already in use');
           }
+          //return value;
         })
-      //return value;
     }),
   check('shortDescription')
     .not().isEmpty().isLength({ min: 150 }),
@@ -73,19 +73,24 @@ app.post('api/student/register', [
   //??check('video')
   check('ID')
     .not().isEmpty(),
-
+  check('status')
+    .not().isEmpty(),
 
 ],
   function (req, res) {
+    console.log('register student')
     var errors = validationResult(req);
 
     if (!errors.isEmpty()) {
+      console.log('errors')
+      console.log(errors.mapped());
       return res.send({ errors: errors.mapped() });
     }
 
+    console.log('create student')
     Student.create({
       FirstName: req.body.firstName,
-      LastName: req.body.LastName,
+      LastName: req.body.lastName,
       StudentID: req.body.ID,
       DateOfBirth: req.body.dateOfBirth,
       Email: req.body.email,
@@ -101,10 +106,16 @@ app.post('api/student/register', [
       CV_link: req.body.CVlink
 
     })
+    .then(function(student) {
+      console.log(student)
+    })
+    .catch(function(error) {
+      console.log(error);
+    })
 
   })
 
-app.get('api/listofstudents', function (req, res) {
+app.get('/api/listofstudents', function (req, res) {
   Student.find({})
     .sort({
       StudentId: 'desc'
@@ -168,13 +179,13 @@ check('firstName').not().isEmpty().withMessage('First name is required')
         student.Video = req.body.video,
         student.profilePic = req.body.photo,
 
-        student.ShortDescription = student.req.body.shortDescription,
+        student.ShortDescription = req.body.shortDescription,
         student.Password = req.body.password,
         student.Status = req.body.status,
-        student.LinkedIn_link = student.req.body.linkedinLink,
-        student.Github_link = student.req.body.githubLink,
-        student.hackerRank_link = student.req.body.hackerRankLink,
-        studentCV_link = req.body.CVlink
+        student.LinkedIn_link = req.body.linkedinLink,
+        student.Github_link = req.body.githubLink,
+        student.hackerRank_link = req.body.hackerRankLink,
+        student.CV_link = req.body.CVlink
 
       student.save()
         .then(function (student) {
