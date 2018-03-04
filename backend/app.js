@@ -75,27 +75,34 @@ app.post('api/student/register', [
     .not().isEmpty(),
 
 
-], function (req, res) {
-  Student.create({
-    FirstName: req.body.firstName,
-    LastName: req.body.LastName,
-    StudentID: req.body.ID,
-    DateOfBirth: req.body.dateOfBirth,
-    Email: req.body.email,
-    Video: req.body.video,
-    profilePic: req.body.photo,
+],
+  function (req, res) {
+    var errors = validationResult(req);
 
-    ShortDescription: req.body.shortDescription,
-    Password: req.body.password,
-    Status: req.body.status,
-    LinkedIn_link: req.body.linkedinLink,
-    Github_link: req.body.githubLink,
-    hackerRank_link: req.body.hackerRankLink,
-    CV_link: req.body.CVlink
+    if (!errors.isEmpty()) {
+      return res.send({ errors: errors.mapped() });
+    }
+
+    Student.create({
+      FirstName: req.body.firstName,
+      LastName: req.body.LastName,
+      StudentID: req.body.ID,
+      DateOfBirth: req.body.dateOfBirth,
+      Email: req.body.email,
+      Video: req.body.video,
+      profilePic: req.body.photo,
+
+      ShortDescription: req.body.shortDescription,
+      Password: req.body.password,
+      Status: req.body.status,
+      LinkedIn_link: req.body.linkedinLink,
+      Github_link: req.body.githubLink,
+      hackerRank_link: req.body.hackerRankLink,
+      CV_link: req.body.CVlink
+
+    })
 
   })
-
-})
 
 app.get('api/listofstudents', function (req, res) {
   Student.find({})
@@ -109,6 +116,72 @@ app.get('api/listofstudents', function (req, res) {
       res.send({ status: error, message: 'Cannot find studens' });
     })
 })
+
+app.post('/api/student/:id/edit', [
+check('firstName').not().isEmpty().withMessage('First name is required')
+  .isLength({ min: 2 }).withMessage('Firstname should be at least 2 letters')
+  .matches(/^([A-z]|\s)+$/).withMessage('Firstname cannot have numbers'),
+  check('lastName')
+    .not().isEmpty().withMessage('Last name is required')
+    .isLength({ min: 2 }).withMessage('Lastname should be at least 2 letters')
+    .matches(/^([A-z]|\s)+$/).withMessage('Lastname cannot have numbers'),
+  check('password')
+    .not().isEmpty().withMessage('Password is required')
+    .isLength({ min: 6 }).withMessage('Password should be at least 6 characters'),
+  check('dateOfBirth')
+    .not().isEmpty().withMessage('Date of birth required'),
+
+  check('email')
+    .isEmail()
+    .custom(value => {
+      return Student.findOne({ email: value })
+        .then(function (student) {
+          if (student) {
+            throw new Error('this email is already in use');
+          }
+        })
+      //return value;
+    }),
+  check('shortDescription')
+    .not().isEmpty().isLength({ min: 150 }),
+  // ??check('photo')
+  // .not().isEmpty()
+  //??check('video')
+  check('ID')
+    .not().isEmpty(),
+
+
+], function (req, res) {
+  var errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.send({ errors: errors.mapped() });
+  }
+  Student.findById(req.params.id)
+    .then(function (student) {
+
+      student.FirstName = req.body.firstName,
+        student.LastName = req.body.LastName,
+        student.StudentID = req.body.ID,
+        student.DateOfBirth = req.body.dateOfBirth,
+        student.Email = req.body.email,
+        student.Video = req.body.video,
+        student.profilePic = req.body.photo,
+
+        student.ShortDescription = student.req.body.shortDescription,
+        student.Password = req.body.password,
+        student.Status = req.body.status,
+        student.LinkedIn_link = student.req.body.linkedinLink,
+        student.Github_link = student.req.body.githubLink,
+        student.hackerRank_link = student.req.body.hackerRankLink,
+        studentCV_link = req.body.CVlink
+
+      student.save()
+        .then(function (student) {
+          res.send(student);
+        });
+    });
+  });
 
 
 
