@@ -9,9 +9,9 @@ import AddScore from './AddScore';
 import EditStudentDetails from './EditStudentDetails'
 import StudentDashboard from './StudentDashboard';
 
+import StudenLinks from './StudentLinks'
 
 
-import StudentLogin from './StudentLogin';
 import StudentProfile from './StudentProfile';
 
 import AdminChangeReqList from './AdminChangeReqList'
@@ -32,6 +32,8 @@ class App extends Component {
                     <Route exact path='/' component={HomePage} />
                     <Route path='/student/login' component={StudentLogin} />
                     <Route path='/admin' component={AdminLog} />
+
+                    <Route path="/student/links" component={StudenLinks} />
 
                     <Route path='/student/dashboard' component={StudentDashboard} />
 

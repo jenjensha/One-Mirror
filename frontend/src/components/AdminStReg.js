@@ -186,7 +186,7 @@ class AdminStReg extends Component {
                         </div>
                         <p></p>
                         <div className="form-group">
-                            <label htmlFor="exampleInputhackerRankLink">hackerRank Link</label>
+                            <label htmlFor="exampleInputhackerRankLink">HackerRank Link</label>
                             <input type="text" name="hackerRankLink" value={this.state.data.hackerRankLink} onChange={this.handleChange} className="form-control" id="exampleInputhackerRankLink" placeholder="Hacker Rank Link (optinal)" />
                         </div>
                         <p></p>
