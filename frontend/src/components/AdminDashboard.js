@@ -66,18 +66,22 @@ class AdminDashboard extends Component {
             </thead>
             <tbody>
 
-            {this.state.students && this.state.students.map(function(student) {
-              return (
-                <tr key={student._id}>
-                  <th scope="row">{student.StudentID}</th>
-                  <td colSpan={3}>{student.FirstName} {student.LastName}</td>
-                  <td><button type="button" className="btn btn-primary" >Edit</button></td>
+              {this.state.students && this.state.students.map(function (student) {
+                return (
+                  <tr key={student._id}>
+                    <th scope="row">{student.StudentID}</th>
+                    <td>
+                      {student.profilePic &&
+                        <img src={`http://localhost:8080/uploads/${student.profilePic}`} width="40" height="40" />}
+                    </td>
+                    <td colSpan={3}>{student.FirstName} {student.LastName}</td>
 
-                  <td><button className="btn btn-primary" onClick={this.handleProfileClick}>View Profile</button></td>
-                  <td><Link className="btn btn-info" to={`/admin/${student.StudentID}/addscore`}>Add Scores</Link></td>
-                </tr>
-              )
-            }.bind(this))}
+                    <td><Link className="btn btn-primary" to={`/admin/${student.StudentID}/editdetails`}>Edit</Link></td>
+                    <td><Link className="btn btn-info" to={`/students/profile/${student.StudentID}`}>View profile</Link></td>
+                    <td><Link className="btn btn-success" to={`/admin/${student.StudentID}/addscore`}>Add Scores</Link></td>
+                  </tr>
+                )
+              })}
         </tbody>
       </table>
     </div>
