@@ -44,26 +44,6 @@ class AdminDashboard extends Component {
 
   }
 
-
-render(){
-let _this = this;
-  console.log(this.state.students);
-  return (
-  <div>
-    <h1>Admin Dashboard</h1>
-    <nav className="nav">
-        <a className="nav-link disabled" href="#">List Of Students</a>
-        <a className="nav-link active"  href="/admin/student/register">Registration</a>
-      </nav>
-    <div className="table-responsive-md">
-    <table className="table table-hover">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col" colSpan={3}>Name</th>
-            <th scope="col" colSpan={3}>Actions</th>
-
-
   render() {
     let _this = this;
     console.log(this.state.students);
