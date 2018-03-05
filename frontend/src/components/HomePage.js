@@ -47,7 +47,7 @@ class HomePage extends React.Component{
         else{
            console.log(response.data);
           _this.props.history.push({
-            pathname: '/studentInfo',
+            pathname: '/student/profile',
             state: { detail: response.data }
           });
         }
@@ -73,7 +73,7 @@ class HomePage extends React.Component{
   }
 
   handleStudentLogin(){
-    window.location.href = '/studentlogin';
+    window.location.href = '/student/login';
   }
 
   render(){

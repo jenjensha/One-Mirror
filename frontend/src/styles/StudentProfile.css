@@ -1,0 +1,40 @@
+.StudentProfile-container{
+  margin-top: 5% ;
+}
+
+.StudentProfile-leftContainer{
+  width: 30%;
+  height: auto;
+  margin-left: 10%;
+  display: inline-block;
+  vertical-align: top;
+  border: 1px solid black;
+}
+.StudentProfile-rightContainer{
+  width: 50%;
+  height: auto;
+  display: inline-block;
+  border: 1px solid black;
+}
+
+.StudentProfile-leftList{
+  width: 40%;
+  height: auto;
+  display: inline-block;
+  text-align: left;
+}
+
+.StudentProfile-leftList li{
+  list-style: none;
+}
+
+.StudentProfile-rightList{
+  width: 30%;
+  height: auto;
+  display: inline-block;
+  text-align: right;
+}
+
+.StudentProfile-rightList li{
+  list-style: none;
+}

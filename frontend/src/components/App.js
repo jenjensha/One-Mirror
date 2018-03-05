@@ -7,7 +7,14 @@ import AdminDashboard from './AdminDashboard';
 import AdminStReg from './AdminStReg';
 import AddScore from './AddScore';
 import EditStudentDetails from './EditStudentDetails'
+import StudentDashboard from './StudentDashboard';
 
+
+
+import StudentLogin from './StudentLogin';
+import StudentProfile from './StudentProfile';
+
+import AdminChangeReqList from './AdminChangeReqList'
 
 class App extends Component {
     render() {
@@ -21,7 +28,19 @@ class App extends Component {
                     <Route exact path='/admin/:StudentID/addscore' component={AddScore}/>
                     <Route exact path='/admin/student/register' component={AdminStReg} />
                      <Route path='/admin/:StudentID/editdetails' component={EditStudentDetails} />
+                   
+                    
+                    
+                    <Route path='/admin/student/changerequests' component={AdminChangeReqList} />
+                    
                     <Route exact path='/' component={HomePage} />
+                    <Route path='/student/login' component={StudentLogin} />
+                    <Route path='/admin' component={AdminLog} />
+
+                    <Route path='/student/dashboard' component={StudentDashboard} />
+
+
+                    <Route path='/student/profile' component={StudentProfile} />
 
                     <Route render={function(){
                         return <p> Not Found</p>

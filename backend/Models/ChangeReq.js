@@ -26,4 +26,4 @@ var ChangeReqSchema = new Schema({
 
 })
 
-module.exports = mongoose.model('Changereq', ChangeReqSchema);
+module.exports = mongoose.model('changereq', ChangeReqSchema);
