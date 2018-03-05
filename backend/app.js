@@ -352,7 +352,7 @@ app.get('/api/:StudentID/getedititem', function (req, res) {
 
 //Admin Editting the student
 app.post('/api/:StudentID/update',
-
+  upload.fields([{ name: 'photo', maxCount: 1 }]), //multer files upload
   [
     check('firstName').not().isEmpty().withMessage('First name is required')
       .isLength({ min: 2 }).withMessage('Firstname should be at least 2 letters')
@@ -394,41 +394,46 @@ app.post('/api/:StudentID/update',
   ],
 
   function (req, res) {
-    console.log(req.body);
     var errors = validationResult(req);
-
+    
     if (!errors.isEmpty()) {
       return res.send({ errors: errors.mapped() });
     }
-    console.log(req.body);
+
     Student.findOne({ StudentID: req.params.StudentID })
       .then(function (student) {
-
-        student.FirstName = req.body.firstName,
-          student.LastName = req.body.lastName,
-          student.StudentID = req.body.ID,
-          student.DateOfBirth = req.body.dateOfBirth,
-          student.Email = req.body.email,
-          //student.Video = req.body.video,
-          student.profilePic = req.body.photo,
-
-          student.ShortDescription = req.body.shortDescription,
-          //student.Password = req.body.password,
-          student.Status = req.body.status,
-          // student.LinkedIn_link = req.body.linkedinLink,
-          // student.Github_link = req.body.githubLink,
-          // student.hackerRank_link = req.body.hackerRankLink,
-          // student.CV_link = req.body.CVlink
-
+        student.FirstName = req.body.firstName
+          student.LastName = req.body.lastName
+         
+          student.DateOfBirth = req.body.dateOfBirth
+          student.Email = req.body.email
+          student.Video = req.body.video
+          if (req.files.photo) {
+            student.profilePic = req.files.photo[0].filename
+          }
+          student.LinkedIn_link = req.body.linkedinLink
+        student.hackerRank_link= req.body.hackerRankLink
+        student.Github_link = req.body.githubLink
+          student.CV_link = req.body.CVlink
+          student.ShortDescription = req.body.shortDescription
+          student.Status = req.body.status
+          
           student.save()
             .then(function (student) {
+              console.log('test1')
               res.send(student);
             })
             .catch(function (error) {
+              console.log('test2')
               console.log(error);
-
+              res.send(error);
             })
-      });
+      })
+      .catch(function(error) {
+        console.log('test3')
+        console.log(error);
+        res.send(error);
+      })
   });
 
 app.listen(8080, function () {

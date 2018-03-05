@@ -1,44 +1,72 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import moment from 'moment'
+
 class EditStudentDetails extends Component {
     constructor(props) {
         super(props);
         console.log(props);
         this.state = {
+            currentPicture: null,
             data: {
                 firstName: '',
                 lastName: '',
-                //password:'',
+                password: '',
                 dateOfBirth: '',
                 email: '',
                 shortDescription: '',
                 status: '',
-                ID: '',
-                photo: ''
+                video: '',
+                linkedinLink: '',
+                githubLink: '',
+                hackerRankLink: '',
+                CVlink: ''
 
             },
             error: {
                 firstName: '',
                 lastName: '',
+                password: '',
                 dateOfBirth: '',
                 email: '',
                 shortDescription: '',
                 status: '',
-                ID: '',
-                photo: ''
+                video: '',
+                linkedinLink: '',
+                githubLink: '',
+                hackerRankLink: '',
+                CVlink: ''
             },
             success: '',
             loading: true,
         }
         this.handleUpdate = this.handleUpdate.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.handlePhotoChange = this.handlePhotoChange.bind(this);
     }
 
 
     handleUpdate(event) {
         event.preventDefault();
         let _this = this;
-        axios.post(`http://localhost:8080/api/${this.props.match.params.StudentID}/update`, this.state.data)
+
+        let formData = new FormData();
+        formData.append('firstName', this.state.data.firstName);
+        formData.append('lastName', this.state.data.lastName);
+        formData.append('password', this.state.data.password);
+        formData.append('dateOfBirth', this.state.data.dateOfBirth);
+        formData.append('email', this.state.data.email);
+        formData.append('shortDescription', this.state.data.shortDescription);
+        formData.append('status', this.state.data.status);
+        formData.append('video', this.state.data.video);
+
+        formData.append('photo', this.state.data.photo);
+        formData.append('linkedinLink', this.state.data.linkedinLink);
+        formData.append('githubLink', this.state.data.githubLink);
+        formData.append('hackerRankLink', this.state.data.hackerRankLink);
+        formData.append('CVlink', this.state.data.CVlink);
+
+        axios.post(`http://localhost:8080/api/${this.props.match.params.StudentID}/update`, formData)
             .then(res => {
                 console.log('response update', res)
                 if (res.data.errors) {
@@ -46,25 +74,27 @@ class EditStudentDetails extends Component {
                     let errMsg = {
                         firstName: mainErr.firstName ? mainErr.firstName.msg : '',
                         lastName: mainErr.lastName ? mainErr.lastName.msg : '',
-                        //password: mainErr.password ? mainErr.password.msg : '',
                         dateOfBirth: mainErr.dateOfBirth ? mainErr.dateOfBirth.msg : '',
                         email: mainErr.email ? mainErr.email.msg : '',
                         shortDescription: mainErr.shortDescription ? mainErr.shortDescription.msg : '',
                         status: mainErr.status ? mainErr.status.msg : '',
-                        //ID: mainErr.ID ? mainErr.ID.msg : '',
-                        photo: mainErr.photo ? mainErr.photo.msg : ''
-                    };
+                        photo: mainErr.photo ? mainErr.photo.msg : '',
+                        linkedinLink: mainErr.linkedinLink ? mainErr.linkedinLink.msg : '',
+                        githubLink: mainErr.githubLink ? mainErr.linkedLink.msg : '',
+                        hackerRankLink: mainErr.hackerRankLink ? mainErr.hackerRankLink.msg : '',
+                        CVlink: mainErr.CVlink ? mainErr.CVlink.msg : ''
+                    }
                     _this.setState({
                         error: errMsg
                     });
                 } else {
                     _this.setState({
 
-                    success:'Student details updated successfully'
-                })
-            }
-        })
-        .catch(error => console.log(error))
+                        success: 'Student details updated successfully'
+                    })
+                }
+            })
+            .catch(error => console.log(error))
 
     }
     handleChange(element) {
@@ -73,6 +103,25 @@ class EditStudentDetails extends Component {
         this.setState({
             data: formData
         })
+    }
+
+    handlePhotoChange(event) {
+        if (event.target.files && event.target.files[0]) {
+            let reader = new FileReader();
+            let file = event.target.files[0];
+
+            var formData = this.state.data;
+            formData[event.target.name] = event.target.files[0]
+
+            reader.onloadend = () => {
+                this.setState({
+                    currentPicture: reader.result, // this is an image url
+                    data: formData,
+                });
+            }
+
+            reader.readAsDataURL(file)
+        }
     }
 
     componentDidMount() {
@@ -92,11 +141,15 @@ class EditStudentDetails extends Component {
                     newData.email = response.data.student.Email;
                     newData.shortDescription = response.data.student.ShortDescription;
                     newData.status = response.data.student.Status;
-                    newData.ID = response.data.student.StudentID;
-                    //newData.photo = response.data.student.profilePic;
+                    newData.video = response.data.student.Video;
+                    newData.linkedinLink = response.data.student.LinkedIn_link;
+                    newData.githubLink = response.data.student.Github_link;
+                    newData.hackerRankLink = response.data.student.hackerRank_link;
+                    newData.CVlink = response.data.student.CV_link;
 
                     _this.setState({
-                        data: newData
+                        data: newData,
+                        currentPicture: `http://localhost:8080/uploads/${response.data.student.profilePic}`
                     })
                 }
 
@@ -124,7 +177,7 @@ class EditStudentDetails extends Component {
                         <p className="text-danger">{this.state.error.lastName}</p>
                         <div className="form-group">
                             <label htmlFor="exampleInputDateOfBirth">Date of Birth</label>
-                            <input type="date" name="dateOfBirth" value={this.state.data.dateOfBirth} onChange={this.handleChange} className="form-control" id="exampleInputDateOfBirth" />
+                            <input type="date" name="dateOfBirth" value={moment(this.state.data.dateOfBirth).format('YYYY-MM-DD')} onChange={this.handleChange} className="form-control" id="exampleInputDateOfBirth" />
                         </div>
                         <p className="text-danger">{this.state.error.dateOfBirth}</p>
                         <div className="form-group">
@@ -134,7 +187,7 @@ class EditStudentDetails extends Component {
                         <p className="text-danger">{this.state.error.email}</p>
                         <div className="form-group">
                             <label htmlFor="exampleInputShortDescription">Short Description</label>
-                            <textarea type="text" name="shortDescription" value={this.state.data.shortDescription} onChange={this.handleChange} className="form-control" id="exampleInputShortDescription" placeholder="Description" />
+                            <textarea rows="4" cols="50" type="text" name="shortDescription" value={this.state.data.shortDescription} onChange={this.handleChange} className="form-control" id="exampleInputShortDescription" placeholder="Description" />
                         </div>
                         <p className="text-danger">{this.state.error.shortDescription}</p>
                         <div className="form-group">
@@ -145,14 +198,32 @@ class EditStudentDetails extends Component {
                     </div>
                     <div className="right-side">
                         <div className="form-group">
+                            {this.state.currentPicture &&
+                                <img src={this.state.currentPicture} width="100" height="100" />}
                             <label htmlFor="exampleInputPhoto">Profile Photo</label>
-                            <input type="file" name="photo" value={this.state.data.photo} accept="image/*" onChange={this.handleChange} className="form-control" id="exampleInputPhoto" placeholder="Photo" />
+                            <input type="file" name="photo" accept="image/*" onChange={this.handlePhotoChange} className="form-control" id="exampleInputPhoto" placeholder="Photo" />
                         </div>
                         <p className="text-danger">{this.state.error.photo}</p>
                         <div className="form-group">
-                            <label htmlFor="exampleInputID">ID</label>
-                            <input type="text" name="ID" value={this.state.data.ID} onChange={this.handleChange} className="form-control" id="exampleInputID" placeholder="StudentID random number" />
+                            <label htmlFor="exampleInputLindeinLink">Linkedin Link</label>
+                            <input type="text" name="linkedinLink" value={this.state.data.linkedinLink} onChange={this.handleChange} className="form-control" id="exampleInputLindeinLink" placeholder="Student Linkedin (optinal)" />
                         </div>
+                        <p className="text-danger">{this.state.error.linkedinLink}</p>
+                        <div className="form-group">
+                            <label htmlFor="exampleInputGithubLink">Github Link</label>
+                            <input type="text" name="githubLink" value={this.state.data.githubLink} onChange={this.handleChange} className="form-control" id="exampleInputGithubLink" placeholder="Github Link (optinal)" />
+                        </div>
+                        <p className="text-danger">{this.state.error.githubLink}</p>
+                        <div className="form-group">
+                            <label htmlFor="exampleInputhackerRankLink">HackerRank Link</label>
+                            <input type="text" name="hackerRankLink" value={this.state.data.hackerRankLink} onChange={this.handleChange} className="form-control" id="exampleInputhackerRankLink" placeholder="Hacker Rank Link (optinal)" />
+                        </div>
+                        <p></p>
+                        <div className="form-group">
+                            <label htmlFor="exampleInputCVlink">CV Link</label>
+                            <input type="text" name="CVlink" value={this.state.data.CVlink} onChange={this.handleChange} className="form-control" id="exampleInputCVlink" placeholder="CV Link (optinal)" />
+                        </div>
+                        <p className="text-danger">{this.state.error.CVlink}</p>
 
                     </div>
                     <p className="text-success">{this.state.success}</p>
