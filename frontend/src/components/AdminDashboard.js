@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import {Link} from 'react-router-dom';
 class AdminDashboard extends Component {
+<<<<<<< HEAD
   constructor(props){
     super(props);
 
@@ -13,6 +13,8 @@ class AdminDashboard extends Component {
     }
     this.handleProfileClick=this.handleProfileClick.bind(this);
   }
+=======
+>>>>>>> b15090280d90d16932ca9950bad7b60093fd9cdf
   handleAddscore()
   {
     window.location.href='/admin/addscore';
@@ -20,6 +22,7 @@ class AdminDashboard extends Component {
   handleEdit()
   {
     window.location.href='/admin/editdetails';
+
   }
   handleProfileClick(){
     this.props.history.push({
@@ -46,9 +49,8 @@ class AdminDashboard extends Component {
   }
 
 
+
 render(){
-let _this = this;
-  console.log(this.state.students);
   return (
   <div>
     <h1>Admin Dashboard</h1>
@@ -67,6 +69,12 @@ let _this = this;
           </tr>
         </thead>
         <tbody>
+          <tr>
+            <th scope="row">12453</th>
+            <td colSpan={3}>Jac Thon</td>
+            <td><button type="button"  className="btn btn-primary" onClick={this.handleEdit}>Edit</button></td>
+            <td><button type="button"  className="btn btn-info" onClick={this.handleViewProfile}>view Profile</button></td>
+            <td><button type="button" className="btn btn-success" onClick={this.handleAddscore}>Add Score</button></td>
 
             {this.state.students && this.state.students.map(function(student) {
               return (
