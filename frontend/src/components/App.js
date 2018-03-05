@@ -14,6 +14,7 @@ import StudentDashboard from './StudentDashboard';
 import StudentLogin from './StudentLogin';
 import StudentProfile from './StudentProfile';
 
+import AdminChangeReqList from './AdminChangeReqList'
 
 class App extends Component {
     render() {
@@ -23,9 +24,10 @@ class App extends Component {
 
                     <Route exact path='/studentlogin' component={StudentLogin} />
                     <Route exact path='/admin' component={AdminLog} />
-                    <Route exact path='/admin/dashboard' component={AdminDashboard}/>
-                    <Route exact path='/admin/:StudentID/addscore' component={AddScore}/>
-                    <Route exact path='/admin/student/register' component={AdminStReg} />
+                    <Route path='/admin/dashboard' component={AdminDashboard}/>
+                    <Route path='/admin/addscore' component={AddScore}/>
+                    <Route path='/admin/student/register' component={AdminStReg} />
+                    <Route path='/admin/student/changerequests' component={AdminChangeReqList} />
                     <Route path='/admin/editdetails' component={EditStudentDetails} />
                     <Route exact path='/' component={HomePage} />
                     <Route path='/student/login' component={StudentLogin} />

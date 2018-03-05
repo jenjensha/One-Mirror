@@ -36,6 +36,7 @@ class AdminStReg extends Component {
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.generateID = this.generateID.bind(this);
     }
     handleChange(element){
         var formData = this.state.data;
@@ -98,7 +99,15 @@ class AdminStReg extends Component {
                 }
             })
             .catch(error => console.log(error))
-
+    }
+    generateID(event){
+        event.preventDefault();
+      let ID = "ID" + Math.floor(Math.random()*(99999-10000+1)+10000);
+      this.setState({
+          data:{
+              ID:ID
+          }
+      }) 
     }
     render() {
         return (
@@ -161,8 +170,9 @@ class AdminStReg extends Component {
                         </div>
                         <p className="text-danger">{this.state.error.video}</p>
                         <div className="form-group">
-                            <label htmlFor="exampleInputID">ID</label>
-                            <input type="text" name="ID" value={this.state.data.ID} onChange={this.handleChange} className="form-control" id="exampleInputID" placeholder="StudentID random number" />
+                            <label htmlFor="exampleInputID"></label>
+                            <button className="btn btn-success" onClick={this.generateID}>Generate ID</button>
+                            <input type="text" value={this.state.data.ID} onChange={this.handleChange} className="form-control" id="exampleInputID" placeholder="StudentID" />
                         </div>
                         <p className="text-danger">{this.state.error.ID}</p>
                         <div className="form-group">
