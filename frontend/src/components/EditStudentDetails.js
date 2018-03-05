@@ -59,7 +59,7 @@ handleUpdate(event){
             }else{
                 _this.setState({
 
-                    success:'Student details modified successfully'
+                    success:'Student details updated successfully'
                 })
             }
         })

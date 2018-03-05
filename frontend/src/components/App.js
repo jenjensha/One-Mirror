@@ -8,10 +8,11 @@ import AdminStReg from './AdminStReg';
 import AddScore from './AddScore';
 import EditStudentDetails from './EditStudentDetails'
 import StudentDashboard from './StudentDashboard';
+import AdminViewProfile from './AdminViewProfile';
 
 
 
-import StudentLogin from './StudentLogin';
+
 import StudentProfile from './StudentProfile';
 
 import AdminChangeReqList from './AdminChangeReqList'
@@ -31,11 +32,10 @@ class App extends Component {
                     <Route path='/admin/editdetails' component={EditStudentDetails} />
                     <Route exact path='/' component={HomePage} />
                     <Route path='/student/login' component={StudentLogin} />
-                    <Route path='/admin' component={AdminLog} />
 
+
+                    <Route path='/admin/viewprofile' component={AdminViewProfile} />
                     <Route path='/student/dashboard' component={StudentDashboard} />
-
-
                     <Route path='/student/profile' component={StudentProfile} />
 
                     <Route render={function(){
