@@ -1,3 +1,5 @@
+
+
 var express = require('express');
 var app = express();
 var mongoose = require('mongoose');
@@ -62,30 +64,6 @@ app.post('student/search',validateStudentId,function(req,res){
   .catch(function(error){
     res.send({error: 'error', message: 'Something went wrong'});
   })
-})
-validateStudentId = [
-  check('studId', 'Please enter a student ID ').not().isEmpty(),
-
-]
-
-app.post('student/search', validateStudentId, function (req, res) {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    //console.log(errors);
-    return res.status(422).json({ errors: errors.mapped() });
-  }
-
-  Student.findOne(req.body)
-    .then(function (user) {
-      if (!user) {
-        return res.send({ status: 'error', message: 'Student not found' });
-      }
-      console.log(user);
-      res.send(user);
-    })
-    .catch(function (error) {
-      res.send({ error: 'error', message: 'Something went wrong' });
-    })
 })
 
 const studentLoginValidation = [
@@ -288,7 +266,7 @@ app.post('/api/admin/:StudentID/addscores', [
 
 
 
-//Get Request Add Scores 
+//Get Request Add Scores
 
 app.get('/api/admin/:StudentID/scores', function (req, res) {
   Student.findOne({ StudentID: req.params.StudentID })
@@ -386,12 +364,6 @@ app.post('/api/student/:StudentID/edit', [
           })
     });
 });
-
-
-
-
-
-
 
 app.listen(8080, function () {
   console.log('listening on port 8080');
