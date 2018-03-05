@@ -16,7 +16,8 @@ var mime = require('mime-types');
 var randomstring = require('randomstring');
 var path = require('path');
 
-
+//mongoose.connect('mongodb://localhost:27017/one_mirror');
+mongoose.connect('mongodb://test:test@ds141068.mlab.com:41068/one-mirror');
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -29,10 +30,6 @@ var storage = multer.diskStorage({
   }
 })
 var upload = multer({ storage: storage });
-
-
-mongoose.connect('mongodb://localhost:27017/one_mirror');
-//mongoose.connect('mongodb://test:test@ds141068.mlab.com:41068/one-mirror');
 
 app.use('/uploads', express.static('uploads'))
 
