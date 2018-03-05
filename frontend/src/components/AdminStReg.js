@@ -3,53 +3,79 @@ import axios from 'axios';
 import '../styles/AdminStReg.css'
 
 class AdminStReg extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
-        this.state={
-            data:{
-                firstName:'',
-                lastName:'',
-                password:'',
-                dateOfBirth:'',
-                email:'',
-                shortDescription:'',
-                status:'',
-                video:'',
-                ID:'',
-                linkedinLink:'',
-                githubLink:'',
-                hackerRankLink:'',
-                CVlink:''
+        this.state = {
+            data: {
+                firstName: '',
+                lastName: '',
+                password: '',
+                dateOfBirth: '',
+                email: '',
+                shortDescription: '',
+                status: '',
+                video: '',
+                ID: '',
+                photo: null,
+                linkedinLink: '',
+                githubLink: '',
+                hackerRankLink: '',
+                CVlink: ''
             },
-            error:{
-                firstName:'',
-                lastName:'',
-                password:'',
-                dateOfBirth:'',
-                email:'',
-                shortDescription:'',
-                status:'',
-                ID:'',
-                photo:'',
+            error: {
+                firstName: '',
+                lastName: '',
+                password: '',
+                dateOfBirth: '',
+                email: '',
+                shortDescription: '',
+                status: '',
+                ID: '',
+                photo: '',
             },
             success: null
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handlePhotoChange = this.handlePhotoChange.bind(this);
     }
-    handleChange(element){
+
+    handlePhotoChange(event) {
         var formData = this.state.data;
-            formData[element.target.name] = element.target.value;
+        formData[event.target.name] = event.target.files[0]
+        this.setState({data: formData })
+
+    }
+    handleChange(element) {
+        var formData = this.state.data;
+        formData[element.target.name] = element.target.value;
         this.setState({
             data: formData
         })
     }
-    handleSubmit(event){
+    handleSubmit(event) {
         event.preventDefault();
         let _this = this;
-        axios.post("http://localhost:8080/api/student/register", this.state.data)
-            .then(res =>{
-                if(res.data.errors){
+
+        let formData = new FormData();
+        formData.append('firstName', this.state.data.firstName);
+        formData.append('lastName', this.state.data.lastName);
+        formData.append('password', this.state.data.password);
+        formData.append('dateOfBirth', this.state.data.dateOfBirth);
+        formData.append('email', this.state.data.email);
+        formData.append('shortDescription', this.state.data.shortDescription);
+        formData.append('status', this.state.data.status);
+        formData.append('video', this.state.data.video);
+        formData.append('ID', this.state.data.ID);
+        formData.append('photo', this.state.data.photo);
+        formData.append('linkedinLink', this.state.data.linkedinLink);
+        formData.append('githubLink', this.state.data.githubLink);
+        formData.append('hackerRankLink', this.state.data.hackerRankLink);
+        formData.append('CVlink', this.state.data.CVlink);
+
+        axios.post("http://localhost:8080/api/student/register", formData)
+            .then(res => {
+                if (res.data.errors) {
                     let mainErr = res.data.errors;
                     let errMsg = {
                         firstName: mainErr.firstName ? mainErr.firstName.msg : '',
@@ -65,35 +91,35 @@ class AdminStReg extends Component {
                     _this.setState({
                         error: errMsg
                     });
-                }else{
+                } else {
                     _this.setState({
-                        data:{
-                            firstName:'',
-                            lastName:'',
-                            password:'',
-                            dateOfBirth:'',
-                            email:'',
-                            shortDescription:'',
-                            status:'',
-                            video:'',
-                            ID:'',
-                            linkedinLink:'',
-                            githubLink:'',
-                            hackerRankLink:'',
-                            CVlink:''
+                        data: {
+                            firstName: '',
+                            lastName: '',
+                            password: '',
+                            dateOfBirth: '',
+                            email: '',
+                            shortDescription: '',
+                            status: '',
+                            video: '',
+                            ID: '',
+                            linkedinLink: '',
+                            githubLink: '',
+                            hackerRankLink: '',
+                            CVlink: ''
                         },
-                        error:{
-                            firstName:'',
-                            lastName:'',
-                            password:'',
-                            dateOfBirth:'',
-                            email:'',
-                            shortDescription:'',
-                            status:'',
-                            ID:'',
-                            photo:'',
+                        error: {
+                            firstName: '',
+                            lastName: '',
+                            password: '',
+                            dateOfBirth: '',
+                            email: '',
+                            shortDescription: '',
+                            status: '',
+                            ID: '',
+                            photo: '',
                         },
-                        success:'Student Registerd successfully'
+                        success: 'Student Registerd successfully'
                     })
                 }
             })
@@ -128,7 +154,7 @@ class AdminStReg extends Component {
 
                         <div className="form-group">
                             <label htmlFor="exampleInputDateOfBirth">Date of Birth</label>
-                            <input type="date" name="dateOfBirth" value={this.state.dateOfBirth} onChange={this.handleChange} className="form-control" id="exampleInputDateOfBirth"/>
+                            <input type="date" name="dateOfBirth" value={this.state.dateOfBirth} onChange={this.handleChange} className="form-control" id="exampleInputDateOfBirth" />
                         </div>
                         <p className="text-danger">{this.state.error.dateOfBirth}</p>
 
@@ -139,7 +165,7 @@ class AdminStReg extends Component {
                         <p className="text-danger">{this.state.error.email}</p>
                         <div className="form-group">
                             <label htmlFor="exampleInputShortDescription">Short Description</label>
-                            <textarea type="text" name="shortDescription" value={this.state.data.shortDescription} onChange={this.handleChange} className="form-control" id="exampleInputShortDescription" placeholder="Description"></textarea>   
+                            <textarea type="text" name="shortDescription" value={this.state.data.shortDescription} onChange={this.handleChange} className="form-control" id="exampleInputShortDescription" placeholder="Description"></textarea>
                         </div>
                         <p className="text-danger">{this.state.error.shortDescription}</p>
 
@@ -152,7 +178,7 @@ class AdminStReg extends Component {
                     <div className="right-side">
                         <div className="form-group">
                             <label htmlFor="exampleInputPhoto">Profile Photo</label>
-                            <input type="file" name="photo" accept="image/*" onChange={this.handleChange} className="form-control" id="exampleInputPhoto" placeholder="Photo"/>
+                            <input type="file" name="photo" accept="image/*" onChange={this.handlePhotoChange} className="form-control" id="exampleInputPhoto" placeholder="Photo" />
                         </div>
                         <p className="text-danger">{this.state.error.photo}</p>
                         <div className="form-group">
