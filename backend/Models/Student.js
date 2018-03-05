@@ -28,8 +28,7 @@ var StudentSchema = new Schema({
         required: false
     },
     profilePic:{
-        data: Buffer,
-        contentType: String,
+        type: String,
         required: false
     },
     ShortDescription:{
