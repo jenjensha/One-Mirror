@@ -58,8 +58,16 @@ app.use(session({
 app.get('/test', function (req, res) {
   res.send('Hello Server');
 })
+<<<<<<< HEAD
 validateStudentId = [
   check('studId', 'Please enter a student ID ').not().isEmpty(),
+=======
+
+// Searching for student in db
+
+validateStudentId= [
+  check('studId','Please enter a student ID ').not().isEmpty(),
+>>>>>>> reshma
 
 ]
 
@@ -82,6 +90,22 @@ app.post('student/search', validateStudentId, function (req, res) {
       res.send({ error: 'error', message: 'Something went wrong' });
     })
 })
+
+
+//Get the Student Badges
+
+app.post('/student/badges',function(req,res){
+  Badge.find({ StudentID: req.body.studId }))
+  .then(function(info){
+      //console.log(message);
+      res.send(info);
+  })
+  .catch(function(error){
+      res.send({status: 'error', message: 'Something went wrong'});
+  });
+});
+
+// Student Login
 
 const studentLoginValidation = [
   check('studentid', 'Please enter a StudentID').not().isEmpty(),
