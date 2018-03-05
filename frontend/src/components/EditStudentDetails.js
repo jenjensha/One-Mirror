@@ -27,9 +27,10 @@ class EditStudentDetails extends Component {
             ID:'',
             photo:''
         },
-        success:''
+        success:'',
+        loading: true,
       }
-    this.handleUpdatet=this.handleUpdate.bind(this);
+    this.handleUpdate=this.handleUpdate.bind(this);
     this.handleChange=this.handleChange.bind(this);
   }
 
@@ -37,7 +38,7 @@ class EditStudentDetails extends Component {
 handleUpdate(event){
     event.preventdefault();
     let _this = this;
-    axios.post('http://localhost:8080/api/student/update/'+this.props.match.params.id,{
+    axios.post(`http://localhost:8080/api/${this.props.match.params.StudentID}/update`,{
       data:this.state.data})
         .then(res =>{
             if(res.data.errors){
@@ -50,7 +51,7 @@ handleUpdate(event){
                     email: mainErr.email ? mainErr.email.msg : '',
                     shortDescription: mainErr.shortDescription ? mainErr.shortDescription.msg : '',
                     status: mainErr.status ? mainErr.status.msg : '',
-                    ID: mainErr.ID ? mainErr.ID.msg : '',
+                    //ID: mainErr.ID ? mainErr.ID.msg : '',
                     photo: mainErr.photo ? mainErr.photo.msg : ''
                 };
                 _this.setState({
@@ -74,13 +75,27 @@ handleChange(element){
     })
 }
 componentDidMount(){
-  let _this=this;
-  axios.get('http://localhost:8080/api/student/getedititem/'+this.props.match.params.id)
+  let _this=this; 
+    axios.get(`http://localhost:8080/api/${this.props.match.params.StudentID}/getedititem`)
     .then(function(response){
       console.log(response.data);
+    let _this = this;
+    let newData = this.state.data;
+      
+    newData.firstName= response.data.FirstName;
+    newData.lastName = response.data.LastName; 
+    newData.dateOfBirth= response.data.DateOfBirth;
+    newData.email = response.data.Email;
+    newData.shortDescription = response.data.ShortDescription;
+    newData.status = response.data.Status;
+    newData.ID = response.data.StudentID;
+    newData.photo = response.data.profilePic;
+    
+    // <= something like this, be careful of the diffetence between capitals and spelling
+                    // anyway, copy it from the response.data
+                   
       _this.setState({
-      data:response.data
-
+          data: newData 
       })
   })
   .catch(function(error){
@@ -88,6 +103,7 @@ componentDidMount(){
   })
 }
 render(){
+    
   return(
     <div className="editStudentDetails">
     <h3>Edit your message</h3>
@@ -127,7 +143,7 @@ render(){
       <div className="right-side">
           <div className="form-group">
               <label htmlFor="exampleInputPhoto">Profile Photo</label>
-              <input type="file" name="photo" accept="image/*" onChange={this.handleChange} className="form-control" id="exampleInputPhoto" placeholder="Photo"/>
+              <input type="file" name="photo" value={this.state.data.photo} accept="image/*" onChange={this.handleChange} className="form-control" id="exampleInputPhoto" placeholder="Photo"/>
           </div>
           <p className="text-danger">{this.state.error.photo}</p>
           <div className="form-group">

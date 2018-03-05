@@ -338,8 +338,26 @@ app.get('/api/admin/:StudentID/scores', function (req, res) {
 })
 
 
+//Admin Getting Student to Edit
+
+app.get('/api/:StudentID/getedititem', function (req, res) {
+
+  console.log( 'request get', req.body);
+  
+    Student.findOne({ StudentID: req.params.StudentID })
+      .then(function (student) {
+        console.log('student', student);
+        res.send({ student })
+      })
+      .catch(function (error){
+        console.log(error);
+      })
+  })
+
+
+
 //Admin Editting the student
-app.post('/api/student/:StudentID/edit', [
+app.post('/api/:StudentID/update', [
   check('firstName').not().isEmpty().withMessage('First name is required')
     .isLength({ min: 2 }).withMessage('Firstname should be at least 2 letters')
     .matches(/^([A-z]|\s)+$/).withMessage('Firstname cannot have numbers'),
@@ -383,7 +401,7 @@ app.post('/api/student/:StudentID/edit', [
     .then(function (student) {
 
       student.FirstName = req.body.firstName,
-        student.LastName = req.body.LastName,
+        student.LastName = req.body.lastName,
         student.StudentID = req.body.ID,
         student.DateOfBirth = req.body.dateOfBirth,
         student.Email = req.body.email,

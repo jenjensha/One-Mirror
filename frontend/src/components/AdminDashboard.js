@@ -34,9 +34,7 @@ class AdminDashboard extends Component {
 
   }
 
-  handleEdit() {
-    window.location.href = '/admin/editdetails';
-  }
+  
   render() {
     let _this = this;
     console.log(this.state.students);
@@ -51,7 +49,7 @@ class AdminDashboard extends Component {
           <table className="table table-hover">
             <thead>
               <tr>
-                <th scope="col" colspan={2}>#</th>
+                <th scope="col" colSpan={2}>#</th>
                 <th scope="col" colSpan={3}>Name</th>
                 <th scope="col" colSpan={3}>Actions</th>
 
@@ -60,6 +58,7 @@ class AdminDashboard extends Component {
             <tbody>
 
               {this.state.students && this.state.students.map(function (student) {
+                console.log('student', student)
                 return (
                   <tr key={student._id}>
                     <th scope="row">{student.StudentID}</th>
@@ -68,10 +67,10 @@ class AdminDashboard extends Component {
                         <img src={`http://localhost:8080/uploads/${student.profilePic}`} width="40" height="40" />}
                     </td>
                     <td colSpan={3}>{student.FirstName} {student.LastName}</td>
-                    <td><button type="button" className="btn btn-primary" >Edit</button></td>
-
-                    <td><Link className="btn btn-info" to={`/students/profile/${student.StudentId}`}>View profile</Link></td>
-                    <td><Link className="btn btn-info" to={`/admin/${student.StudentID}/addscore`}>Add Scores</Link></td>
+                    
+                    <td><Link className="btn btn-primary" to={`/admin/${student.StudentID}/editdetails`}>Edit</Link></td>
+                    <td><Link className="btn btn-info" to={`/students/profile/${student.StudentID}`}>View profile</Link></td>
+                    <td><Link className="btn btn-success" to={`/admin/${student.StudentID}/addscore`}>Add Scores</Link></td>
                   </tr>
                 )
               })}
