@@ -16,8 +16,8 @@ var mime = require('mime-types');
 var randomstring = require('randomstring');
 var path = require('path');
 
-//mongoose.connect('mongodb://localhost:27017/one_mirror');
-mongoose.connect('mongodb://test:test@ds141068.mlab.com:41068/one-mirror');
+mongoose.connect('mongodb://localhost:27017/one_mirror');
+//mongoose.connect('mongodb://test:test@ds141068.mlab.com:41068/one-mirror');
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -167,7 +167,7 @@ app.post('/api/student/register',
           })
       }),
     check('shortDescription')
-      .not().isEmpty().isLength({ min: 150 }),
+      .not().isEmpty().isLength({ min: 100 }),
     // ??check('photo')
     // .not().isEmpty()
     //??check('video')
@@ -342,90 +342,100 @@ app.get('/api/admin/:StudentID/scores', function (req, res) {
 
 app.get('/api/:StudentID/getedititem', function (req, res) {
 
-  console.log( 'request get', req.body);
-  
-    Student.findOne({ StudentID: req.params.StudentID })
-      .then(function (student) {
-        console.log('student', student);
-        res.send({ student })
-      })
-      .catch(function (error){
-        console.log(error);
-      })
-  })
+  console.log('request get', req.body);
+
+  Student.findOne({ StudentID: req.params.StudentID })
+    .then(function (student) {
+      console.log('student', student);
+      res.send({ student })
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
+})
 
 
 
 //Admin Editting the student
-app.post('/api/:StudentID/update', [
-  check('firstName').not().isEmpty().withMessage('First name is required')
-    .isLength({ min: 2 }).withMessage('Firstname should be at least 2 letters')
-    .matches(/^([A-z]|\s)+$/).withMessage('Firstname cannot have numbers'),
-  check('lastName')
-    .not().isEmpty().withMessage('Last name is required')
-    .isLength({ min: 2 }).withMessage('Lastname should be at least 2 letters')
-    .matches(/^([A-z]|\s)+$/).withMessage('Lastname cannot have numbers'),
-  check('password')
-    .not().isEmpty().withMessage('Password is required')
-    .isLength({ min: 6 }).withMessage('Password should be at least 6 characters'),
-  check('dateOfBirth')
-    .not().isEmpty().withMessage('Date of birth required'),
+app.post('/api/:StudentID/update',
 
-  check('email')
-    .isEmail()
-    .custom(value => {
-      return Student.findOne({ email: value })
-        .then(function (student) {
-          if (student) {
-            throw new Error('this email is already in use');
-          }
-        })
-      //return value;
-    }),
-  check('shortDescription')
-    .not().isEmpty().isLength({ min: 150 }),
-  // ??check('photo')
-  // .not().isEmpty()
-  //??check('video')
-  check('ID')
-    .not().isEmpty(),
-
-
-], function (req, res) {
-  var errors = validationResult(req);
-
-  if (!errors.isEmpty()) {
-    return res.send({ errors: errors.mapped() });
-  }
-  Student.findOne({ StudentID: req.params.StudentID })
-    .then(function (student) {
-
-      student.FirstName = req.body.firstName,
-        student.LastName = req.body.lastName,
-        student.StudentID = req.body.ID,
-        student.DateOfBirth = req.body.dateOfBirth,
-        student.Email = req.body.email,
-        //student.Video = req.body.video,
-        student.profilePic = req.body.photo,
-
-        student.ShortDescription = req.body.shortDescription,
-        //student.Password = req.body.password,
-        student.Status = req.body.status,
-        // student.LinkedIn_link = req.body.linkedinLink,
-        // student.Github_link = req.body.githubLink,
-        // student.hackerRank_link = req.body.hackerRankLink,
-        // student.CV_link = req.body.CVlink
-
-        student.save()
+  [
+    check('firstName').not().isEmpty().withMessage('First name is required')
+      .isLength({ min: 2 }).withMessage('Firstname should be at least 2 letters')
+      .matches(/^([A-z]|\s)+$/).withMessage('Firstname cannot have numbers'),
+    check('lastName')
+      .not().isEmpty().withMessage('Last name is required')
+      .isLength({ min: 2 }).withMessage('Lastname should be at least 2 letters')
+      .matches(/^([A-z]|\s)+$/).withMessage('Lastname cannot have numbers'),
+    //check('shortDescription')
+     // .not().isLength({ min: 150 }).withMessage('Description should have minimum 150 characters length'),
+    check('email')
+      .isEmail()
+      .custom(value => {
+        return Student.findOne({ email: value })
           .then(function (student) {
-            res.send(student);
+            if (student) {
+              throw new Error('this email is already in use');
+            }
           })
-          .catch(function (error) {
-            console.log(error);
+        //return value;
+      }),
+    //check('shortDescription')
+      //.not().isLength({ min: 100 }).withMessage('Description minimum 100 characters'),
+    // ??check('photo')
+    // .not().isEmpty()
+    //??check('video')
+    check('ID')
+      .custom(value => {
+        return Student.findOne({ StudentID: value })
+          .then(function (student) {
+            if (student) {
+              throw new Error('This student ID is already in use');
+            }
+          })
+        //return value;
+      }),
 
-          })
-    });
-});
+
+  ],
+
+  function (req, res) {
+    console.log(req.body);
+    var errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.send({ errors: errors.mapped() });
+    }
+    console.log(req.body);
+    Student.findOne({ StudentID: req.params.StudentID })
+      .then(function (student) {
+
+        student.FirstName = req.body.firstName,
+          student.LastName = req.body.lastName,
+          student.StudentID = req.body.ID,
+          student.DateOfBirth = req.body.dateOfBirth,
+          student.Email = req.body.email,
+          //student.Video = req.body.video,
+          student.profilePic = req.body.photo,
+
+          student.ShortDescription = req.body.shortDescription,
+          //student.Password = req.body.password,
+          student.Status = req.body.status,
+          // student.LinkedIn_link = req.body.linkedinLink,
+          // student.Github_link = req.body.githubLink,
+          // student.hackerRank_link = req.body.hackerRankLink,
+          // student.CV_link = req.body.CVlink
+
+          student.save()
+            .then(function (student) {
+              res.send(student);
+            })
+            .catch(function (error) {
+              console.log(error);
+
+            })
+      });
+  });
 
 
 
