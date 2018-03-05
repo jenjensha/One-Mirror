@@ -128,12 +128,11 @@ class AdminStReg extends Component {
     }
     generateID(event){
         event.preventDefault();
-      let ID = "ID" + Math.floor(Math.random()*(99999-10000+1)+10000);
-      this.setState({
-          data:{
-              ID:ID
-          }
-      }) 
+ 
+        let newData = this.state.data;
+        newData.ID = "ID" + Math.floor(Math.random() * (99999 - 10000 + 1) + 10000);
+        
+        this.setState({ data: newData });
     }
     render() {
         return (
