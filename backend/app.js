@@ -87,7 +87,7 @@ app.post('student/search', validateStudentId, function (req, res) {
 //Get the Student Badges
 
 app.post('/student/badges',function(req,res){
-  Badge.find({ StudentID: req.body.studId }))
+  Badge.find({ StudentID: req.body.studId })
   .then(function(info){
       //console.log(message);
       res.send(info);
