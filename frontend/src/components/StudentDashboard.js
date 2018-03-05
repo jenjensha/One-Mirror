@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import ChangeRequest from './ChangeRequest';
 import '../styles/studentDashboard.css';
 
 class StudentDashboard extends Component {
@@ -23,7 +24,10 @@ class StudentDashboard extends Component {
 
   handleChangeRequest(){
 
-    window.location.href = '/student/dashboard/changereq';
+    this.props.history.push({
+      pathname: '/student/changereq',
+      state: {detail: this.state.student}
+    });
 
   }
 
@@ -43,7 +47,7 @@ class StudentDashboard extends Component {
           <h1 id="welcome"> Welcome to the student dashboard </h1> <br />
 
         </div>
-        
+
         <ul className="link-list">
           {this.state.student ?
             this.state.student.map(student => {
