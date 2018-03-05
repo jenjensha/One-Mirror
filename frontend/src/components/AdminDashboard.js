@@ -3,19 +3,29 @@ import axios from 'axios';
 import {Link} from 'react-router-dom';
 class AdminDashboard extends Component {
   constructor(props){
-    super(props)
+    super(props);
 
     this.state={
 
       students: null,
-      loading: true,
-
+      loading: true
 
     }
+    this.handleProfileClick=this.handleProfileClick.bind(this);
   }
   handleAddscore()
   {
     window.location.href='/admin/addscore';
+  }
+  handleEdit()
+  {
+    window.location.href='/admin/editdetails';
+  }
+  handleProfileClick(){
+    this.props.history.push({
+      pathname: '/student/profile',
+      state: { detail: this.state.students }
+    });
   }
 
   componentDidMount(){
@@ -31,14 +41,11 @@ class AdminDashboard extends Component {
       .catch((error) =>{
         console.log(error)
       })
-      
+
 
   }
 
-  handleEdit()
-  {
-    window.location.href='/admin/editdetails';
-  }
+
 render(){
 let _this = this;
   console.log(this.state.students);
@@ -65,14 +72,14 @@ let _this = this;
               return (
                 <tr key={student._id}>
                   <th scope="row">{student.StudentID}</th>
-                  <td colSpan={3}>{student.FirstName} {student.LastName}</td>        
+                  <td colSpan={3}>{student.FirstName} {student.LastName}</td>
                   <td><button type="button" className="btn btn-primary" >Edit</button></td>
-                  
-                  <td><Link className="btn btn-info" to={`/students/profile/${student.StudentId}`}>View profile</Link></td>
+
+                  <td><button className="btn btn-primary" onClick={this.handleProfileClick}>View Profile</button></td>
                   <td><Link className="btn btn-info" to={`/admin/${student.StudentID}/addscore`}>Add Scores</Link></td>
                 </tr>
               )
-              })}
+            }.bind(this))}
         </tbody>
       </table>
     </div>

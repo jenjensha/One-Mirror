@@ -15,8 +15,8 @@ var { check, validationResult } = require('express-validator/check');
 var session = require('express-session');
 
 
-//mongoose.connect('mongodb://localhost:27017/one_mirror');
-mongoose.connect('mongodb://test:test@ds141068.mlab.com:41068/one-mirror');
+mongoose.connect('mongodb://localhost:27017/one_mirror');
+//mongoose.connect('mongodb://test:test@ds141068.mlab.com:41068/one-mirror');
 
 //app.use(cors());
 app.use(bodyParser.json());
