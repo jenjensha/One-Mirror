@@ -8,12 +8,8 @@ import AdminStReg from './AdminStReg';
 import AddScore from './AddScore';
 import EditStudentDetails from './EditStudentDetails'
 import StudentDashboard from './StudentDashboard';
-
-
-
-import StudentLogin from './StudentLogin';
 import StudentProfile from './StudentProfile';
-
+import BadgesPage from './BadgesPage';
 import AdminChangeReqList from './AdminChangeReqList'
 
 class App extends Component {
@@ -37,6 +33,7 @@ class App extends Component {
 
 
                     <Route path='/student/profile' component={StudentProfile} />
+                    <Route path='/student/badges' component={BadgesPage} />
 
                     <Route render={function(){
                         return <p> Not Found</p>
