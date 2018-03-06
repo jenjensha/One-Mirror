@@ -81,11 +81,11 @@ class AdminDashboard extends Component {
                     <td colSpan={3}>{student.FirstName} {student.LastName}</td>
 
                     <td><Link className="btn btn-primary" to={`/admin/${student.StudentID}/editdetails`}>Edit</Link></td>
-                    <td><Link className="btn btn-info" to={`/students/profile/${student.StudentID}`}>View profile</Link></td>
+                    <td><a className="btn btn-danger" onClick={this.handleProfileClick}>View Profile</a></td>
                     <td><Link className="btn btn-success" to={`/admin/${student.StudentID}/addscore`}>Add Scores</Link></td>
                   </tr>
                 )
-              })}
+              }.bind(this))}
         </tbody>
       </table>
     </div>

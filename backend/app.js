@@ -19,8 +19,8 @@ var mime = require('mime-types');
 var randomstring = require('randomstring');
 var path = require('path');
 
-mongoose.connect('mongodb://localhost:27017/one_mirror');
-//mongoose.connect('mongodb://test:test@ds141068.mlab.com:41068/one-mirror');
+// mongoose.connect('mongodb://localhost:27017/one_mirror');
+mongoose.connect('mongodb://test:test@ds141068.mlab.com:41068/one-mirror');
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -139,13 +139,13 @@ app.get('/studentlogin', studentLoginValidation, function (req, res) {
     });
 });
 
-// Uncomment to add an admin user
-// Admin.create({
-//     firstName: 'Jen',
-//     lastName: 'Sibunga',
-//    Email: 'admin@gmail.com',
-//    Password: 'test12345'
-//  })
+//Uncomment to add an admin user
+Admin.create({
+    firstName: 'Jen',
+    lastName: 'Sibunga',
+   Email: 'admin@gmail.com',
+   Password: 'test12345'
+ })
 
 app.post('/api/admin/login', function (req, res) {
   console.log(req.body);
@@ -177,7 +177,7 @@ app.get('/api/current_admin', function (req, res) {
   if (req.session.admin) {
     Admin.findById(req.session.admin._id)
       .then(function (admin) {
-        res.send({ 
+        res.send({
           _id: admin._id,
           email: admin.email,
           firstName: admin.firstName,
@@ -309,6 +309,24 @@ app.get('/api/student/:StudentID/viewprofile', function (req, res) {
     .catch(function (error) {
       console.log(error);
     })
+})
+//Admin adding Badges
+app.post('/api/admin/:StudentID/addbadges',function(req,res){
+  console.log(req.body);
+  Badge.create({
+    StudentID:req.params.StudentID,
+    BadgeName:req.body.badge,
+    Status:1
+  })
+  .then(function (badges) {
+    console.log(badges)
+    res.send(badges);
+  })
+  .catch(function (error) {
+    console.log(error);
+    res.send(error);
+  })
+
 })
 
 //Admin Adding Scores
@@ -457,7 +475,7 @@ app.post('/api/:StudentID/update',
 
   function (req, res) {
     var errors = validationResult(req);
-    
+
     if (!errors.isEmpty()) {
       return res.send({ errors: errors.mapped() });
     }
@@ -466,7 +484,7 @@ app.post('/api/:StudentID/update',
       .then(function (student) {
         student.FirstName = req.body.firstName
           student.LastName = req.body.lastName
-         
+
           student.DateOfBirth = req.body.dateOfBirth
           student.Email = req.body.email
           student.Video = req.body.video
@@ -479,7 +497,7 @@ app.post('/api/:StudentID/update',
           student.CV_link = req.body.CVlink
           student.ShortDescription = req.body.shortDescription
           student.Status = req.body.status
-          
+
           student.save()
             .then(function (student) {
               console.log('test1')

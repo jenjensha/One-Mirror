@@ -8,6 +8,7 @@ class AddScore extends Component {
     this.state = {
       challenge: '',
       score: '',
+      badge:'',
       error: null,
       success: null,
       loading: true,
@@ -15,12 +16,18 @@ class AddScore extends Component {
     }
 
     this.selectKey = this.selectKey.bind(this);
+    this.selectBadge = this.selectBadge.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleBadgeSubmit=this.handleBadgeSubmit.bind(this);
   }
 
   selectKey(event) {
     this.setState({ challenge: event.target.value })
+  }
+  selectBadge(event){
+    let _this = this;
+    _this.setState({badge:event.target.value})
   }
   handleInputChange(event) {
     this.setState({
@@ -48,6 +55,21 @@ class AddScore extends Component {
         console.log(error);
       })
   }
+  handleBadgeSubmit(event) {
+    event.preventDefault();
+    let _this = this;
+    console.log(this.props);
+    axios.post(`http://localhost:8080/api/admin/${this.props.match.params.StudentID}/addbadges`, {
+      badge:_this.state.badge
+    })
+      .then(function (response) {
+        console.log(response);
+
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+  }
 
   getScoreCard(){
     let _this = this;
@@ -68,7 +90,7 @@ class AddScore extends Component {
       })
 
 
-  
+
   }
 
   componentDidMount() {
@@ -91,15 +113,13 @@ class AddScore extends Component {
               </tr>
             </thead>
             <tbody>
-              
+
                   {this.state.scorecard && this.state.scorecard.scores.map(function(score){
                     return (
 
                     <tr key={score._id}>
                       <td>{score.ChallengeName}</td>
                       <td>{score.Score}</td>
-                 
-    
               </tr>
                     )
               })}
@@ -121,10 +141,20 @@ class AddScore extends Component {
             <label htmlFor="inputScore">Score</label>
             <input onChange={this.handleInputChange} name="score" type="text" value={this.state.score} className="form-control" id="inputScore" aria-describedby="Score" placeholder="Score" />
             <button type="submit" name="addScore" className="btn btn-primary" >Add Score</button>
+
           </div>
         </form>
-
-
+        <form onSubmit={this.handleBadgeSubmit}>
+          <select name="badge" onChange={this.selectBadge}>
+            <option key={1} value='full-stackLAMP'>Full Stack Developer(LAMP)</option>
+            <option key={2} value='full-satckMERN'>Full Stack Developer(MERN)</option>
+            <option key={3} value='RestartOneGraduate'>Restart One Graduate</option>
+          </select>
+          <p>{this.state.badge}</p>
+          <div className="form-group">
+            <button type="submit" name="addBadge" className="btn btn-primary">Enable Badge</button>
+          </div>
+        </form>
       </div>
     )
   }
