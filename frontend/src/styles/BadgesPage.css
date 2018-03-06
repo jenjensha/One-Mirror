@@ -1,3 +1,20 @@
 .BadgesPage-container{
   margin-top: 5% ;
 }
+
+.BadgesPage-main{
+  width: 50%;
+  height: auto;
+  border: 1px solid black;
+}
+
+.BadgesPage-List{
+  width: 30%;
+  height: auto;
+  display: inline-block;
+  text-align: right;
+}
+
+.BadgesPage-List li{
+  list-style: none;
+}

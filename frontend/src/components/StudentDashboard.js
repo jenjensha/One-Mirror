@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import ChangeRequest from './ChangeRequest';
 import '../styles/studentDashboard.css';
 
 class StudentDashboard extends Component {
   constructor(props){
     super(props);
+    console.log(this.props.location.state.unicorn);
 
     if(props.location.state !== undefined) {
-    this.State = {
-      student: this.props.location.state.unicorn,
-      currentStudentName: this.props.location.state.unicorn.name
+    this.state = {
+      student: [this.props.location.state.unicorn],
+      currentStudentName: this.props.location.state.unicorn.FirstName
 
     }
   }
@@ -23,7 +25,10 @@ class StudentDashboard extends Component {
 
   handleChangeRequest(){
 
-    window.location.href = '/student/dashboard/changereq';
+    this.props.history.push({
+      pathname: '/student/changereq',
+      state: {detail: this.state.student}
+    });
 
   }
 
@@ -33,6 +38,7 @@ class StudentDashboard extends Component {
   }
 
   render() {
+    console.log(this.state.student);
     return (
       <div className="container">
         <ul className="btn-List pull-right">
@@ -43,7 +49,7 @@ class StudentDashboard extends Component {
           <h1 id="welcome"> Welcome to the student dashboard </h1> <br />
 
         </div>
-        
+
         <ul className="link-list">
           {this.state.student ?
             this.state.student.map(student => {
@@ -56,10 +62,10 @@ class StudentDashboard extends Component {
                     alt='Icon for LinkedIn' />
                     <a href={student.LinkedIn_link}> LinkedIn </a>
                 </li>
-                <p> {student.LinkedIn_link} </p>
-                <p> {student.Github_link} </p>
-                <p> {student.hackerRank_link} </p>
-                <p> {student.CV_link} </p>
+                <p> linkedin{student.LinkedIn_link} </p>
+                <p> github{student.Github_link} </p>
+                <p>hack {student.hackerRank_link} </p>
+                <p>cv {student.CV_link} </p>
               </div>
             )
             })

@@ -39,6 +39,7 @@ class AdminStReg extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handlePhotoChange = this.handlePhotoChange.bind(this);
         this.generateID = this.generateID.bind(this);
+      //  this.addBadges = this.addBadges.bind(this);
     }
 
     handlePhotoChange(event) {
@@ -76,6 +77,7 @@ class AdminStReg extends Component {
 
         axios.post("http://localhost:8080/api/student/register", formData)
             .then(res => {
+              console.log(res.data);
                 if (res.data.errors) {
                     let mainErr = res.data.errors;
                     let errMsg = {
@@ -120,7 +122,7 @@ class AdminStReg extends Component {
                             ID: '',
                             photo: '',
                         },
-                        success: 'Student Registerd successfully'
+                        success: 'Student Registered successfully'
                     })
                 }
             })
@@ -128,21 +130,30 @@ class AdminStReg extends Component {
     }
     generateID(event){
         event.preventDefault();
-      let ID = "ID" + Math.floor(Math.random()*(99999-10000+1)+10000);
-      this.setState({
-          data:{
-              ID:ID
-          }
-      }) 
+
+        let newData = this.state.data;
+        newData.ID = "ID" + Math.floor(Math.random() * (99999 - 10000 + 1) + 10000);
+
+        this.setState({ data: newData });
     }
+    // addBadges(event){
+    //   event.preventDefault();
+    //   axios.post("http://localhost:8080/api/student/addbadge",this.state.data.
+    // }
     render() {
         return (
             <div className="register-std">
                 <h1>Student Register</h1>
 
 
-                {this.state.success && <p>{this.state.success}</p>}
+                {this.state.success && <p>{this.state.success}</p>
+              }
 
+
+
+
+
+              <div>
                 <form onSubmit={this.handleSubmit} className="register-form">
                     <div className="left-side">
                         <div className="form-group">
@@ -221,10 +232,16 @@ class AdminStReg extends Component {
                             <input type="text" name="CVlink" value={this.state.data.CVlink} onChange={this.handleChange} className="form-control" id="exampleInputCVlink" placeholder="CV Link (optinal)" />
                         </div>
                         <p></p>
+
                     </div>
                     <p className="text-success">{this.state.success}</p>
+
                     <button type="submit" className="btn btn-primary subbut">Submit</button>
+
+
                 </form>
+              </div>
+
                 <br />
                 <br />
 

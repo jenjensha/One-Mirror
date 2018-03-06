@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import '../styles/StudentProfile.css';
+import StudentLinks from './StudentLinks';
 
 class StudentProfile extends React.Component{
   constructor(props){
@@ -40,40 +41,53 @@ class StudentProfile extends React.Component{
   }
 
   render(){
+      console.log(this.state.studentInfo);
+      console.log(this.state.studentInfo.FirstName);
+      var DOBdate = new Date(this.state.studentInfo.DateOfBirth);
+     var DOBdateFormat = DOBdate.toISOString().substring(0, 10);
+     console.log(DOBdateFormat);
+
     if(this.state.StudentID === 'No student')
     {return <p>Please enter a valid StudentID</p>}
     return(
         <div className="container StudentProfile-container">
             <h2> Student Profile </h2>
             <a className="btn btn-danger" onClick={this.handleBadgesClick}>Badges Earned</a>
-            {this.state.studentInfo &&
-                this.state.studentInfo.map(function(item){
-                  return(
-                    <div key={item._id}>
+                    <div className="StudentProfile-MainContainer">
                         <div className="StudentProfile-leftContainer">
-                            <img src={item.profilePic} className="img-rounded img-responsive" />
+                          <img src={`http://localhost:8080/uploads/${this.state.studentInfo.profilePic}`} className="img-rounded img-responsive" />
                         </div>
 
                         <div className="StudentProfile-rightContainer">
-                            <h4> {item.FirstName} {item.SecondName} </h4>
+                            <h3> {this.state.studentInfo.FirstName} {this.state.studentInfo.LastName} </h3>
                             <ul className="StudentProfile-leftList">
-                              <li> Date of Birth : </li>
-                              <li> Email: </li>
-                              <li> Status: </li>
-                              <li> Story of You: </li>
+                            <table>
+                            <thead></thead>
+                            <tbody>
+                              <tr>
+                                <td className="StudentProfile-firstCol">  <li> Date of Birth : </li></td>
+                                <td className="StudentProfile-secCol"> <li> {DOBdateFormat} </li> </td>
+                               </tr>
+
+                               <tr>
+                                  <td><li> Email: </li> </td>
+                                  <td> <li> {this.state.studentInfo.Email} </li></td>
+                               </tr>
+                               <tr>
+                                  <td><li> Status: </li> </td>
+                                  <td> <li> {this.state.studentInfo.Status} </li></td>
+                               </tr>
+                               <tr>
+                                  <td><li> Story of You: </li> </td>
+                                  <td>  <li> <a href= {this.state.studentInfo.Video}> {this.state.studentInfo.Video} </a> </li></td>
+                               </tr>
+                               </tbody>
+                            </table>
                             </ul>
-                            <ul className="StudentProfile-rightList">
-                              <li> {item.DateOfBirth} </li>
-                              <li> {item.Email} </li>
-                              <li> {item.Status} </li>
-                              <li> {item.Video} </li>
-                            </ul>
-                            <p> {item.ShortDescription}</p>
+                            <p> {this.state.studentInfo.ShortDescription}</p>
                         </div>
                     </div>
-                  )
-                })
-            }
+            <StudentLinks obj={this.state.studentInfo} />
         </div>
     )
   }

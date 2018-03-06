@@ -12,8 +12,8 @@ var BadgeSchema = new Schema({
         required: true
     },
     Status:{
-        type: String,
-        Default: null
+        type: Number,
+        Default: 0
     }
 
 })
