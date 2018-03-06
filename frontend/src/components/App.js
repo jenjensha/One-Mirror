@@ -9,7 +9,8 @@ import AddScore from './AddScore';
 import EditStudentDetails from './EditStudentDetails'
 import StudentDashboard from './StudentDashboard';
 import StudentProfile from './StudentProfile';
-import AdminChangeReqList from './AdminChangeReqList'
+import AdminChangeReqList from './AdminChangeReqList';
+import ChangeRequest from './ChangeRequest';
 
 class App extends Component {
     render() {

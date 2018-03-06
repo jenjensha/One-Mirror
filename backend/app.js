@@ -66,10 +66,11 @@ app.post('student/search',validateStudentId,function(req,res){
   })
 })
 
+
 const studentLoginValidation = [
-  check('studentid', 'Please enter a StudentID').not().isEmpty(),
-  check('password', 'Please enter your password').not().isEmpty(),
-  check('studentid', 'Please enter a valid StudentID').custom(value => {
+  check('StudentID', 'Please enter a StudentID').not().isEmpty(),
+  check('Password', 'Please enter your password').not().isEmpty(),
+  check('StudentID', 'Please enter a valid StudentID').custom(value => {
     return Student.find({ 'studentid': value })
       .then(user => {
         if (user.length)
@@ -80,9 +81,10 @@ const studentLoginValidation = [
   })
 ];
 
-app.get('/studentlogin', studentLoginValidation, function (req, res) {
+app.post('/student/login', studentLoginValidation, function (req, res) {
+  console.log(req.body);
   const errors = validationResult(req);
-  if (!erros.isEmpty()) {
+  if (!errors.isEmpty()) {
     console.log(errors);
     console.log(errors.mapped());
     return res.status(422).json({ errors: errors.mapped() });
@@ -98,6 +100,17 @@ app.get('/studentlogin', studentLoginValidation, function (req, res) {
       res.send({ error: 'error', message: 'Something went wrong' })
     });
 });
+
+//student ChangeRequest
+app.post('/student/changereq', function (req, res) {
+  console.log(req.body);
+  ChangeReq.create(req.body)
+    .then(function (changereq) {
+      res.send(changereq);
+    }).catch(function (error) {
+      res.send({status: 'error', message: 'Something went wrong with change request'})
+    });
+})
 
 //Admin registration / create User and Validation
 app.post('/api/student/register', [

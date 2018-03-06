@@ -6,11 +6,12 @@ import '../styles/studentDashboard.css';
 class StudentDashboard extends Component {
   constructor(props){
     super(props);
+    console.log(this.props.location.state.unicorn);
 
     if(props.location.state !== undefined) {
-    this.State = {
-      student: this.props.location.state.unicorn,
-      currentStudentName: this.props.location.state.unicorn.name
+    this.state = {
+      student: [this.props.location.state.unicorn],
+      currentStudentName: this.props.location.state.unicorn.FirstName
 
     }
   }
@@ -37,6 +38,7 @@ class StudentDashboard extends Component {
   }
 
   render() {
+    console.log(this.state.student);
     return (
       <div className="container">
         <ul className="btn-List pull-right">
@@ -60,10 +62,10 @@ class StudentDashboard extends Component {
                     alt='Icon for LinkedIn' />
                     <a href={student.LinkedIn_link}> LinkedIn </a>
                 </li>
-                <p> {student.LinkedIn_link} </p>
-                <p> {student.Github_link} </p>
-                <p> {student.hackerRank_link} </p>
-                <p> {student.CV_link} </p>
+                <p> linkedin{student.LinkedIn_link} </p>
+                <p> github{student.Github_link} </p>
+                <p>hack {student.hackerRank_link} </p>
+                <p>cv {student.CV_link} </p>
               </div>
             )
             })
