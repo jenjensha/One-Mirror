@@ -3,6 +3,8 @@
 } */
 #myFooter{
     background-color: darkslategray;
+    margin-top: 10px;
+    padding-top: 30px;
 }
 ul{
     list-style: none;
@@ -37,21 +39,34 @@ button:hover:enabled {
   .button:active {
     transform: translateY(1px);
   }
-.twitter img:hover{
-    background-color: tomato;
+
+.twitter{
+    font-size: 40px;
+    margin: 10px;
 }
-.instagram img:hover{
-    background-color: tomato;
+.twitter:hover{
+    color: #1DA1F2;
 }
-.facebook img:hover{
-    background-color: tomato;
+.facebook{
+    font-size: 40px;
+    margin: 10px;
+}
+.facebook:hover{
+    color: #4867AA;
+}
+.instagram{
+    font-size: 40px;
+    margin: 10px;
+}
+.instagram:hover{
+    color: #CF4662;
 }
 
 .footer-copyright{
     margin-top: 10px;
     margin-bottom: 10px;
     padding: 5px;
-    background-color: rgb(35, 59, 59);
+    background-color: #272932;
     color: white;
 }
 .heart {

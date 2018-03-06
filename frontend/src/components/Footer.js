@@ -9,7 +9,7 @@ class Footer extends Component {
           <div className="container">
             <div className="row">
               <div className="col-sm-3">
-                <img src="/1520357247-picsay.png" alt="restart_logo" style={{width: '250px', height: '125px',margin:'0px'}} />
+                <img src="/logodarkbackground.png" alt="restart_logo" style={{width: '250px', height: '125px',margin:'0px'}} />
               </div>
               <div className="col-sm-2">
                 <h5>Restart Network</h5>
@@ -37,17 +37,19 @@ class Footer extends Component {
               </div>
               <div className="col-sm-3">
                 <div className="social-networks">
-                  <a href="https://twitter.com/Restart_Network" className="twitter"><i className="fa fa-twitter" /><img src="/twitter_white-transparent-logo.png" height="50px" width="50px" /></a>
-                  <a href="https://www.facebook.com/restartnetwork" className="facebook"><i className="fa fa-facebook" /><img src="/facebook-radius-transparent-logo-15.png" height="50px" width="50px" /></a>
-                  <a href="https://instagram.com/restartnetwork/" className="instagram"><i className="fa fa-instagram" /><img src="/instagram-512.png" height="50px" width="50px" /></a>
+                  <a href="https://twitter.com/Restart_Network" className="twitter"><i className="fa fa-twitter" /></a>
+                  <a href="https://www.facebook.com/restartnetwork" className="facebook"><i className="fa fa-facebook" /></a>
+                  <a href="https://instagram.com/restartnetwork/" className="instagram"><i className="fa fa-instagram" /></a>
                 </div>
                 <button type="button" className="btn btn-default"><a href="https://useplink.com/payment/cR9BfsmzWQ7hFDzU7bjC" target="_blank">Donate</a></button>
               </div>
             </div>
           </div>
         <div className="footer-copyright">
-          <p>On a global mission started with <i style={{color: 'red'}} className="heart" aria-hidden="true" />
-in Rotterdam, The Netherlands </p>
+          <p>
+            On a global mission started with <i style={{color: 'red'}} className="heart" aria-hidden="true" />
+            in Rotterdam, The Netherlands 
+          </p>
         </div>
         </footer>
 
