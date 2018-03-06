@@ -2,6 +2,9 @@ img{
     margin: 16px;
     padding: 4px;
 }
+.cv{
+	background-color: chocolate;
+}
 
 @keyframes bounce {
 	0%, 100%, 20%, 50%, 80% {
@@ -23,10 +26,9 @@ img{
 #imgBounce img:hover {
   cursor: pointer;
   animation-name: bounce;
-  -moz-animation-name: bounce;
   
-  -webkit-animation-duration: 1.3s;
-  animation-duration: 1.3s;
+  -webkit-animation-duration: 2s;
+  animation-duration: 2s;
 
   -webkit-animation-timing-function: ease-in-out;
   animation-timing-function: ease-in-out;

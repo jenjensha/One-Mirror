@@ -15,6 +15,7 @@ import StudenLinks from './StudentLinks'
 import StudentProfile from './StudentProfile';
 
 import AdminChangeReqList from './AdminChangeReqList'
+import Footer from './Footer';
 
 class App extends Component {
     render() {
@@ -43,6 +44,8 @@ class App extends Component {
 
 
                     <Route path='/student/profile' component={StudentProfile} />
+
+                    <Route path='/footer' component={Footer} />
 
                     <Route render={function(){
                         return <p> Not Found</p>

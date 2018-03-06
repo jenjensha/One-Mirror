@@ -1,0 +1,103 @@
+/* #myFooter{
+    height: 300px;
+} */
+#myFooter{
+    background-color: darkslategray;
+}
+ul{
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
+a{
+    color: #d2d1d1;
+    font-size: 16px;
+    /* text-decoration: none; */
+    /* color: white; */
+}
+a:link {
+    text-decoration: none;
+}
+a:hover {
+    color: white;
+    /* font-weight: bold; */
+}
+h5{
+    color: tomato;
+}
+button{
+    background-color: tomato;
+    color: #d2d1d1;
+}
+button:hover:enabled {
+    background: linear-gradient(tomato,chocolate);
+    /* color: #fff; */
+    /* text-decoration: none; */
+  }
+  .button:active {
+    transform: translateY(1px);
+  }
+.twitter img:hover{
+    background-color: tomato;
+}
+.instagram img:hover{
+    background-color: tomato;
+}
+.facebook img:hover{
+    background-color: tomato;
+}
+
+.footer-copyright{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 5px;
+    background-color: rgb(35, 59, 59);
+    color: white;
+}
+.heart {
+    margin: 5px auto;
+    position: relative;
+    display: block;
+    width: 20px;
+    height: 20px;
+    /* background: #ecf0f1; */
+    background: tomato;
+    border-radius: 0 0 0 10px;
+    transform: rotate(-45deg);
+    animation: pulse 2s infinite;
+  }
+  .heart::before,
+  .heart::after {
+    position: absolute;
+    content: "";
+    width: 20px;
+    height: 20px;
+    /* background: #ecf0f1; */
+    background: tomato;
+    border-radius: 50%;
+  }
+  .heart::before {
+    top: -10px;
+    left: 0;
+  }
+  .heart::after {
+    top: 0;
+    right: -10px;
+  }
+  @keyframes pulse {
+    0%, 20% {
+      transform: rotate(-45deg) scale(1);
+    }
+    30% {
+      transform: rotate(-45deg) scale(1.2);
+    }
+    50% {
+      transform: rotate(-45deg) scale(1);
+    }
+    60% {
+      transform: rotate(-45deg) scale(1.1);
+    }
+    70%, 100% {
+      transform: rotate(-45deg) scale(1);
+    }
+  }
