@@ -9,7 +9,7 @@ class Footer extends Component {
           <div className="container">
             <div className="row">
               <div className="col-sm-3">
-                <img src="/logodarkbackground.png" alt="restart_logo" style={{width: '250px', height: '125px',margin:'0px'}} />
+                <img src="/1520357247-picsay.png" alt="restart_logo" style={{width: '250px', height: '125px',margin:'0px'}} />
               </div>
               <div className="col-sm-2">
                 <h5>Restart Network</h5>
