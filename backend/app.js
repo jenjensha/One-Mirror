@@ -19,7 +19,7 @@ var mime = require('mime-types');
 var randomstring = require('randomstring');
 var path = require('path');
 
-// mongoose.connect('mongodb://localhost:27017/one_mirror');
+//mongoose.connect('mongodb://localhost:27017/one_mirror');
 mongoose.connect('mongodb://test:test@ds141068.mlab.com:41068/one-mirror');
 
 var storage = multer.diskStorage({
@@ -65,18 +65,23 @@ app.use(session({
 app.get('/test', function (req, res) {
   res.send('Hello Server');
 })
-validateStudentId = [
-  check('studId', 'Please enter a student ID ').not().isEmpty(),
+
+// Searching for student in db
+
+validateStudentId= [
+  check('StudentID','Please enter a student ID ').not().isEmpty()
 
 ]
 
-app.post('student/search', validateStudentId, function (req, res) {
+app.post('/student/search', validateStudentId, function (req, res) {
+  console.log(req);
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     //console.log(errors);
     return res.status(422).json({ errors: errors.mapped() });
   }
 
+  console.log(req.body);
   Student.findOne(req.body)
     .then(function (user) {
       if (!user) {
@@ -86,6 +91,7 @@ app.post('student/search', validateStudentId, function (req, res) {
       res.send(user);
     })
     .catch(function (error) {
+      console.log(error);
       res.send({ error: 'error', message: 'Something went wrong' });
     })
 })
@@ -141,7 +147,7 @@ app.post('/student/login', studentLoginValidation, function (req, res) {
     });
 });
 
-<<<<<<< HEAD
+
 //student ChangeRequest
 app.post('/student/changereq', function (req, res) {
   console.log(req.body);
@@ -162,15 +168,8 @@ app.post('/student/changereq', function (req, res) {
 //    Email: 'admin@gmail.com',
 //    Password: 'test12345'
 //  })
-=======
-//Uncomment to add an admin user
-Admin.create({
-    firstName: 'Jen',
-    lastName: 'Sibunga',
-   Email: 'admin@gmail.com',
-   Password: 'test12345'
- })
->>>>>>> srinidhi3
+
+
 
 app.post('/api/admin/login', function (req, res) {
   console.log(req.body);
@@ -240,7 +239,7 @@ app.post('/api/student/register',
       .not().isEmpty().withMessage('Date of birth required'),
 
     check('email')
-      .isEmail().withMessage('Invalid Email')
+      //.isEmail().withMessage('Invalid Email')
       .custom(value => {
         return Student.findOne({ email: value })
           .then(function (student) {
@@ -251,7 +250,7 @@ app.post('/api/student/register',
           })
       }),
     check('shortDescription')
-      .not().isEmpty().isLength({ min: 100 }),
+      .not().isEmpty().withMessage('Minimum 100 characters are required'),
     // ??check('photo')
     // .not().isEmpty()
     //??check('video')
@@ -283,6 +282,7 @@ app.post('/api/student/register',
     }
 
     console.log('create student')
+    console.log(req.body);
     Student.create({
       FirstName: req.body.firstName,
       LastName: req.body.lastName,
