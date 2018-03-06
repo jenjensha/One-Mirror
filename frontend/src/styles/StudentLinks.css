@@ -3,6 +3,19 @@ img{
     padding: 4px;
 }
 
+#imgBounce{
+  height: auto;
+}
+#imgBounce a {
+    display: inline-block;
+    width: 107px;
+    margin-right: 10px;
+}
+
+#imgBounce a img{
+  display: inline-block;
+}
+
 @keyframes bounce {
 	0%, 100%, 20%, 50%, 80% {
 		-webkit-transform: translateY(0);
@@ -24,7 +37,7 @@ img{
   cursor: pointer;
   animation-name: bounce;
   -moz-animation-name: bounce;
-  
+
   -webkit-animation-duration: 1.3s;
   animation-duration: 1.3s;
 

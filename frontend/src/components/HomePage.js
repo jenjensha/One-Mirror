@@ -8,7 +8,7 @@ class HomePage extends React.Component{
     super(props)
 
     this.state = {
-      studId : '',
+      StudentID : '',
       errorMsg: null,
       msg:{
         studIderr: '',
@@ -33,7 +33,7 @@ class HomePage extends React.Component{
     let _this = this;
 
     axios.post('http://localhost:8080/student/search',{
-        studId: this.state.studId
+        StudentID: this.state.StudentID
     })
     .then(function(response){
       _this.setState({
@@ -46,10 +46,10 @@ class HomePage extends React.Component{
         }
         else{
            console.log(response.data);
-          _this.props.history.push({
-            pathname: '/student/profile',
-            state: { detail: response.data }
-          });
+          _this.props.history.push(
+            { pathname: '/student/profile',
+              state: { detail: response.data }
+          })
         }
     })
     .catch(function(error){
@@ -57,10 +57,10 @@ class HomePage extends React.Component{
       if(error.response){
         let mainErrors = error.response.data.errors,
         msg = {
-            studIderr: mainErrors.studId ? mainErrors.studId.msg : ''
+            studIderr: mainErrors.StudentID ? mainErrors.StudentID.msg : ''
       };
       this.setState({
-        msg:msg
+        msg: msg
       });
     }
   }.bind(this));
@@ -90,7 +90,7 @@ class HomePage extends React.Component{
             <form onSubmit={this.handleSubmit}>
                  <div className="form-group">
                    <input onChange={this.handleInputChange} value={this.state.studId} type="text" className="form-control" id="LoginStudId"
-                      name="studId" aria-describedby="emailHelp" placeholder="Enter student id" />
+                      name="StudentID" aria-describedby="emailHelp" placeholder="Enter student id" />
                       <span className="text-danger"> {this.state.msg.studIderr} </span>
                  </div><br />
 

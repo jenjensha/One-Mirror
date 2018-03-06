@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import '../styles/BadgesPage.css';
+import StudentLinks from './StudentLinks';
 
 class BadgesPage extends React.Component{
   constructor(props){
     super(props);
     if(props.location.state !== undefined){
             this.state = {
-                StudentID: this.props.location.state.detail.StudentID,
+                studentInfo: this.props.location.state.detail,
+                // StudentID: this.props.location.state.detail.StudentID,
                 badgesInfo: null
             }
         }
@@ -22,7 +24,7 @@ class BadgesPage extends React.Component{
     let _this = this;
 
     axios.post('http://localhost:8080/student/badges',{
-      studId: this.state.StudentID
+      studId: this.state.studentInfo.StudentID
     })
     .then(function(response){
         _this.setState({
@@ -41,17 +43,12 @@ class BadgesPage extends React.Component{
     return(
             <div className="container BadgesPage-container">
                 <h4> Badges Earned </h4>
-                {this.state.badgesInfo &&
-                    this.state.badgesInfo.map(function(item){
-                      return(
-                        <div className="BadgesPage-main" key={item._id}>
+                        <div className="BadgesPage-main">
                                 <ul className="BadgesPage-List">
-                                  <li> {item.BadgeName} {item.Status}</li>
+                                  <li> {this.state.studentInfo.BadgeName} {this.state.studentInfo.Status}</li>
                                 </ul>
                         </div>
-                      )
-                    })
-                }
+                 <StudentLinks obj={this.state.studentInfo} />
             </div>
     )
   }
