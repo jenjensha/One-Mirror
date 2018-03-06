@@ -13,6 +13,7 @@ var Score = require('./Models/Score');
 var Student = require('./Models/Student');
 var { check, validationResult } = require('express-validator/check');
 var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
 var multer = require('multer');
 var mime = require('mime-types');
 var randomstring = require('randomstring');
@@ -42,16 +43,22 @@ app.use(bodyParser.json());
 // Cross-origin resource sharing - Middelware
 app.use(cors({
   origin: ['http://localhost:3000'],
-  methods: ['GET', 'POST', 'DELETE', 'PUT'],
+  methods: ['GET', 'HEAD', 'POST', 'DELETE', 'PUT', 'PATCH', 'OPTIONS'],
   credentials: true // enable set cookie
 }));
 
-// Session - Middelware
 app.use(session({
+  proxy: true,
+  secure: false,
   resave: true,
-  secret: 'Vt9PxTrm~E{4`9]T',
+  secret: 'qwertyuiop1234567890',
   saveUninitialized: true,
-  cookie: { maxAge: 16000 }
+  cookie: {
+    maxAge: (60000 * 60),
+    secure: false, // this should be false for localhost
+    httpOnly: false,
+  },
+  store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
 
 
@@ -87,7 +94,7 @@ app.post('student/search', validateStudentId, function (req, res) {
 //Get the Student Badges
 
 app.post('/student/badges',function(req,res){
-  Badge.find({ StudentID: req.body.studId }))
+  Badge.find({ StudentID: req.body.studId })
   .then(function(info){
       //console.log(message);
       res.send(info);
@@ -130,6 +137,61 @@ app.get('/studentlogin', studentLoginValidation, function (req, res) {
     }).catch(function (error) {
       res.send({ error: 'error', message: 'Something went wrong' })
     });
+});
+
+// Uncomment to add an admin user
+// Admin.create({
+//     firstName: 'Jen',
+//     lastName: 'Sibunga',
+//    Email: 'admin@gmail.com',
+//    Password: 'test12345'
+//  })
+
+app.post('/api/admin/login', function (req, res) {
+  console.log(req.body);
+  Admin.findOne({
+    Email: req.body.email,
+    Password: req.body.password
+  })
+    .then(function (admin) {
+      if (!admin) {
+        let errors_value = {
+          login: { msg: 'Wrong email or password' }
+        }
+        return res.send({ errors: errors_value })
+      } else {
+        req.session.admin = admin;
+        return res.send({ message: 'You are signed in' });
+      }
+
+      res.send(admin);
+    })
+    .catch(function (error) {
+      console.log(error);
+
+    })
+})
+
+app.get('/api/current_admin', function (req, res) {
+  console.log(req.session)
+  if (req.session.admin) {
+    Admin.findById(req.session.admin._id)
+      .then(function (admin) {
+        res.send({ 
+          _id: admin._id,
+          email: admin.email,
+          firstName: admin.firstName,
+        })
+      })
+  } else {
+    res.send({ error: 'not logged in' })
+  }
+});
+
+///Log Out
+app.get('/api/admin/logout', function (req, res) {
+  req.session.destroy();
+  res.send({ message: 'session destroyed' })
 });
 
 //Admin registration / create User and Validation
@@ -352,7 +414,7 @@ app.get('/api/:StudentID/getedititem', function (req, res) {
 
 //Admin Editting the student
 app.post('/api/:StudentID/update',
-
+  upload.fields([{ name: 'photo', maxCount: 1 }]), //multer files upload
   [
     check('firstName').not().isEmpty().withMessage('First name is required')
       .isLength({ min: 2 }).withMessage('Firstname should be at least 2 letters')
@@ -394,41 +456,46 @@ app.post('/api/:StudentID/update',
   ],
 
   function (req, res) {
-    console.log(req.body);
     var errors = validationResult(req);
-
+    
     if (!errors.isEmpty()) {
       return res.send({ errors: errors.mapped() });
     }
-    console.log(req.body);
+
     Student.findOne({ StudentID: req.params.StudentID })
       .then(function (student) {
-
-        student.FirstName = req.body.firstName,
-          student.LastName = req.body.lastName,
-          student.StudentID = req.body.ID,
-          student.DateOfBirth = req.body.dateOfBirth,
-          student.Email = req.body.email,
-          //student.Video = req.body.video,
-          student.profilePic = req.body.photo,
-
-          student.ShortDescription = req.body.shortDescription,
-          //student.Password = req.body.password,
-          student.Status = req.body.status,
-          // student.LinkedIn_link = req.body.linkedinLink,
-          // student.Github_link = req.body.githubLink,
-          // student.hackerRank_link = req.body.hackerRankLink,
-          // student.CV_link = req.body.CVlink
-
+        student.FirstName = req.body.firstName
+          student.LastName = req.body.lastName
+         
+          student.DateOfBirth = req.body.dateOfBirth
+          student.Email = req.body.email
+          student.Video = req.body.video
+          if (req.files.photo) {
+            student.profilePic = req.files.photo[0].filename
+          }
+          student.LinkedIn_link = req.body.linkedinLink
+        student.hackerRank_link= req.body.hackerRankLink
+        student.Github_link = req.body.githubLink
+          student.CV_link = req.body.CVlink
+          student.ShortDescription = req.body.shortDescription
+          student.Status = req.body.status
+          
           student.save()
             .then(function (student) {
+              console.log('test1')
               res.send(student);
             })
             .catch(function (error) {
+              console.log('test2')
               console.log(error);
-
+              res.send(error);
             })
-      });
+      })
+      .catch(function(error) {
+        console.log('test3')
+        console.log(error);
+        res.send(error);
+      })
   });
 
 app.listen(8080, function () {

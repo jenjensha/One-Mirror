@@ -25,7 +25,10 @@ class App extends Component {
 
                     <Route exact path='/studentlogin' component={StudentLogin} />
                     <Route exact path='/admin' component={AdminLog} />
-
+                    <Route exact path='/admin/dashboard' component={AdminDashboard} />
+                    <Route exact path='/admin/:StudentID/addscore' component={AddScore} />
+                    <Route exact path='/admin/student/register' component={AdminStReg} />
+                    <Route path='/admin/:StudentID/editdetails' component={EditStudentDetails} />
                     <Route path='/admin/student/changerequests' component={AdminChangeReqList} />
 
                     <Route exact path='/' component={HomePage} />

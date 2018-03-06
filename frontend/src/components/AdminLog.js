@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import '../styles/AdminLog.css';
 
+axios.defaults.withCredentials = true;
+
 class AdminLog extends Component {
     constructor(props){
         super(props);
@@ -25,9 +27,17 @@ class AdminLog extends Component {
     handleSubmit(event){
         event.preventDefault();
         let _this = this;
-        axios.post("http://localhost:8080/admin/login", this.state.data)
+        axios("http://localhost:8080/api/admin/login", {
+            method: 'post',
+            withCredentials: true,
+            data: {
+                email: this.state.data.email,
+                password: this.state.data.password
+            },
+
+        })
             .then(res => {
-                window.location.href = 'admin/dashboard'
+                window.location.href = '/admin/dashboard'
             })
             .catch(error => {
                 console.log(error);
