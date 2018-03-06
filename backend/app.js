@@ -19,8 +19,8 @@ var mime = require('mime-types');
 var randomstring = require('randomstring');
 var path = require('path');
 
-mongoose.connect('mongodb://localhost:27017/one_mirror');
-//mongoose.connect('mongodb://test:test@ds141068.mlab.com:41068/one-mirror');
+// mongoose.connect('mongodb://localhost:27017/one_mirror');
+mongoose.connect('mongodb://test:test@ds141068.mlab.com:41068/one-mirror');
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -141,6 +141,7 @@ app.post('/student/login', studentLoginValidation, function (req, res) {
     });
 });
 
+<<<<<<< HEAD
 //student ChangeRequest
 app.post('/student/changereq', function (req, res) {
   console.log(req.body);
@@ -161,6 +162,15 @@ app.post('/student/changereq', function (req, res) {
 //    Email: 'admin@gmail.com',
 //    Password: 'test12345'
 //  })
+=======
+//Uncomment to add an admin user
+Admin.create({
+    firstName: 'Jen',
+    lastName: 'Sibunga',
+   Email: 'admin@gmail.com',
+   Password: 'test12345'
+ })
+>>>>>>> srinidhi3
 
 app.post('/api/admin/login', function (req, res) {
   console.log(req.body);
@@ -327,6 +337,24 @@ app.get('/api/student/:StudentID/viewprofile', function (req, res) {
     .catch(function (error) {
       console.log(error);
     })
+})
+//Admin adding Badges
+app.post('/api/admin/:StudentID/addbadges',function(req,res){
+  console.log(req.body);
+  Badge.create({
+    StudentID:req.params.StudentID,
+    BadgeName:req.body.badge,
+    Status:1
+  })
+  .then(function (badges) {
+    console.log(badges)
+    res.send(badges);
+  })
+  .catch(function (error) {
+    console.log(error);
+    res.send(error);
+  })
+
 })
 
 //Admin Adding Scores
