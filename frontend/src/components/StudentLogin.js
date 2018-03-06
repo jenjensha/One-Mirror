@@ -9,8 +9,8 @@ class StudentLogin extends Component {
 
     this.state = {
       data: {
-        studentid:'',
-        password: ''
+        StudentID:'',
+        Password: ''
       },
       msg: {
         studentidError: '',
@@ -34,9 +34,11 @@ class StudentLogin extends Component {
   handleSubmit(event) {
     event.preventDefault();
     let _this = this;
+    console.log(this.state.studentid);
+    console.log(this.state.password);
     axios.post("http://localhost:8080/student/login", {
-      studentid: this.state.studentid,
-      password: this.state.password
+      StudentID: this.state.data.StudentID,
+      Password: this.state.data.Password
     }).then(function (response) {
       _this.setState({
         msg: {
@@ -49,7 +51,7 @@ class StudentLogin extends Component {
         _this.setState({errorMessage: response.data.message})
       } else {
         _this.props.history.push(
-          { pathname: '/studentDashboard',
+          { pathname: '/student/dashboard',
             state: {unicorn: response.data}
           }) //react router will sent user to this link
       }
@@ -58,8 +60,8 @@ class StudentLogin extends Component {
       if(error.response){
         let mainErrors = error.response.data.errors,
         msg = {
-          studentidError: mainErrors.studentid ? mainErrors.studentid.msg : '',
-          passwordError: mainErrors.password ? mainErrors.password.msg : ''
+          studentidError: mainErrors.StudentID ? mainErrors.StudentID.msg : '',
+          passwordError: mainErrors.Password ? mainErrors.Password.msg : ''
         };
         this.setState({
           msg: msg
@@ -75,13 +77,13 @@ class StudentLogin extends Component {
         <h1>Student Login</h1>
           <form onSubmit={this.handleSubmit}>
               <div className="form-group">
-                  <label htmlFor="exampleInputEmail2">StudentID</label>
-                  <input type="text" name="studentid" value={this.state.data.email} onChange={this.handleChange} className="form-control" id="exampleInputEmail2" aria-describedby="emailHelp" placeholder="Enter Student ID" />
+                  <label htmlFor="inputEmailId">StudentID</label>
+                  <input type="text" name="StudentID" value={this.state.data.StudentID} onChange={this.handleChange} className="form-control" id="exampleInputEmail2" aria-describedby="emailHelp" placeholder="Enter Student ID" />
                   <span className="text-danger"> {this.state.msg.studentidError}</span>
               </div>
               <div className="form-group">
-                  <label htmlFor="exampleInputPassword2">Password</label>
-                  <input type="password" name="password" value={this.state.data.password} onChange={this.handleChange} className="form-control" id="exampleInputPassword2" placeholder="Password" />
+                  <label htmlFor="inputPassword">Password</label>
+                  <input type="password" name="Password" value={this.state.data.Password} onChange={this.handleChange} className="form-control" id="exampleInputPassword2" placeholder="Password" />
                   <span className="text-danger"> {this.state.msg.passwordError}</span>
               </div>
               <button type="submit" className="btn btn-primary">Login</button>

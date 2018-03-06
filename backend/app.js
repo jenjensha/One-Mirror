@@ -106,10 +106,11 @@ app.post('/student/badges',function(req,res){
 
 // Student Login
 
+
 const studentLoginValidation = [
-  check('studentid', 'Please enter a StudentID').not().isEmpty(),
-  check('password', 'Please enter your password').not().isEmpty(),
-  check('studentid', 'Please enter a valid StudentID').custom(value => {
+  check('StudentID', 'Please enter a StudentID').not().isEmpty(),
+  check('Password', 'Please enter your password').not().isEmpty(),
+  check('StudentID', 'Please enter a valid StudentID').custom(value => {
     return Student.find({ 'studentid': value })
       .then(user => {
         if (user.length)
@@ -120,9 +121,10 @@ const studentLoginValidation = [
   })
 ];
 
-app.get('/studentlogin', studentLoginValidation, function (req, res) {
+app.post('/student/login', studentLoginValidation, function (req, res) {
+  console.log(req.body);
   const errors = validationResult(req);
-  if (!erros.isEmpty()) {
+  if (!errors.isEmpty()) {
     console.log(errors);
     console.log(errors.mapped());
     return res.status(422).json({ errors: errors.mapped() });
@@ -138,6 +140,19 @@ app.get('/studentlogin', studentLoginValidation, function (req, res) {
       res.send({ error: 'error', message: 'Something went wrong' })
     });
 });
+
+//student ChangeRequest
+app.post('/student/changereq', function (req, res) {
+  console.log(req.body);
+  ChangeReq.create(req.body)
+    .then(function (changereq) {
+      res.send(changereq);
+    }).catch(function (error) {
+      res.send({status: 'error', message: 'Something went wrong with change request'})
+    });
+})
+
+
 
 // Uncomment to add an admin user
 // Admin.create({
@@ -177,7 +192,7 @@ app.get('/api/current_admin', function (req, res) {
   if (req.session.admin) {
     Admin.findById(req.session.admin._id)
       .then(function (admin) {
-        res.send({ 
+        res.send({
           _id: admin._id,
           email: admin.email,
           firstName: admin.firstName,
@@ -187,6 +202,9 @@ app.get('/api/current_admin', function (req, res) {
     res.send({ error: 'not logged in' })
   }
 });
+
+
+//Admin registration / create User and Validation
 
 ///Log Out
 app.get('/api/admin/logout', function (req, res) {
@@ -457,7 +475,7 @@ app.post('/api/:StudentID/update',
 
   function (req, res) {
     var errors = validationResult(req);
-    
+
     if (!errors.isEmpty()) {
       return res.send({ errors: errors.mapped() });
     }
@@ -466,7 +484,7 @@ app.post('/api/:StudentID/update',
       .then(function (student) {
         student.FirstName = req.body.firstName
           student.LastName = req.body.lastName
-         
+
           student.DateOfBirth = req.body.dateOfBirth
           student.Email = req.body.email
           student.Video = req.body.video
@@ -479,7 +497,7 @@ app.post('/api/:StudentID/update',
           student.CV_link = req.body.CVlink
           student.ShortDescription = req.body.shortDescription
           student.Status = req.body.status
-          
+
           student.save()
             .then(function (student) {
               console.log('test1')

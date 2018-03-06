@@ -9,13 +9,11 @@ import AddScore from './AddScore';
 import AdminViewProfile from './AdminViewProfile';
 import EditStudentDetails from './EditStudentDetails'
 import StudentDashboard from './StudentDashboard';
-
-
-
-
 import StudentProfile from './StudentProfile';
 import BadgesPage from './BadgesPage';
 import AdminChangeReqList from './AdminChangeReqList'
+import ChangeRequest from './ChangeRequest';
+
 
 class App extends Component {
     render() {
@@ -34,10 +32,13 @@ class App extends Component {
                     <Route exact path='/' component={HomePage} />
                     <Route path='/student/login' component={StudentLogin} />
                     <Route path='/admin' component={AdminLog} />
-
                     <Route path='/student/dashboard' component={StudentDashboard} />
                     <Route path='/student/profile' component={StudentProfile} />
+
                     <Route path='/student/badges' component={BadgesPage} />
+
+                    <Route path='/student/changerequest' component={ChangeRequest} />
+
 
                     <Route render={function(){
                         return <p> Not Found</p>
