@@ -13,6 +13,7 @@ var Score = require('./Models/Score');
 var Student = require('./Models/Student');
 var { check, validationResult } = require('express-validator/check');
 var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
 var multer = require('multer');
 var mime = require('mime-types');
 var randomstring = require('randomstring');
@@ -42,16 +43,22 @@ app.use(bodyParser.json());
 // Cross-origin resource sharing - Middelware
 app.use(cors({
   origin: ['http://localhost:3000'],
-  methods: ['GET', 'POST', 'DELETE', 'PUT'],
+  methods: ['GET', 'HEAD', 'POST', 'DELETE', 'PUT', 'PATCH', 'OPTIONS'],
   credentials: true // enable set cookie
 }));
 
-// Session - Middelware
 app.use(session({
+  proxy: true,
+  secure: false,
   resave: true,
-  secret: 'Vt9PxTrm~E{4`9]T',
+  secret: 'qwertyuiop1234567890',
   saveUninitialized: true,
-  cookie: { maxAge: 16000 }
+  cookie: {
+    maxAge: (60000 * 60),
+    secure: false, // this should be false for localhost
+    httpOnly: false,
+  },
+  store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
 
 
@@ -130,6 +137,61 @@ app.get('/studentlogin', studentLoginValidation, function (req, res) {
     }).catch(function (error) {
       res.send({ error: 'error', message: 'Something went wrong' })
     });
+});
+
+// Uncomment to add an admin user
+// Admin.create({
+//     firstName: 'Jen',
+//     lastName: 'Sibunga',
+//    Email: 'admin@gmail.com',
+//    Password: 'test12345'
+//  })
+
+app.post('/api/admin/login', function (req, res) {
+  console.log(req.body);
+  Admin.findOne({
+    Email: req.body.email,
+    Password: req.body.password
+  })
+    .then(function (admin) {
+      if (!admin) {
+        let errors_value = {
+          login: { msg: 'Wrong email or password' }
+        }
+        return res.send({ errors: errors_value })
+      } else {
+        req.session.admin = admin;
+        return res.send({ message: 'You are signed in' });
+      }
+
+      res.send(admin);
+    })
+    .catch(function (error) {
+      console.log(error);
+
+    })
+})
+
+app.get('/api/current_admin', function (req, res) {
+  console.log(req.session)
+  if (req.session.admin) {
+    Admin.findById(req.session.admin._id)
+      .then(function (admin) {
+        res.send({ 
+          _id: admin._id,
+          email: admin.email,
+          firstName: admin.firstName,
+        })
+      })
+  } else {
+    res.send({ error: 'not logged in' })
+  }
+});
+
+///Log Out
+app.get('/api/admin/logout', function (req, res) {
+  req.session.destroy();
+  res.send({ message: 'session destroyed' })
 });
 
 //Admin registration / create User and Validation

@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import AdminNav from './AdminNav';
+
+
 class AdminDashboard extends Component {
   constructor(props){
     super(props);
@@ -49,6 +52,7 @@ class AdminDashboard extends Component {
     console.log(this.state.students);
     return (
       <div>
+        <AdminNav />
         <h1>Admin Dashboard</h1>
         <nav className="nav">
           <a className="nav-link disabled" href="#">List Of Students</a>
