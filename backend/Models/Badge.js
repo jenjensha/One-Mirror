@@ -7,15 +7,30 @@ var BadgeSchema = new Schema({
         type: String,
         required: true
     },
-    BadgeName:{
-        type: String,
-        required: true
+    Badge1Status:{
+        type: Number,
+        Default: 0
     },
-    Status:{
+    Badge2Status:{
+        type: Number,
+        Default: 0
+    },
+    Badge3Status:{
+        type: Number,
+        Default: 0
+    },
+    Badge4Status:{
+        type: Number,
+        Default: 0
+    },
+    Badge5Status:{
+        type: Number,
+        Default: 0
+    },
+    Badge6Status:{
         type: Number,
         Default: 0
     }
-
 })
 
 module.exports = mongoose.model('Badge', BadgeSchema);
