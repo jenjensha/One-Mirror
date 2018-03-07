@@ -27,11 +27,11 @@ a:hover {
 h5{
     color: tomato;
 }
-button{
+ #donate button{
     background-color: tomato;
     color: #d2d1d1;
 }
-button:hover:enabled {
+#donate button:hover:enabled {
     background: linear-gradient(tomato,chocolate);
     /* color: #fff; */
     /* text-decoration: none; */

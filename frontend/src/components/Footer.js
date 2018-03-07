@@ -41,7 +41,9 @@ class Footer extends Component {
                   <a href="https://www.facebook.com/restartnetwork" className="facebook"><i className="fa fa-facebook" /></a>
                   <a href="https://instagram.com/restartnetwork/" className="instagram"><i className="fa fa-instagram" /></a>
                 </div>
+                <div id="donate">
                 <button type="button" className="btn btn-default"><a href="https://useplink.com/payment/cR9BfsmzWQ7hFDzU7bjC" target="_blank">Donate</a></button>
+                </div>
               </div>
             </div>
           </div>
