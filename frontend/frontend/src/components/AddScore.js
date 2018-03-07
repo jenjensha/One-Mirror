@@ -11,36 +11,26 @@ class AddScore extends Component {
     this.state = {
       challenge: '',
       score: '',
-      //addbadge:'',
-      enablebadge:'',
+      badge:'',
       error: null,
       success: null,
       loading: true,
-      scorecard: null
-
+      scorecard: null,
     }
 
     this.selectKey = this.selectKey.bind(this);
-    //this.selectAddBadge = this.selectAddBadge.bind(this);
-    this.selectEnableBadge = this.selectEnableBadge.bind(this);
+    this.selectBadge = this.selectBadge.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    //this.handleAddBadgeSubmit=this.handleAddBadgeSubmit.bind(this);
-    this.handleEnableBadgeSubmit=this.handleEnableBadgeSubmit.bind(this);
-    //this.handleEnableBadgeClick=this.handleEnableBadgeClick.bind(this);
-
+    this.handleBadgeSubmit=this.handleBadgeSubmit.bind(this);
   }
 
   selectKey(event) {
     this.setState({ challenge: event.target.value })
   }
-  // selectAddBadge(event){
-  //   let _this = this;
-  //   _this.setState({addbadge:event.target.value})
-  // }
-  selectEnableBadge(event){
+  selectBadge(event){
     let _this = this;
-    _this.setState({enablebadge:event.target.value})
+    _this.setState({badge:event.target.value})
   }
   handleInputChange(event) {
     this.setState({
@@ -53,7 +43,7 @@ class AddScore extends Component {
     console.log(this.props);
     axios.post(`http://localhost:8080/api/admin/${this.props.match.params.StudentID}/addscores`, {
       challenge: _this.state.challenge,
-      score: _this.state.score
+      score: _this.state.score,
     })
       .then(function (response) {
         _this.setState({
@@ -68,12 +58,12 @@ class AddScore extends Component {
         console.log(error);
       })
   }
-  handleEnableBadgeSubmit(event) {
+  handleBadgeSubmit(event) {
     event.preventDefault();
     let _this = this;
     console.log(this.props);
-    axios.post(`http://localhost:8080/api/admin/${this.props.match.params.StudentID}/enablebadges`, {
-      enablebadge:_this.state.enablebadge
+    axios.post(`http://localhost:8080/api/admin/${this.props.match.params.StudentID}/addbadges`, {
+      badge:_this.state.badge
     })
       .then(function (response) {
         console.log(response);
@@ -83,23 +73,6 @@ class AddScore extends Component {
         console.log(error);
       })
   }
-  // handleAddBadgeSubmit(event) {
-  //   event.preventDefault();
-  //   let _this = this;
-  //   console.log(this.props);
-  //   axios.post(`http://localhost:8080/api/admin/${this.props.match.params.StudentID}/addbadges`, {
-  //     addbadge:_this.state.addbadge
-  //   })
-  //     .then(function (response) {
-  //
-  //       console.log(response);
-  //
-  //     })
-  //     .catch(function (error) {
-  //       console.log(error);
-  //     })
-  // }
-
 
   getScoreCard(){
     let _this = this;
@@ -118,32 +91,14 @@ class AddScore extends Component {
       .catch((error) => {
         console.log(error)
       })
+
+
+
   }
-  // getBadgeCard()
-  //
-  // {
-  //   let _this = this;
-  //   axios.get(`http://localhost:8080/api/admin/${this.props.match.params.StudentID}/badges`)
-  //     .then(function (response) {
-  //
-  //       console.log(response);
-  //
-  //       if (response.data.error) {
-  //
-  //         _this.setState({ loading: false })
-  //       } else {
-  //         _this.setState({ loading: false, badgecard: response.data })
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.log(error)
-  //     })
-  // }
 
   componentDidMount() {
 
    this.getScoreCard();
-
   }
 
   render() {
@@ -179,34 +134,6 @@ class AddScore extends Component {
           </table>
         </div>
 
-        {/* {this.state.badgecard &&
-
-        <div className="badgeTable">
-          <table className="table ">
-            <thead>
-              <tr>
-                <th scope="col">Badge</th>
-                <th scope="col">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-            }
-
-
-                  {this.state.badgecard && this.state.badgecard.badges.map(function(badge){
-                    return (
-
-                    <tr key={badge._id}>
-                      <td>{badge.BadgeName}</td>
-                      <td>  <button type="submit" name="enableBadge"  className="btn btn-primary">Enable Badge</button></td>
-              </tr>
-                    )
-              }).bind(this)}
-
-            </tbody>
-          </table>
-        </div> */}
-
 
         <form onSubmit={this.handleSubmit}>
           <select name="challenge" onChange={this.selectKey}>
@@ -223,30 +150,15 @@ class AddScore extends Component {
 
           </div>
         </form>
-        {/* <form onSubmit={this.handleAddBadgeSubmit}>
-          <select name="addbadge" onChange={this.selectAddBadge}>
+        <form onSubmit={this.handleBadgeSubmit}>
+          <select name="badge" onChange={this.selectBadge}>
             <option key={1} value='full-stackLAMP'>Full Stack Developer(LAMP)</option>
             <option key={2} value='full-satckMERN'>Full Stack Developer(MERN)</option>
             <option key={3} value='RestartOneGraduate'>Restart One Graduate</option>
           </select>
-          <p>{this.state.addbadge}</p>
+          <p>{this.state.badge}</p>
           <div className="form-group">
-            <button type="submit" name="addBadge" className="btn btn-primary">Add Badge</button>
-          </div>
-        </form> */}
-
-         <form onSubmit={this.handleEnableBadgeSubmit}>
-          <select name="enablebadge" onChange={this.selectEnableBadge}>
-            <option key={1} value='Badge1'>Badge1</option>
-            <option key={2} value='Badge2'>Badge2</option>
-            <option key={3} value='Badge3'>Badge3</option>
-            <option key={4} value='Badge4'>Badge4</option>
-            <option key={5} value='Badge5'>Badge5</option>
-            <option key={6} value='Badge6'>Badge6</option>
-          </select>
-          <p>{this.state.enablebadge}</p>
-          <div className="form-group">
-            <button type="submit" name="enableBadge" className="btn btn-primary">Enable Badge</button>
+            <button type="submit" name="addBadge" className="btn btn-primary">Enable Badge</button>
           </div>
         </form>
       </div>
