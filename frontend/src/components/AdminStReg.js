@@ -76,6 +76,7 @@ class AdminStReg extends Component {
         formData.append('githubLink', this.state.data.githubLink);
         formData.append('hackerRankLink', this.state.data.hackerRankLink);
         formData.append('CVlink', this.state.data.CVlink);
+        formData.append('StudentClass', this.state.data.StudentClass);
 
         axios.post("http://localhost:8080/api/student/register", formData)
             .then(res => {
@@ -111,7 +112,8 @@ class AdminStReg extends Component {
                             linkedinLink: '',
                             githubLink: '',
                             hackerRankLink: '',
-                            CVlink: ''
+                            CVlink: '',
+                            studentClasses :"",
                         },
                         error: {
                             firstName: '',
@@ -154,6 +156,23 @@ class AdminStReg extends Component {
     //   event.preventDefault();
     //   axios.post("http://localhost:8080/api/student/addbadge",this.state.data.
     // }
+
+    componentDidMount(){
+        let _this = this;
+        axios.get("http://localhost:8080/api/admin/student/class/list")
+            .then((response) => {
+                console.log(response);
+                if (response.data.error) {
+                    _this.setState({ loading: false })
+                } else {
+                    _this.setState({ studentClasses: response.data, loading: false })
+                }
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+
+    }
     render() {
         return (
             <div className="register-std">
@@ -261,6 +280,22 @@ class AdminStReg extends Component {
 
                         </div>
                         <p className="text-success">{this.state.success}</p>
+
+                        <div className="form-group">
+                            <label htmlFor="StudentClass">Student class</label>
+
+                            <select name="StudentClass" id="StudentClass" onChange={this.handleChange} value={this.state.data.StudentClass}>
+                                {/* <option key={1} value='on probation'>on probation</option> */}
+                                {this.state.studentClasses && this.state.studentClasses.map(function (studentClass) {
+                                    return (
+                                        <option key={studentClass._id} value={studentClass._id}>{studentClass.name}</option>
+                                    )
+                                })}
+
+                            </select>
+                            <p className="text-danger">{this.state.error.status}</p>
+
+                        </div>
 
                         <button type="submit" className="btn btn-primary subbut">Submit</button>
 

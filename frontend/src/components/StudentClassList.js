@@ -1,6 +1,7 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import AdminNav from './AdminNav';
 
 class StudentClassList extends Component {
 
@@ -30,12 +31,16 @@ class StudentClassList extends Component {
       .catch((error) => {
         console.log(error)
       })
+      
   }
+
 
   render() {
 
     return (
       <div>
+
+        <AdminNav />
         <h1>Student Class</h1>
 
         <div className="table-responsive-md">
