@@ -63,7 +63,7 @@ class AdminDashboard extends Component {
                 <th scope="col" colSpan={1}>StudentClass</th>
                 <th scope="col" colSpan={1}>Picture</th>
                 <th scope="col" colSpan={3}>Name</th>
-                <th scope="col" colSpan={3}>Actions</th>
+                <th scope="col" colSpan={4}>Actions</th>
 
               </tr>
             </thead>
@@ -83,6 +83,7 @@ class AdminDashboard extends Component {
                     <td><Link className="btn btn-primary" to={`/admin/${student.StudentID}/editdetails`}>Edit</Link></td>
                     <td><a className="btn btn-danger" onClick={this.handleProfileClick}>View Profile</a></td>
                     <td><Link className="btn btn-success" to={`/admin/${student.StudentID}/addscore`}>Add Scores</Link></td>
+                    <td><Link className="btn btn-primary" to={`/admin/${student.StudentID}/badges`}>Badges</Link></td>
                   </tr>
                 )
               }.bind(this))}

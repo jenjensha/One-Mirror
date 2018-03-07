@@ -7,6 +7,7 @@ import AdminDashboard from './AdminDashboard';
 import AdminStReg from './AdminStReg';
 import AddScore from './AddScore';
 //import AdminViewProfile from './AdminViewProfile';
+import AdminBadges from './AdminBadges';
 import StudentClassList from './StudentClassList';
 import AdminAddStudentClass from './AdminAddStudentClass';
 import AdminEditStudentClass from './AdminEditStudentClass';
@@ -34,6 +35,7 @@ class App extends Component {
                     <Route exact path='/studentlogin' component={StudentLogin} />
                     <Route exact path='/admin' component={AdminLog} />
                     <Route exact path='/admin/dashboard' component={AdminDashboard} />
+                    <Route exact path='/admin/:StudentID/badges' component={AdminBadges} />
                     <Route exact path='/admin/:StudentID/addscore' component={AddScore} />
                     <Route exact path='/admin/student/register' component={AdminStReg} />
                     <Route path='/admin/:StudentID/editdetails' component={EditStudentDetails} />

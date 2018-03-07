@@ -149,8 +149,10 @@ class EditStudentDetails extends Component {
                     newData.githubLink = response.data.student.Github_link;
                     newData.hackerRankLink = response.data.student.hackerRank_link;
                     newData.CVlink = response.data.student.CV_link;
-
+                    newData.StudentClass = response.data.student.StudentClass;
+                    
                     _this.setState({
+                        studentClasses: response.data.studentClasses,
                         data: newData,
                         currentPicture: `http://localhost:8080/uploads/${response.data.student.profilePic}`
                     })
@@ -161,21 +163,9 @@ class EditStudentDetails extends Component {
                 console.log(error);
             })
 
-        axios.get("http://localhost:8080/api/admin/student/class/list")
-            .then((response) => {
-                if (response.data.error) {
-                    _this.setState({ loading: false })
-                } else {
-                    _this.setState({ studentClasses: response.data, loading: false })
-                }
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-
     }
     render() {
-
+        console.log('this.state.StudentClass', this.state.data.StudentClass)
         return (
             <div className="editStudentDetails">
 
@@ -255,7 +245,6 @@ class EditStudentDetails extends Component {
                         <p className="text-danger">{this.state.error.CVlink}</p>
 
                     </div>
-                    <p className="text-success">{this.state.success}</p>
 
                     <div className="form-group">
                         <label htmlFor="StudentClass">Student class</label>
@@ -272,7 +261,8 @@ class EditStudentDetails extends Component {
                         <p className="text-danger">{this.state.error.StudentClass}</p>
 
                     </div>
-
+                    
+                    <p className="text-success">{this.state.success}</p>
                     <button type="submit" className="btn btn-primary submit">Update</button>
                 </form>
             </div>

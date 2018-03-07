@@ -22,9 +22,10 @@ var nodemailer = require('nodemailer');
 
 // seperate routes for admin student classes
 var StudentClassRoutes = require('./routes/StudentClassRoutes');
+var StudentClass = require('./Models/StudentClass');
 
-mongoose.connect('mongodb://localhost:27017/one_mirror');
-//mongoose.connect('mongodb://test:test@ds141068.mlab.com:41068/one-mirror');
+//mongoose.connect('mongodb://localhost:27017/one_mirror');
+mongoose.connect('mongodb://test:test@ds141068.mlab.com:41068/one-mirror');
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -113,6 +114,59 @@ app.post('/student/badges',function(req,res){
       res.send({status: 'error', message: 'Something went wrong'});
   });
 });
+
+app.get('/student/:StudentID/badges' , function(req, res) {
+  Badge.findOne({ StudentID: req.params.StudentID })
+  .then(function(badge) {
+    if(badge) {
+      res.send(badge);
+    } else {
+      res.send('not_found');
+    }
+    
+  })
+  .catch(function(error) {
+    res.send('error');
+  });
+})
+
+app.post('/student/:StudentID/badges/update', function(req, res) {
+  Badge.findOne({ StudentID: req.params.StudentID })
+    .then(function(badge) {
+      if(badge){
+        badge.Badge1 = req.body.Badge1
+        badge.Badge2 = req.body.Badge2
+        badge.Badge3 = req.body.Badge3
+        badge.Badge4 = req.body.Badge4
+        badge.Badge5 = req.body.Badge5
+        badge.Badge6 = req.body.Badge6
+        badge.save();
+        res.send('success')
+      }else{
+        Badge.create({
+          StudentID: req.params.StudentID,
+        Badge1 :req.body.Badge1,
+        Badge2 :req.body.Badge2,
+        Badge3 : req.body.Badge3,
+        Badge4 : req.body.Badge4,
+        Badge5 : req.body.Badge5,
+        Badge6 : req.body.Badge6
+       
+        })
+        .then(function(badge) {
+          res.send('success')
+        })
+        .catch(function(error){
+          console.log(error);
+        })
+      }
+    })
+    .catch(function(error){
+      console.log(error);
+        })
+
+    
+})
 
 // Student Login
 
@@ -560,8 +614,10 @@ app.get('/api/:StudentID/getedititem', function (req, res) {
 
   Student.findOne({ StudentID: req.params.StudentID })
     .then(function (student) {
-      console.log('student', student);
-      res.send({ student })
+      StudentClass.find({})
+        .then(function(studentClasses) {
+          res.send({ student: student, studentClasses: studentClasses })
+        })
     })
     .catch(function (error) {
       console.log(error);
