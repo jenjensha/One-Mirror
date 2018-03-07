@@ -6,15 +6,30 @@
   width: 50%;
   height: auto;
   border: 1px solid black;
+  display: inline-block;
 }
 
 .BadgesPage-List{
-  width: 30%;
   height: auto;
-  display: inline-block;
-  text-align: right;
+  /* display: inline-block; */
+  text-align: center;
 }
 
 .BadgesPage-List li{
   list-style: none;
+  padding: 15%;
+}
+
+.BadgesPage-mainBlock{
+  height: 50%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+.enabled{
+  opacity: 1;
+}
+
+.disabled{
+  opacity: 0.5;
 }
