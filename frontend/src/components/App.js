@@ -18,6 +18,8 @@ import AdminChangeReqList from './AdminChangeReqList'
 import Footer from './Footer';
 import Header from './Header'
 import ChangeRequest from './ChangeRequest';
+import RestartLinks from './RestartLinks';
+
 
 
 class App extends Component {
@@ -45,6 +47,7 @@ class App extends Component {
                     <Route path='/student/badges' component={BadgesPage} />
 
                     <Route path='/student/changerequest' component={ChangeRequest} />
+                    <Route path='/restartlinks' component={RestartLinks} />
 
 
                     <Route path='/footer' component={Footer} />
