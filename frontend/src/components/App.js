@@ -37,7 +37,7 @@ class App extends Component {
 
                     <Route path='/student/badges' component={BadgesPage} />
 
-                    <Route path='/student/changerequest' component={ChangeRequest} />
+                    <Route path='/student/changereq' component={ChangeRequest} />
 
 
                     <Route render={function(){

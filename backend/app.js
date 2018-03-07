@@ -19,8 +19,8 @@ var mime = require('mime-types');
 var randomstring = require('randomstring');
 var path = require('path');
 
-mongoose.connect('mongodb://localhost:27017/one_mirror');
-//mongoose.connect('mongodb://test:test@ds141068.mlab.com:41068/one-mirror');
+//mongoose.connect('mongodb://localhost:27017/one_mirror');
+mongoose.connect('mongodb://test:test@ds141068.mlab.com:41068/one-mirror');
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -141,9 +141,20 @@ app.post('/student/login', studentLoginValidation, function (req, res) {
     });
 });
 
+
+const changeRequestValidation = [
+  check('title', 'Please enter a title').not().isEmpty(),
+  check('Text', 'Sorry but you can not send empty requests').not().isEmpty(),
+];
+
 //student ChangeRequest
-app.post('/student/changereq', function (req, res) {
+app.post('/student/changereq', changeRequestValidation, function (req, res) {
   console.log(req.body);
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    console.log(errors.mapped());
+    return res.status(422).json({ errors: errors.mapped() });
+  }
   ChangeReq.create(req.body)
     .then(function (changereq) {
       res.send(changereq);

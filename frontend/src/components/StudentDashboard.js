@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import ChangeRequest from './ChangeRequest';
 import '../styles/studentDashboard.css';
+import {Animated} from "react-animated-css";
 
 class StudentDashboard extends Component {
   constructor(props){
@@ -10,10 +11,10 @@ class StudentDashboard extends Component {
 
     if(props.location.state !== undefined) {
     this.state = {
-      student: [this.props.location.state.unicorn],
+      student: this.props.location.state.unicorn,
       currentStudentName: this.props.location.state.unicorn.FirstName
-
     }
+
   }
 
 
@@ -50,28 +51,53 @@ class StudentDashboard extends Component {
 
         </div>
 
-        <ul className="link-list">
-          {this.state.student ?
-            this.state.student.map(student => {
-              return (
+        <ul className="dashboard-link-list">
               <div>
                 <li>
+                <div id="imgBounce">
+                <a href={this.state.student.LinkedIn_link}>
                   <img
-                    className="link-icon"
-                    src=""
-                    alt='Icon for LinkedIn' />
-                    <a href={student.LinkedIn_link}> LinkedIn </a>
+                    className="dashboard-link-icon"
+                    src="/linkedin-logo.png"
+                    alt='Icon for LinkedIn'/>
+                    </a>
+                    <a href={this.state.student.LinkedIn_link}> LinkedIn </a>
+                  </div>
                 </li>
-                <p> linkedin{student.LinkedIn_link} </p>
-                <p> github{student.Github_link} </p>
-                <p>hack {student.hackerRank_link} </p>
-                <p>cv {student.CV_link} </p>
+                <li>
+                  <div id="imgBounce">
+                  <a href={this.state.student.Github_link}>
+                  <img
+                    className="dashboard-link-icon"
+                    src="/Github-logo.png"
+                    alt="Icon for Github"/>
+                    </a>
+                    <a href={this.state.student.Github_link}> Github </a>
+                    </div>
+                </li>
+                <li>
+                  <div id="imgBounce">
+                  <a href={this.state.student.hackerRank_link}>
+                  <img
+                    className="dashboard-link-icon"
+                    src="/HackerRank-logo.png"
+                    alt="Icon for HackerRank"/>
+                    </a>
+                    <a href={this.state.student.hackerRank_link}> HackerRank</a>
+                    </div>
+                </li>
+                <li>
+                  <div id="imgBounce">
+                  <a href={this.state.student.CV_link}>
+                  <img
+                    className="dashboard-link-icon"
+                    src="/CV-logo.png"
+                    alt="Icon for CV"/>
+                    </a>
+                    <a href={this.state.student.CV_link}> CV </a>
+                    </div>
+                </li>
               </div>
-            )
-            })
-            :
-            <p> student links should be shown here </p>
-          }
         </ul>
       </div>
     )
