@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import '../styles/BadgesPage.css';
 import StudentLinks from './StudentLinks';
+import Header from './Header';
+import Footer from './Footer';
+
 
 class BadgesPage extends React.Component{
   constructor(props){
@@ -9,7 +12,6 @@ class BadgesPage extends React.Component{
     if(props.location.state !== undefined){
             this.state = {
                 studentInfo: this.props.location.state.detail,
-                //StudentID: this.props.location.state.detail.StudentID,
                 badgesInfo: null
             }
         }
@@ -38,104 +40,110 @@ class BadgesPage extends React.Component{
 
 
   render(){
-
+        console.log(this.state.badgesInfo);
     return(
+          <div>
+          <Header />
             <div className="container BadgesPage-container">
-                <h4> Badges Earned </h4>
+                <h2> Badges Earned </h2>
                 <div className="BadgesPage-mainBlock">
 
                         <div className="BadgesPage-main">
+                              {this.state.badgesInfo &&
                                 <ul className="BadgesPage-List">
                                   <li>
-                                      {this.state.badgesInfo.Badge1Status === 0 ?
+                                      {this.state.badgesInfo.Badge1 === 0 ?
                                         <div className="disabled">
-                                            <img src="/linkedin-logo.png" alt="Linkedin link" width="75" height="75" />
-                                            <h5> Badge1 </h5>  {this.state.badgesInfo.Badge1Status}
+                                            <img src="/a-icon.png" alt="Linkedin link" width="75" height="75" />
+                                            <h5> Badge1 </h5>  {this.state.badgesInfo.Badge1}
                                         </div>
                                        :
                                        <div className="enabled">
-                                             <img src="/Github-logo.png" alt="Linkedin link" width="75" height="75" />
-                                              <h5> Badge1 </h5> {this.state.badgesInfo.Badge1Status}
+                                             <img src="/a-icon.png" alt="Linkedin link" width="75" height="75" />
+                                              <h5> Badge1 </h5> {this.state.badgesInfo.Badge1}
                                       </div>
                                       }
                                   </li>
 
                                   <li>
-                                      {this.state.badgesInfo.Badge2Status === 0 ?
+                                      {this.state.badgesInfo.Badge2 === 0 ?
                                         <div className="disabled">
-                                            <img src="/linkedin-logo.png" alt="Linkedin link" width="75" height="75" />
-                                             <h5> Badge2 </h5> {this.state.badgesInfo.Badge2Status}
+                                            <img src="/b-icon.png" alt="Linkedin link" width="75" height="75" />
+                                             <h5> Badge2 </h5> {this.state.badgesInfo.Badge2}
                                         </div>
                                        :
                                        <div className="enabled">
-                                             <img src="/Github-logo.png" alt="Linkedin link" width="75" height="75" />
-                                              <h5> Badge2 </h5> {this.state.badgesInfo.Badge2Status}
+                                             <img src="/b-icon.png" alt="Linkedin link" width="75" height="75" />
+                                              <h5> Badge2 </h5> {this.state.badgesInfo.Badge2}
                                       </div>
                                       }
                                   </li>
 
                                   <li>
-                                      {this.state.badgesInfo.Badge3Status === 0 ?
+                                      {this.state.badgesInfo.Badge3 === 0 ?
                                         <div className="disabled">
-                                            <img src="/linkedin-logo.png" alt="Linkedin link" width="75" height="75" />
-                                             <h5> Badge3 </h5> {this.state.badgesInfo.Badge3Status}
+                                            <img src="/c-icon.png" alt="Linkedin link" width="75" height="75" />
+                                             <h5> Badge3 </h5> {this.state.badgesInfo.Badge3}
                                         </div>
                                        :
                                        <div className="enabled">
-                                             <img src="/Github-logo.png" alt="Linkedin link" width="75" height="75" />
-                                              <h5> Badge3 </h5> {this.state.badgesInfo.Badge3Status}
+                                             <img src="/c-icon.png" alt="Linkedin link" width="75" height="75" />
+                                              <h5> Badge3 </h5> {this.state.badgesInfo.Badge3}
                                       </div>
                                       }
                                   </li>
 
                                   <li>
-                                      {this.state.badgesInfo.Badge4Status === 0 ?
+                                      {this.state.badgesInfo.Badge4 === 0 ?
                                         <div className="disabled">
-                                            <img src="/linkedin-logo.png" alt="Linkedin link" width="75" height="75" />
-                                             <h5> Badge4 </h5> {this.state.badgesInfo.Badge4Status}
+                                            <img src="/d-icon.png" alt="Linkedin link" width="75" height="75" />
+                                             <h5> Badge4 </h5> {this.state.badgesInfo.Badge4}
                                         </div>
                                        :
                                        <div className="enabled">
-                                             <img src="/Github-logo.png" alt="Linkedin link" width="75" height="75" />
-                                              <h5> Badge4 </h5> {this.state.badgesInfo.Badge4Status}
+                                             <img src="/d-icon.png" alt="Linkedin link" width="75" height="75" />
+                                              <h5> Badge4 </h5> {this.state.badgesInfo.Badge4}
                                       </div>
                                       }
                                   </li>
 
                                   <li>
-                                      {this.state.badgesInfo.Badge5Status === 0 ?
+                                      {this.state.badgesInfo.Badge5 === 0 ?
                                         <div className="disabled">
-                                            <img src="/linkedin-logo.png" alt="Linkedin link" width="75" height="75" />
-                                             <h5> Badge2 </h5> {this.state.badgesInfo.Badge5Status}
+                                            <img src="/f-icon.png" alt="Linkedin link" width="75" height="75" />
+                                             <h5> Badge2 </h5> {this.state.badgesInfo.Badge5}
                                         </div>
                                        :
                                        <div className="enabled">
-                                             <img src="/Github-logo.png" alt="Linkedin link" width="75" height="75" />
-                                              <h5> Badge2 </h5> {this.state.badgesInfo.Badge5Status}
+                                             <img src="/f-icon.png" alt="Linkedin link" width="75" height="75" />
+                                              <h5> Badge2 </h5> {this.state.badgesInfo.Badge5}
                                       </div>
                                       }
                                   </li>
 
                                   <li>
-                                      {this.state.badgesInfo.Badge6Status === 0 ?
+                                      {this.state.badgesInfo.Badge6 === 0 ?
                                         <div className="disabled">
-                                            <img src="/linkedin-logo.png" alt="Linkedin link" width="75" height="75" />
-                                             <h5> Badge6 </h5> {this.state.badgesInfo.Badge6Status}
+                                            <img src="/g-icon.png" alt="Linkedin link" width="75" height="75" />
+                                             <h5> Badge6 </h5> {this.state.badgesInfo.Badge6}
                                         </div>
                                        :
                                        <div className="enabled">
-                                             <img src="/Github-logo.png" alt="Linkedin link" width="75" height="75" />
-                                              <h5> Badge6 </h5> {this.state.badgesInfo.Badge6Status}
+                                             <img src="/g-icon.png" alt="Linkedin link" width="75" height="75" />
+                                              <h5> Badge6 </h5> {this.state.badgesInfo.Badge6}
                                       </div>
                                       }
                                   </li>
 
                                 </ul>
+                              }
                         </div>
 
             </div>
             <StudentLinks obj={this.state.studentInfo} />
             </div>
+            <Footer />
+          </div>
     )
   }
 }

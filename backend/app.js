@@ -104,9 +104,9 @@ app.post('/student/search', validateStudentId, function (req, res) {
 //Get the Student Badges
 
 app.post('/student/badges',function(req,res){
-  Badge.find({ StudentID: req.body.studId }).sort({Status: -1})
+  Badge.findOne({ StudentID: req.body.studId }).sort({Status: -1})
   .then(function(info){
-      //console.log(message);
+      console.log(info);
       res.send(info);
   })
   .catch(function(error){
@@ -331,20 +331,20 @@ app.post('/api/student/register',
             subject: 'New student account', // Subject line
             text: `
             Welcome to Restart, ${student.FirstName}
-            
+
             Your account is created.
             You can login at:
             http://localhost:3000/student/login
-            
+
             Your password is: ${student.Password}
             `, // plain text body
             html: `
             <p>Welcome to Restart, ${student.FirstName}</p>
-            
+
             Your account is created.
             You can login at:
             <a href="http://localhost:3000/student/login">here</a>
-            
+
             Your Log In Id is : ${student.StudentID}
             Your password is: ${student.Password}
 
@@ -587,7 +587,7 @@ console.log(req.body)
         student.ShortDescription = req.body.shortDescription
         student.Status = req.body.status
         if(req.body.StudentClass) {
-          student.StudentClass = req.body.StudentClass          
+          student.StudentClass = req.body.StudentClass
         }
 
         student.save()
