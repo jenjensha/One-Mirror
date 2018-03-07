@@ -21,6 +21,7 @@ import Header from './Header'
 import ChangeRequest from './ChangeRequest';
 import RestartLinks from './RestartLinks';
 import ReactTabs from './ReactTabs';
+import StudentHome from './StudentHome';
 
 
 
@@ -42,6 +43,8 @@ class App extends Component {
                     <Route exact path='/admin/student/class/:id/edit' component={AdminEditStudentClass} />
                     <Route exact path='/admin/student/class/:id/students' component={AdminViewClassStudentList}/>
                     <Route exact path='/' component={HomePage} />
+                    <Route exact path='/home' component={StudentHome} />
+
                     <Route path='/student/login' component={StudentLogin} />
                     <Route path='/admin' component={AdminLog} />
                     <Route path='/student/dashboard' component={StudentDashboard} />

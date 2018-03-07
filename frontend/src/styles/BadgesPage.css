@@ -3,7 +3,6 @@
 }
 
 .BadgesPage-main{
-  width: 50%;
   height: auto;
   border: 1px solid black;
   display: inline-block;
@@ -17,7 +16,8 @@
 
 .BadgesPage-List li{
   list-style: none;
-  padding: 15%;
+  padding: 10% 15%;
+  display: inline-block;
 }
 
 .BadgesPage-mainBlock{

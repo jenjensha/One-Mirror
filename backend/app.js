@@ -104,9 +104,9 @@ app.post('/student/search', validateStudentId, function (req, res) {
 //Get the Student Badges
 
 app.post('/student/badges',function(req,res){
-  Badge.find({ StudentID: req.body.studId }).sort({Status: -1})
+  Badge.findOne({ StudentID: req.body.studId }).sort({Status: -1})
   .then(function(info){
-      //console.log(message);
+      console.log(info);
       res.send(info);
   })
   .catch(function(error){
