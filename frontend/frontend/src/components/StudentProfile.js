@@ -14,7 +14,7 @@ class StudentProfile extends React.Component{
         }
         else{
             this.state ={
-                studentInfo: 'No student'
+                studentInfo: []
             }
         }
       this.handleBadgesClick = this.handleBadgesClick.bind(this);
@@ -41,13 +41,14 @@ class StudentProfile extends React.Component{
   }
 
   render(){
-    if(this.state.StudentID === 'No student')
-    {return <p>Please enter a valid StudentID</p>}
       console.log(this.state.studentInfo);
       console.log(this.state.studentInfo.FirstName);
       var DOBdate = new Date(this.state.studentInfo.DateOfBirth);
      var DOBdateFormat = DOBdate.toISOString().substring(0, 10);
      console.log(DOBdateFormat);
+
+    if(this.state.StudentID === 'No student')
+    {return <p>Please enter a valid StudentID</p>}
     return(
         <div className="container StudentProfile-container">
             <h2> Student Profile </h2>

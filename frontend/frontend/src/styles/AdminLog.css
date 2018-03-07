@@ -1,0 +1,15 @@
+.admin-log-main{
+    background: #102128;
+    text-align: center;
+    margin: 100px auto;
+    padding: 30px;
+    font-size: 30px;
+    color: white;
+}
+.form-group{
+    width: 500px;
+    margin: 0 auto;
+}
+h1{
+    margin-bottom: 50px;
+}

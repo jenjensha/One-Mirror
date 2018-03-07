@@ -7,27 +7,27 @@ var BadgeSchema = new Schema({
         type: String,
         required: true
     },
-    Badge1Status:{
+    Badge1:{
         type: Number,
         Default: 0
     },
-    Badge2Status:{
+    Badge2:{
         type: Number,
         Default: 0
     },
-    Badge3Status:{
+    Badge3:{
         type: Number,
         Default: 0
     },
-    Badge4Status:{
+    Badge4:{
         type: Number,
         Default: 0
     },
-    Badge5Status:{
+    Badge5:{
         type: Number,
         Default: 0
     },
-    Badge6Status:{
+    Badge6:{
         type: Number,
         Default: 0
     }
