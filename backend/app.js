@@ -306,8 +306,9 @@ app.post('/api/student/register',
       LinkedIn_link: req.body.linkedinLink,
       Github_link: req.body.githubLink,
       hackerRank_link: req.body.hackerRankLink,
-      CV_link: req.body.CVlink
-
+      CV_link: req.body.CVlink,
+      StudentClass: req.body.StudentClass,
+      
     })
       .then(function (student) {
         console.log(student)

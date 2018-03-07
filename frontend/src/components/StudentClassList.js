@@ -1,6 +1,7 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import AdminNav from './AdminNav';
 
 class StudentClassList extends Component {
 
@@ -30,12 +31,16 @@ class StudentClassList extends Component {
       .catch((error) => {
         console.log(error)
       })
+      
   }
+
 
   render() {
 
     return (
       <div>
+
+        <AdminNav />
         <h1>Student Class</h1>
 
         <div className="table-responsive-md">
@@ -43,8 +48,8 @@ class StudentClassList extends Component {
             <thead>
               <tr>
                 
-                <th scope="col" colSpan={3}>Student Class </th>
-                <th scope="col" colSpan={3}>Actions</th>
+                <th scope="col" colSpan={1}>Student Class </th>
+                <th scope="col" colSpan={2}>Actions</th>
 
               </tr>
             </thead>
@@ -54,6 +59,7 @@ class StudentClassList extends Component {
                 return (
                   <tr key={studentClass._id}>
                     <th scope="row">{studentClass.name}</th>
+                    <td><Link className="btn btn-success" to={`/admin/student/class/${studentClass._id}/students`}>View Students</Link></td>
                     <td><Link className="btn btn-primary" to={`/admin/student/class/${studentClass._id}/edit`}>Edit</Link></td>
                   </tr>
                 )

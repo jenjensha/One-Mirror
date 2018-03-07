@@ -1,6 +1,7 @@
 var express = require('express');
 var routes = express.Router();
 var StudentClass= require('../Models/StudentClass');
+var Student = require('../Models/Student');
 
 // route: /api/admin/student/class/list
 routes.get('/list', function(req, res) {
@@ -55,5 +56,21 @@ routes.post('/:id/update', function(req, res) {
       res.send(error);
     })
 });
+
+routes.get('/:StudentClassId/students', function (req, res) {
+  Student.find({ StudentClass: req.params.StudentClassId })
+    .sort({
+    _id: 'desc'
+    })
+    .populate('StudentClass')
+    .then((students) => {
+      res.send(students);
+    }
+    ).catch((error) => {
+      res.send({ status: error, message: 'Cannot find students' });
+    })
+})
+
+
 
 module.exports = routes;
