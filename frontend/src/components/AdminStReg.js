@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import '../styles/AdminStReg.css'
+import '../styles/AdminStReg.css';
+import AdminNav from './AdminNav';
 
 class AdminStReg extends Component {
     constructor(props) {
@@ -39,13 +40,13 @@ class AdminStReg extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handlePhotoChange = this.handlePhotoChange.bind(this);
         this.generateID = this.generateID.bind(this);
-      //  this.addBadges = this.addBadges.bind(this);
+        //  this.addBadges = this.addBadges.bind(this);
     }
 
     handlePhotoChange(event) {
         var formData = this.state.data;
         formData[event.target.name] = event.target.files[0]
-        this.setState({data: formData })
+        this.setState({ data: formData })
 
     }
     handleChange(element) {
@@ -77,7 +78,7 @@ class AdminStReg extends Component {
 
         axios.post("http://localhost:8080/api/student/register", formData)
             .then(res => {
-              console.log(res.data);
+                console.log(res.data);
                 if (res.data.errors) {
                     let mainErr = res.data.errors;
                     let errMsg = {
@@ -128,7 +129,7 @@ class AdminStReg extends Component {
             })
             .catch(error => console.log(error))
     }
-    generateID(event){
+    generateID(event) {
         event.preventDefault();
 
         let newData = this.state.data;
@@ -143,104 +144,115 @@ class AdminStReg extends Component {
     render() {
         return (
             <div className="register-std">
+
+                <AdminNav />
+
                 <h1>Student Register</h1>
 
 
                 {this.state.success && <p>{this.state.success}</p>
-              }
+                }
 
 
 
 
 
-              <div>
-                <form onSubmit={this.handleSubmit} className="register-form">
-                    <div className="left-side">
-                        <div className="form-group">
-                            <label htmlFor="exampleInputFirstName">First Name</label>
-                            <input type="text" name="firstName" value={this.state.data.firstName} onChange={this.handleChange} className="form-control" id="exampleInputFirstName" placeholder="First Name" />
-                        </div>
-                        <p className="text-danger">{this.state.error.firstName}</p>
-                        <div className="form-group">
-                            <label htmlFor="exampleInputLastName">Last Name</label>
-                            <input type="text" name="lastName" value={this.state.data.lastName} onChange={this.handleChange} className="form-control" id="exampleInputLastName" placeholder="Last Name" />
-                        </div>
-                        <p className="text-danger">{this.state.error.lastName}</p>
-                        <div className="form-group">
-                            <label htmlFor="exampleInputPassword">Password</label>
-                            <input type="text" name="password" value={this.state.data.password} onChange={this.handleChange} className="form-control" id="exampleInputPassword" placeholder="Password" />
-                        </div>
-                        <p className="text-danger">{this.state.error.password}</p>
+                <div>
+                    <form onSubmit={this.handleSubmit} className="register-form">
+                        <div className="left-side">
+                            <div className="form-group">
+                                <label htmlFor="exampleInputFirstName">First Name</label>
+                                <input type="text" name="firstName" value={this.state.data.firstName} onChange={this.handleChange} className="form-control" id="exampleInputFirstName" placeholder="First Name" />
+                            </div>
+                            <p className="text-danger">{this.state.error.firstName}</p>
+                            <div className="form-group">
+                                <label htmlFor="exampleInputLastName">Last Name</label>
+                                <input type="text" name="lastName" value={this.state.data.lastName} onChange={this.handleChange} className="form-control" id="exampleInputLastName" placeholder="Last Name" />
+                            </div>
+                            <p className="text-danger">{this.state.error.lastName}</p>
+                            <div className="form-group">
+                                <label htmlFor="exampleInputPassword">Password</label>
+                                <input type="text" name="password" value={this.state.data.password} onChange={this.handleChange} className="form-control" id="exampleInputPassword" placeholder="Password" />
+                            </div>
+                            <p className="text-danger">{this.state.error.password}</p>
 
-                        <div className="form-group">
-                            <label htmlFor="exampleInputDateOfBirth">Date of Birth</label>
-                            <input type="date" name="dateOfBirth" value={this.state.dateOfBirth} onChange={this.handleChange} className="form-control" id="exampleInputDateOfBirth" />
-                        </div>
-                        <p className="text-danger">{this.state.error.dateOfBirth}</p>
+                            <div className="form-group">
+                                <label htmlFor="exampleInputDateOfBirth">Date of Birth</label>
+                                <input type="date" name="dateOfBirth" value={this.state.dateOfBirth} onChange={this.handleChange} className="form-control" id="exampleInputDateOfBirth" />
+                            </div>
+                            <p className="text-danger">{this.state.error.dateOfBirth}</p>
 
-                        <div className="form-group">
-                            <label htmlFor="exampleInputEmail">Student Email</label>
-                            <input type="email" name="email" value={this.state.data.email} onChange={this.handleChange} className="form-control" id="exampleInputEmail" placeholder="Student Email" />
-                        </div>
-                        <p className="text-danger">{this.state.error.email}</p>
-                        <div className="form-group">
-                            <label htmlFor="exampleInputShortDescription">Short Description</label>
-                            <textarea type="text" name="shortDescription" value={this.state.data.shortDescription} onChange={this.handleChange} className="form-control" id="exampleInputShortDescription" placeholder="Description"></textarea>
-                        </div>
-                        <p className="text-danger">{this.state.error.shortDescription}</p>
-
-                        <div className="form-group">
-                            <label htmlFor="exampleInputStatus">Status</label>
-                            <input type="text" name="status" value={this.state.data.status} onChange={this.handleChange} className="form-control" id="exampleInputStatus" placeholder="Status" />
-                        </div>
-                        <p className="text-danger">{this.state.error.status}</p>
-                    </div>
-                    <div className="right-side">
-                        <div className="form-group">
-                            <label htmlFor="exampleInputPhoto">Profile Photo</label>
-                            <input type="file" name="photo" accept="image/*" onChange={this.handlePhotoChange} className="form-control" id="exampleInputPhoto" placeholder="Photo" />
-                        </div>
-                        <p className="text-danger">{this.state.error.photo}</p>
-                        <div className="form-group">
-                            <label htmlFor="exampleInputVideo">Video Link</label>
-                            <input type="text" name="video" value={this.state.video} onChange={this.handleChange} className="form-control" id="exampleInputVideo" placeholder="Personal Video Link" />
-                        </div>
-                        <p className="text-danger">{this.state.error.video}</p>
-                        <div className="form-group">
-                            <label htmlFor="exampleInputID"></label>
-                            <button className="btn btn-success" onClick={this.generateID}>Generate ID</button>
-                            <input type="text" value={this.state.data.ID} onChange={this.handleChange} className="form-control" id="exampleInputID" placeholder="StudentID" />
-                        </div>
-                        <p className="text-danger">{this.state.error.ID}</p>
-                        <div className="form-group">
-                            <label htmlFor="exampleInputLindeinLink">Linkedin Link</label>
-                            <input type="text" name="linkedinLink" value={this.state.data.linkedinLink} onChange={this.handleChange} className="form-control" id="exampleInputLindeinLink" placeholder="Student Linkedin (optinal)" />
-                        </div>
-                        <p></p>
-                        <div className="form-group">
-                            <label htmlFor="exampleInputGithubLink">Github Link</label>
-                            <input type="text" name="githubLink" value={this.state.data.githubLink} onChange={this.handleChange} className="form-control" id="exampleInputGithubLink" placeholder="Github Link (optinal)" />
-                        </div>
-                        <p></p>
-                        <div className="form-group">
-                            <label htmlFor="exampleInputhackerRankLink">HackerRank Link</label>
-                            <input type="text" name="hackerRankLink" value={this.state.data.hackerRankLink} onChange={this.handleChange} className="form-control" id="exampleInputhackerRankLink" placeholder="Hacker Rank Link (optinal)" />
-                        </div>
-                        <p></p>
-                        <div className="form-group">
-                            <label htmlFor="exampleInputCVlink">CV Link</label>
-                            <input type="text" name="CVlink" value={this.state.data.CVlink} onChange={this.handleChange} className="form-control" id="exampleInputCVlink" placeholder="CV Link (optinal)" />
-                        </div>
-                        <p></p>
-
-                    </div>
-                    <p className="text-success">{this.state.success}</p>
-
-                    <button type="submit" className="btn btn-primary subbut">Submit</button>
+                            <div className="form-group">
+                                <label htmlFor="exampleInputEmail">Student Email</label>
+                                <input type="email" name="email" value={this.state.data.email} onChange={this.handleChange} className="form-control" id="exampleInputEmail" placeholder="Student Email" />
+                            </div>
+                            <p className="text-danger">{this.state.error.email}</p>
+                            <div className="form-group">
+                                <label htmlFor="exampleInputShortDescription">Short Description</label>
+                                <textarea type="text" name="shortDescription" value={this.state.data.shortDescription} onChange={this.handleChange} className="form-control" id="exampleInputShortDescription" placeholder="Description"></textarea>
+                            </div>
+                            <p className="text-danger">{this.state.error.shortDescription}</p>
 
 
-                </form>
-              </div>
+                            <div className="form-group">
+                                <label htmlFor="exampleInputStatus">Status</label>
+
+                                <select name="status" id="exampleInputStatus" onChange={this.handleChange} value={this.state.data.status}>
+                                    <option key={1} value='on probation'>on probation</option>
+                                    <option key={2} value='graduated'>graduated</option>
+                                    <option key={3} value='dropout'>dropout</option>
+                                </select>
+                                <p className="text-danger">{this.state.error.status}</p>
+
+                            </div>
+
+                        </div>
+                        <div className="right-side">
+                            <div className="form-group">
+                                <label htmlFor="exampleInputPhoto">Profile Photo</label>
+                                <input type="file" name="photo" accept="image/*" onChange={this.handlePhotoChange} className="form-control" id="exampleInputPhoto" placeholder="Photo" />
+                            </div>
+                            <p className="text-danger">{this.state.error.photo}</p>
+                            <div className="form-group">
+                                <label htmlFor="exampleInputVideo">Video Link</label>
+                                <input type="text" name="video" value={this.state.video} onChange={this.handleChange} className="form-control" id="exampleInputVideo" placeholder="Personal Video Link" />
+                            </div>
+                            <p className="text-danger">{this.state.error.video}</p>
+                            <div className="form-group">
+                                <label htmlFor="exampleInputID"></label>
+                                <button className="btn btn-success" onClick={this.generateID}>Generate ID</button>
+                                <input type="text" value={this.state.data.ID} onChange={this.handleChange} className="form-control" id="exampleInputID" placeholder="StudentID" />
+                            </div>
+                            <p className="text-danger">{this.state.error.ID}</p>
+                            <div className="form-group">
+                                <label htmlFor="exampleInputLindeinLink">Linkedin Link</label>
+                                <input type="text" name="linkedinLink" value={this.state.data.linkedinLink} onChange={this.handleChange} className="form-control" id="exampleInputLindeinLink" placeholder="Student Linkedin (optinal)" />
+                            </div>
+                            <p></p>
+                            <div className="form-group">
+                                <label htmlFor="exampleInputGithubLink">Github Link</label>
+                                <input type="text" name="githubLink" value={this.state.data.githubLink} onChange={this.handleChange} className="form-control" id="exampleInputGithubLink" placeholder="Github Link (optinal)" />
+                            </div>
+                            <p></p>
+                            <div className="form-group">
+                                <label htmlFor="exampleInputhackerRankLink">HackerRank Link</label>
+                                <input type="text" name="hackerRankLink" value={this.state.data.hackerRankLink} onChange={this.handleChange} className="form-control" id="exampleInputhackerRankLink" placeholder="Hacker Rank Link (optinal)" />
+                            </div>
+                            <p></p>
+                            <div className="form-group">
+                                <label htmlFor="exampleInputCVlink">CV Link</label>
+                                <input type="text" name="CVlink" value={this.state.data.CVlink} onChange={this.handleChange} className="form-control" id="exampleInputCVlink" placeholder="CV Link (optinal)" />
+                            </div>
+                            <p></p>
+
+                        </div>
+                        <p className="text-success">{this.state.success}</p>
+
+                        <button type="submit" className="btn btn-primary subbut">Submit</button>
+
+
+                    </form>
+                </div>
 
                 <br />
                 <br />

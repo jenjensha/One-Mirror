@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import AdminNav from './AdminNav';
+
+
 class AddScore extends Component {
 
   constructor(props) {
@@ -102,6 +105,9 @@ class AddScore extends Component {
     console.log(this.state);
     return (
       <div>
+
+        <AdminNav />
+
         {this.state.scorecard && this.state.scorecard.student &&
         <h2>{this.state.scorecard.student.FirstName}{this.state.scorecard.student.LastName}</h2>}
         <div className="challengTable">

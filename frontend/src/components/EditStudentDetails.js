@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import moment from 'moment'
+import moment from 'moment';
+import AdminNav from './AdminNav';
 
 class EditStudentDetails extends Component {
     constructor(props) {
         super(props);
-        console.log(props);
+
         this.state = {
             currentPicture: null,
+            studentClasses: null,
             data: {
                 firstName: '',
                 lastName: '',
@@ -20,8 +22,8 @@ class EditStudentDetails extends Component {
                 linkedinLink: '',
                 githubLink: '',
                 hackerRankLink: '',
-                CVlink: ''
-
+                CVlink: '',
+                StudentClass: ''
             },
             error: {
                 firstName: '',
@@ -65,6 +67,7 @@ class EditStudentDetails extends Component {
         formData.append('githubLink', this.state.data.githubLink);
         formData.append('hackerRankLink', this.state.data.hackerRankLink);
         formData.append('CVlink', this.state.data.CVlink);
+        formData.append('StudentClass', this.state.data.StudentClass);
 
         axios.post(`http://localhost:8080/api/${this.props.match.params.StudentID}/update`, formData)
             .then(res => {
@@ -157,11 +160,27 @@ class EditStudentDetails extends Component {
             .catch(function (error) {
                 console.log(error);
             })
+
+        axios.get("http://localhost:8080/api/admin/student/class/list")
+            .then((response) => {
+                if (response.data.error) {
+                    _this.setState({ loading: false })
+                } else {
+                    _this.setState({ studentClasses: response.data, loading: false })
+                }
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+
     }
     render() {
 
         return (
             <div className="editStudentDetails">
+
+                <AdminNav />
+
                 <h3>Edit your message</h3>
                 <form onSubmit={this.handleUpdate}>
                     <div className="left-side">
@@ -190,12 +209,22 @@ class EditStudentDetails extends Component {
                             <textarea rows="4" cols="50" type="text" name="shortDescription" value={this.state.data.shortDescription} onChange={this.handleChange} className="form-control" id="exampleInputShortDescription" placeholder="Description" />
                         </div>
                         <p className="text-danger">{this.state.error.shortDescription}</p>
+
+
                         <div className="form-group">
                             <label htmlFor="exampleInputStatus">Status</label>
-                            <input type="text" name="status" value={this.state.data.status} onChange={this.handleChange} className="form-control" id="exampleInputStatus" placeholder="Status" />
+
+                            <select name="status" id="exampleInputStatus" onChange={this.handleChange} value={this.state.data.status}>
+                                <option key={1} value='on probation'>on probation</option>
+                                <option key={2} value='graduated'>graduated</option>
+                                <option key={3} value='dropout'>dropout</option>
+                            </select>
+                            <p className="text-danger">{this.state.error.status}</p>
+
                         </div>
-                        <p className="text-danger">{this.state.error.status}</p>
+
                     </div>
+
                     <div className="right-side">
                         <div className="form-group">
                             {this.state.currentPicture &&
@@ -227,6 +256,23 @@ class EditStudentDetails extends Component {
 
                     </div>
                     <p className="text-success">{this.state.success}</p>
+
+                    <div className="form-group">
+                        <label htmlFor="StudentClass">Student class</label>
+
+                        <select name="StudentClass" id="StudentClass" onChange={this.handleChange} value={this.state.data.StudentClass}>
+                            {/* <option key={1} value='on probation'>on probation</option> */}
+                            {this.state.studentClasses && this.state.studentClasses.map(function (studentClass) {
+                                return (
+                                    <option key={studentClass._id} value={studentClass._id}>{studentClass.name}</option>
+                                )
+                            })}
+
+                        </select>
+                        <p className="text-danger">{this.state.error.status}</p>
+
+                    </div>
+
                     <button type="submit" className="btn btn-primary submit">Update</button>
                 </form>
             </div>

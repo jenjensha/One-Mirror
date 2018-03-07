@@ -54,15 +54,14 @@ class AdminDashboard extends Component {
       <div>
         <AdminNav />
         <h1>Admin Dashboard</h1>
-        <nav className="nav">
-          <a className="nav-link disabled" href="#">List Of Students</a>
-          <a className="nav-link active" href="/admin/student/register">Registration</a>
-        </nav>
+       
         <div className="table-responsive-md">
           <table className="table table-hover">
             <thead>
               <tr>
-                <th scope="col" colSpan={2}>#</th>
+                <th scope="col" colSpan={1}>#</th>
+                <th scope="col" colSpan={1}>StudentClass</th>
+                <th scope="col" colSpan={1}>Picture</th>
                 <th scope="col" colSpan={3}>Name</th>
                 <th scope="col" colSpan={3}>Actions</th>
 
@@ -74,6 +73,7 @@ class AdminDashboard extends Component {
                 return (
                   <tr key={student._id}>
                     <th scope="row">{student.StudentID}</th>
+                    <td>{student.StudentClass && student.StudentClass.name && student.StudentClass.name}</td>
                     <td>
                       {student.profilePic &&
                         <img src={`http://localhost:8080/uploads/${student.profilePic}`} width="40" height="40" />}

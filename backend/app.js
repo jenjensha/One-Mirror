@@ -20,6 +20,9 @@ var randomstring = require('randomstring');
 var path = require('path');
 var nodemailer = require('nodemailer');
 
+// seperate routes for admin student classes
+var StudentClassRoutes = require('./routes/StudentClassRoutes');
+
 //mongoose.connect('mongodb://localhost:27017/one_mirror');
 mongoose.connect('mongodb://test:test@ds141068.mlab.com:41068/one-mirror');
 
@@ -376,6 +379,7 @@ app.get('/api/listofstudents', function (req, res) {
     .sort({
       StudentId: 'desc'
     })
+    .populate('StudentClass')
     .then((students) => {
       res.send(students);
     }
@@ -564,7 +568,7 @@ app.post('/api/:StudentID/update',
     if (!errors.isEmpty()) {
       return res.send({ errors: errors.mapped() });
     }
-
+console.log(req.body)
     Student.findOne({ StudentID: req.params.StudentID })
       .then(function (student) {
         student.FirstName = req.body.firstName
@@ -582,6 +586,9 @@ app.post('/api/:StudentID/update',
         student.CV_link = req.body.CVlink
         student.ShortDescription = req.body.shortDescription
         student.Status = req.body.status
+        if(req.body.StudentClass) {
+          student.StudentClass = req.body.StudentClass          
+        }
 
         student.save()
           .then(function (student) {
@@ -597,6 +604,9 @@ app.post('/api/:StudentID/update',
         res.send(error);
       })
   });
+
+  // use StudentClassRoutes as middleware
+app.use('/api/admin/student/class', StudentClassRoutes);
 
 app.listen(8080, function () {
   console.log('listening on port 8080');

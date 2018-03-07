@@ -3,63 +3,66 @@ var Schema = mongoose.Schema;
 
 var StudentSchema = new Schema({
 
-    FirstName:{
+    FirstName: {
         type: String,
         required: true
     },
-    LastName:{
+    LastName: {
         type: String,
         required: true
     },
-    StudentID:{
+    StudentID: {
         type: String,
         required: true
     },
-    DateOfBirth:{
+    DateOfBirth: {
         type: Date,
         required: true
     },
-    Email:{
+    Email: {
         type: String,
         required: true
     },
-    Video:{
+    Video: {
         type: String,
         required: false
     },
-    profilePic:{
+    profilePic: {
         type: String,
         required: false
     },
-    ShortDescription:{
+    ShortDescription: {
         type: String,
         required: true
     },
-    Password:{
+    Password: {
         type: String,
         required: true
     },
-    Status:{
+    Status: {
         type: String,
         required: true
     },
-    LinkedIn_link:{
+    LinkedIn_link: {
         type: String,
         required: false
     },
-    Github_link:{
+    Github_link: {
         type: String,
         required: false
     },
-    hackerRank_link:{
+    hackerRank_link: {
         type: String,
         required: false
     },
-    CV_link:{
+    CV_link: {
         type: String,
         required: false
+    },
+    StudentClass: {
+        type: Schema.Types.ObjectId,
+        ref: 'StudentClass'
     }
-
 })
 
 module.exports = mongoose.model('Student', StudentSchema);
