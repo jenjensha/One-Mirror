@@ -76,7 +76,7 @@ class AdminDashboard extends Component {
                     <td>{student.StudentClass && student.StudentClass.name && student.StudentClass.name}</td>
                     <td>
                       {student.profilePic &&
-                        <img src={`http://localhost:8080/uploads/${student.profilePic}`} width="40" height="40" />}
+                        <img src={`http://localhost:8080/uploads/${student.profilePic}`} width="100" height="120" />}
                     </td>
                     <td colSpan={3}>{student.FirstName} {student.LastName}</td>
 
