@@ -19,6 +19,7 @@ import Footer from './Footer';
 import Header from './Header'
 import ChangeRequest from './ChangeRequest';
 import RestartLinks from './RestartLinks';
+import ReactTabs from './ReactTabs';
 
 
 
@@ -48,6 +49,7 @@ class App extends Component {
 
                     <Route path='/student/changerequest' component={ChangeRequest} />
                     <Route path='/restartlinks' component={RestartLinks} />
+                    <Route path='/tabs' component={ReactTabs} />
 
 
                     <Route path='/footer' component={Footer} />
