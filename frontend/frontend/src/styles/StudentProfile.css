@@ -1,0 +1,70 @@
+.StudentProfile-container{
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+.StudentProfile-container a{
+  margin-right: 75%;
+  margin-top:20px;
+  margin-bottom: 20px;
+}
+.StudentProfile-MainContainer{
+  margin-top: 2%;
+}
+.StudentProfile-leftContainer{
+  width: 30%;
+  height: 30%;
+  /* margin-left: 10%; */
+  display: inline-block;
+  vertical-align: top;
+  border: 2px solid black;
+  overflow: hidden;
+}
+
+.StudentProfile-leftContainer img{
+  width: 100%;
+  height: 30%;
+}
+
+.StudentProfile-rightContainer{
+  width: 70%;
+    height: auto;
+    display: inline-block;
+    border: 2px solid black;
+    overflow: auto;
+    padding: 1%;
+}
+
+.StudentProfile-rightContainer p{
+  text-align: justify;
+}
+
+.StudentProfile-leftList{
+  /* width: 30%; */
+  height: 30%;
+  display: inline-block;
+  text-align: left;
+}
+
+.StudentProfile-leftList li{
+  list-style: none;
+  padding-right: 10px;
+}
+
+.StudentProfile-rightList{
+  width: 70%;
+  height: 30%;
+  display: inline-block;
+  text-align: left;
+}
+
+.StudentProfile-rightList li{
+  list-style: none;
+}
+
+.StudentProfile-firstCol{
+  width: 40%;
+}
+
+.StudentProfile-secCol{
+  width: 60%;
+}

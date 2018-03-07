@@ -1,0 +1,13 @@
+.header{
+    background-color: #272932;
+    display: flex;
+    justify-content: space-around;
+}
+.header img{
+    margin-top: 10px;
+}
+.p{
+    display: inline;
+    margin-top: 30px;
+    font-family: sans-serif;
+}

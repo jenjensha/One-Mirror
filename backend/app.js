@@ -23,8 +23,8 @@ var nodemailer = require('nodemailer');
 // seperate routes for admin student classes
 var StudentClassRoutes = require('./routes/StudentClassRoutes');
 
-//mongoose.connect('mongodb://localhost:27017/one_mirror');
-mongoose.connect('mongodb://test:test@ds141068.mlab.com:41068/one-mirror');
+mongoose.connect('mongodb://localhost:27017/one_mirror');
+//mongoose.connect('mongodb://test:test@ds141068.mlab.com:41068/one-mirror');
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -308,7 +308,16 @@ app.post('/api/student/register',
       hackerRank_link: req.body.hackerRankLink,
       CV_link: req.body.CVlink,
       StudentClass: req.body.StudentClass,
-      
+
+    });
+    Badge.create({
+      StudentID:req.body.ID,
+      Badge1:0,
+      Badge2:0,
+      Badge3:0,
+      Badge4:0,
+      Badge5:0,
+      Badge6:0,
     })
       .then(function (student) {
         console.log(student)
@@ -332,20 +341,20 @@ app.post('/api/student/register',
             subject: 'New student account', // Subject line
             text: `
             Welcome to Restart, ${student.FirstName}
-            
+
             Your account is created.
             You can login at:
             http://localhost:3000/student/login
-            
+
             Your password is: ${student.Password}
             `, // plain text body
             html: `
             <p>Welcome to Restart, ${student.FirstName}</p>
-            
+
             Your account is created.
             You can login at:
             <a href="http://localhost:3000/student/login">here</a>
-            
+
             Your Log In Id is : ${student.StudentID}
             Your password is: ${student.Password}
 
@@ -403,19 +412,37 @@ app.get('/api/student/:StudentID/viewprofile', function (req, res) {
     })
 })
 //Admin adding Badges
-app.post('/api/admin/:StudentID/addbadges',function(req,res){
+// app.post('/api/admin/:StudentID/addbadges',function(req,res){
+//   console.log(req.body);
+//   Badge.create({
+//     StudentID:req.params.StudentID,
+//     BadgeName:req.body.addbadge
+//
+//   })
+//   .then(function (badges) {
+//     console.log(badges)
+//     res.send(badges);
+//   })
+//   .catch(function (error) {
+//     console.log(error);
+//     res.send(error);
+//   })
+//
+// })
+app.post('/api/admin/:StudentID/enablebadges',function(req,res){
   console.log(req.body);
-  Badge.create({
-    StudentID:req.params.StudentID,
-    BadgeName:req.body.badge,
-    Status:1
-  })
+  console.log(req.params.StudentID);
+  var badgeName=req.body.enablebadge;
+  Badge.findOne({
+        StudentID:req.params.StudentID
+      }).update({badgeName:1})
   .then(function (badges) {
-    console.log(badges)
+    // console.log(badges)
     res.send(badges);
+
   })
   .catch(function (error) {
-    console.log(error);
+    // console.log(error);
     res.send(error);
   })
 
@@ -502,6 +529,27 @@ app.get('/api/admin/:StudentID/scores', function (req, res) {
       console.log(error);
     })
 })
+// //Admin Get Request for Badges
+// app.get('/api/admin/:StudentID/badges', function (req, res) {
+//   // Badge.findOne({ StudentID: req.params.StudentID })
+//   //   .then(function (badge) {
+//   //     console.log('badge info', badge);
+//     Badge.findOne({ StudentID: req.params.StudentID })
+//         .then(function (badges) {
+//           // send back student and scores
+//           // var responseBody = {
+//           //   student: student,
+//           //   scores: scores,
+//           // }
+//           // console.log(responseBody);
+//
+//           res.send(badges);
+//           //console.log(result);
+//         })
+//         .catch(function (error) {
+//           console.log(error);
+//         })
+//     })
 
 
 //Admin Getting Student to Edit
@@ -588,7 +636,7 @@ console.log(req.body)
         student.ShortDescription = req.body.shortDescription
         student.Status = req.body.status
         if(req.body.StudentClass) {
-          student.StudentClass = req.body.StudentClass          
+          student.StudentClass = req.body.StudentClass
         }
 
         student.save()
