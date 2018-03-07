@@ -43,8 +43,8 @@ class StudentClassList extends Component {
             <thead>
               <tr>
                 
-                <th scope="col" colSpan={3}>Student Class </th>
-                <th scope="col" colSpan={3}>Actions</th>
+                <th scope="col" colSpan={1}>Student Class </th>
+                <th scope="col" colSpan={2}>Actions</th>
 
               </tr>
             </thead>
@@ -54,6 +54,7 @@ class StudentClassList extends Component {
                 return (
                   <tr key={studentClass._id}>
                     <th scope="row">{studentClass.name}</th>
+                    <td><Link className="btn btn-success" to={`/admin/student/class/${studentClass._id}/students`}>View Students</Link></td>
                     <td><Link className="btn btn-primary" to={`/admin/student/class/${studentClass._id}/edit`}>Edit</Link></td>
                   </tr>
                 )

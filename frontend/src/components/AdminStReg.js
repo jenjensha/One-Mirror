@@ -40,6 +40,7 @@ class AdminStReg extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handlePhotoChange = this.handlePhotoChange.bind(this);
         this.generateID = this.generateID.bind(this);
+        this.generatePassword = this.generatePassword.bind(this);
         //  this.addBadges = this.addBadges.bind(this);
     }
 
@@ -137,6 +138,18 @@ class AdminStReg extends Component {
 
         this.setState({ data: newData });
     }
+    generatePassword(event) {
+        event.preventDefault();
+        let length = 8,
+            charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+            pass = "";
+        for (var i = 0, n = charset.length; i < length; ++i) {
+            pass += charset.charAt(Math.floor(Math.random() * n));
+        }
+        let newData = this.state.data;
+        newData.password = pass;
+        this.setState({ data: newData })
+    }
     // addBadges(event){
     //   event.preventDefault();
     //   axios.post("http://localhost:8080/api/student/addbadge",this.state.data.
@@ -171,7 +184,8 @@ class AdminStReg extends Component {
                             </div>
                             <p className="text-danger">{this.state.error.lastName}</p>
                             <div className="form-group">
-                                <label htmlFor="exampleInputPassword">Password</label>
+                                
+                                <button className="btn btn-success" onClick={this.generatePassword}>Generate Password</button>
                                 <input type="text" name="password" value={this.state.data.password} onChange={this.handleChange} className="form-control" id="exampleInputPassword" placeholder="Password" />
                             </div>
                             <p className="text-danger">{this.state.error.password}</p>
