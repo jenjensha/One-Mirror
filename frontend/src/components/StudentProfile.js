@@ -54,12 +54,13 @@ class StudentProfile extends React.Component{
     return(
         <div>
             <Header />
+            <a className="btn btn-danger btn-lg StudentProfile-button" onClick={this.handleBadgesClick}>Badges Earned</a>
         <div className="container StudentProfile-container">
             <h2> Student Profile </h2>
-            <a className="btn btn-danger" onClick={this.handleBadgesClick}>Badges Earned</a>
                     <div className="StudentProfile-MainContainer">
                         <div className="StudentProfile-leftContainer">
-                          <img src={`http://localhost:8080/uploads/${this.state.studentInfo.profilePic}`} className="img-rounded img-responsive" />
+                          <img src={`http://localhost:8080/uploads/${this.state.studentInfo.profilePic}`}
+                          className="img-rounded img-responsive" alt="Profile Picture" />
                         </div>
 
                         <div className="StudentProfile-rightContainer">
@@ -74,16 +75,17 @@ class StudentProfile extends React.Component{
                                </tr>
 
                                <tr>
-                                  <td><li> Email: </li> </td>
-                                  <td> <li> {this.state.studentInfo.Email} </li></td>
+                                  <td className="StudentProfile-firstCol"><li> Email: </li> </td>
+                                  <td className="StudentProfile-secCol"> <li> {this.state.studentInfo.Email} </li></td>
                                </tr>
                                <tr>
-                                  <td><li> Status: </li> </td>
-                                  <td> <li> {this.state.studentInfo.Status} </li></td>
+                                  <td className="StudentProfile-firstCol"><li> Status: </li> </td>
+                                  <td className="StudentProfile-secCol"> <li> {this.state.studentInfo.Status} </li></td>
                                </tr>
                                <tr>
-                                  <td><li> Story of You: </li> </td>
-                                  <td>  <li> <a href= {this.state.studentInfo.Video}> {this.state.studentInfo.Video} </a> </li></td>
+                                  <td className="StudentProfile-firstCol"><li> Story of You: </li> </td>
+                                  <td className="StudentProfile-secCol">  <li> <a href= {this.state.studentInfo.Video}
+                                    className="StudentProfile-link-style"> {this.state.studentInfo.Video} </a> </li></td>
                                </tr>
                                </tbody>
                             </table>

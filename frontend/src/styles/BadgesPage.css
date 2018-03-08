@@ -1,11 +1,18 @@
 .BadgesPage-container{
   margin-top: 5% ;
+  magin-bottom: 5%;
+}
+
+.BadgesPage-container h2{
+  padding-bottom: 30px;
+  color: #e74c3c;
 }
 
 .BadgesPage-main{
   height: auto;
-  border: 1px solid black;
+  border: 4px inset grey;
   display: inline-block;
+  width: 80%;
 }
 
 .BadgesPage-List{
@@ -20,6 +27,8 @@
   display: inline-block;
 }
 
+
+
 .BadgesPage-mainBlock{
   height: 50%;
   margin-top: 5%;
@@ -31,5 +40,11 @@
 }
 
 .disabled{
-  opacity: 0.5;
+  opacity: 0.4;
+}
+
+.BadgesPage-button{
+  margin-right: 70%;
+  height: 50px;
+  width: 200px;
 }
