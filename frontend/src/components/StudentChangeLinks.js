@@ -5,7 +5,7 @@ import '../styles/StudentchangeLinks.css'
 class StudentChangeLinks extends Component {
   constructor(props){
     super(props)
-    console.log(props.location.state.student.Github_link)
+
     this.state = {
       data: {
         githubLink: this.props.location.state.student.Github_link,
@@ -49,6 +49,9 @@ class StudentChangeLinks extends Component {
       hackerRank_link: this.state.data.hackerrankLink,
       CV_link: this.state.data.cvLink
     }).then(function(response){
+      console.log("before response");
+      console.log(response.data)
+      console.log("after response");
       _this.setState({
         msg: {
           giterr:'',
@@ -56,7 +59,9 @@ class StudentChangeLinks extends Component {
           linked: '',
           cv: ''
         },
-        success: 'The links has been updated successfully'
+        success: 'The links has been updated successfully',
+        student: response.data
+
       })
     }).catch(function(error){
       console.log(error);
@@ -72,7 +77,6 @@ class StudentChangeLinks extends Component {
   }
 
   render() {
-    console.log(this.state.data.githubLink);
     return (
       <div>
       <a className="btn btn-primary changeReqBackBtn" onClick={this.handleBackClick}>Back</a>
