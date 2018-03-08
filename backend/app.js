@@ -366,12 +366,12 @@ app.post('/api/student/register',
     });
     Badge.create({
       StudentID:req.body.ID,
-      Badge1:0,
-      Badge2:0,
-      Badge3:0,
-      Badge4:0,
-      Badge5:0,
-      Badge6:0,
+      Badge1: false,
+      Badge2: false,
+      Badge3: false,
+      Badge4: false,
+      Badge5: false,
+      Badge6: false,
     })
       .then(function (student) {
         console.log(student)
