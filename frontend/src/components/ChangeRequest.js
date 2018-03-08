@@ -9,18 +9,20 @@ class ChangeRequest extends Component {
     this.state = {
       data: {
         title: '',
-        message: ''
+        Text: ''
       },
       dataMsg: {
         title: '',
-        message: ''
+        Text: ''
       },
+      successMsg: null,
       errorMessage: null,
-      student: this.props.location.state.detail
+      student: this.props.location.state.student
     }
 
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleSubmit = this.handleSubmt.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleBackClick = this.handleBackClick.bind(this);
 
   }
   handleInputChange(element){
@@ -37,49 +39,65 @@ class ChangeRequest extends Component {
 
     let _this = this;
     axios.post("http://localhost:8080/student/changereq", {
-      title: this.state.title,
-      message: this.state.title,
-      firstname: this.state.student.FirstName,
-      lastname: this.state.student.LastName,
+      title: this.state.data.title,
+      Text: this.state.data.Text,
+      FirstName: this.state.student.FirstName,
+      LastName: this.state.student.LastName,
       StudentID: this.state.student.StudentID
     }).then(function (response) {
-      this.setState({
+
+      _this.setState({
         dataMsg: {
           title: '',
-          message: ''
-        }
+          Text: ''
+        },
+        successMsg: 'Request send successfully'
       })
       if(response.data.status === 'error') {
         _this.setState({errorMessage: response.data.message})
       } else {
         _this.props.history.push(
-          { pathname: '/studentDashboard',
-            state: {unicorn: this.state.student}
+          { pathname: '/student/Dashboard',
+            state: {student: this.state.student}
         })
       }
     }).catch(function (error) {
-      if(error.message){
+      if(error.response){
         let mainErrors = error.response.data.errors,
         dataMsg = {
-          title: mainErrors.title ? mainErrors.title.dataMsg : '',
-          message: mainErrors.message ? mainErrors.message.dataMsg : ''
+          title: mainErrors.title ? mainErrors.title.msg : '',
+          Text: mainErrors.Text ? mainErrors.Text.msg : ''
         };
       }
+    }.bind(this));
+  }
+
+  handleBackClick(){
+
+    this.props.history.push(
+      { pathname: '/student/Dashboard',
+        state: {student : this.state.student}
     })
   }
 
   render() {
     return (
     <div>
+      <a className="btn btn-primary changeReqBackBtn" onClick={this.handleBackClick}>Back</a>
+      <h3 className="changeReqHeader"> Change Request </h3>
       <form onSubmit={this.handleSubmit}>
-        <div class="form-group">
-          <input onChange={this.handleInputChange} value={this.state.data.title} type="text" name="title" class="form-control" id="inputemail" aria-describedby="emailHelp" placeholder="Enter email"/>
+        <div className="form-group changeReqForm">
+          <input className="form-control changereqtitle" onChange={this.handleInputChange} value={this.state.data.title} type="text" name="title" id="inputemail" aria-describedby="emailHelp" placeholder="Title"/>
+          <span className="text-danger">{this.state.dataMsg.title}</span>
         </div>
-        <div class="form-group">
-          <input onChange={this.handleInputChange} value={this.state.data.message} type="text" name="message" class="form-control" id="inputmessage" aria-describedby="emailHelp" placeholder="Enter email"/>
+        <div className="form-group">
+          <textarea className="form-control changeReqMessage" onChange={this.handleInputChange} value={this.state.data.Text} type="text" name="Text" id="inputmessage" aria-describedby="emailHelp" placeholder="Message"/>
+          <span className="text-danger">{this.state.dataMsg.Text}</span>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" className="btn btn-primary changeReqBtn">Send Request</button>
       </form>
+      <span className="text-success">{this.state.successMsg}</span>
+
     </div>
     )
   }

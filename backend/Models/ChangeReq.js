@@ -19,7 +19,11 @@ var ChangeReqSchema = new Schema({
         type: String,
         required: true
     },
-    status:{
+    title: {
+      type: String,
+      required: true
+    },
+    changeStatus:{
         type: String,
         default: "pending"
     }

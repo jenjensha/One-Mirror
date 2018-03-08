@@ -24,6 +24,9 @@ import ReactTabs from './ReactTabs';
 import StudentHome from './StudentHome';
 
 
+import StudentChangeLinks from './StudentChangeLinks';
+
+
 
 class App extends Component {
     render() {
@@ -52,9 +55,15 @@ class App extends Component {
 
                     <Route path='/student/badges' component={BadgesPage} />
 
+
                     <Route path='/student/changerequest' component={ChangeRequest} />
                     <Route path='/restartlinks' component={RestartLinks} />
                     <Route path='/tabs' component={ReactTabs} />
+
+
+                    <Route path='/student/changereq' component={ChangeRequest} />
+
+                    <Route path='/student/modifylinks' component={StudentChangeLinks} />
 
 
                     <Route path='/footer' component={Footer} />
