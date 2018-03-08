@@ -2,6 +2,7 @@ var express = require('express');
 var routes = express.Router();
 var StudentClass= require('../Models/StudentClass');
 var Student = require('../Models/Student');
+var { check, validationResult } = require('express-validator/check');
 
 // route: /api/admin/student/class/list
 routes.get('/list', function(req, res) {
@@ -29,15 +30,37 @@ routes.get('/:id', function(req, res) {
 })
 
 // route: /api/admin/student/class/add
-routes.post('/add', function (req, res){
+routes.post('/add',[
+  check('name')
+    
+    .custom(value => {
+      return StudentClass.findOne({ name: value })
+        .then(function (studentClass) {
+          if (studentClass) {
+            throw new Error('This student class is already in use');
+          }
+          //return value;
+        })
+    })
+]
+, 
+function (req, res){
   console.log(req.body);
+
+  var errors = validationResult(req);
+  console.log(errors.mapped());
+  if (!errors.isEmpty()) {
+    // console.log('errors')
+    // console.log(errors.mapped());
+    return res.send({ errors: errors.mapped() });
+  }
 
   StudentClass.create({
     name: req.body.name
   })
   .then(function(result){
     console.log(result);
-    res.send(result);
+    res.send('success');
   })
   .catch(function(error) {
     res.send(error);

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import AdminNav from './AdminNav';
 
 
 class AdminAddStudentClass extends Component {
@@ -9,7 +10,7 @@ class AdminAddStudentClass extends Component {
     this.state = {
 
       loading: true,
-      error: null,
+      errors: null,
       success: null,
 
       name: '',
@@ -29,14 +30,11 @@ class AdminAddStudentClass extends Component {
       .then((response) => {
         console.log(response.data);
 
-        if (response.data === 'success') {
-          this.setState({
-            success: 'New class created!!'
-          })
-        } else {
-          this.setState({
-            error: 'something went wrong'
-          })
+        if(response.data.errors) {
+          _this.setState({ errors: response.data.errors})
+        } 
+        else {
+          _this.setState({ errors: null, success: 'New class created!!' }) // no errors so set null
         }
       })
   }
@@ -46,17 +44,21 @@ class AdminAddStudentClass extends Component {
   }
 
   render() {
+    console.log(this.state);
     return (
       <div>
-        {this.state.error && <p>{this.state.error}</p>}
+        <AdminNav />
         {this.state.success && <p>{this.state.success}</p>}
 
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
 
+        
+
             <input name="name" type="text" className="form-control" id="studentClass" aria-describedby="emailHelp" placeholder="Enter Student Class" value={this.state.name}
               onChange={this.handleChange} />
 
+            {this.state.errors && this.state.errors.name && <p>{this.state.errors.name.msg}</p>}
           </div>
 
           <button type="submit" className="btn btn-primary">Add Class</button>

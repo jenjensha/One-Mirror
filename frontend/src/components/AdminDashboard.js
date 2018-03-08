@@ -11,7 +11,8 @@ class AdminDashboard extends Component {
     this.state = {
 
       students: null,
-      loading: true
+      loading: true,
+      studentClass: null,
 
     }
     this.handleProfileClick=this.handleProfileClick.bind(this);
@@ -34,10 +35,12 @@ class AdminDashboard extends Component {
     let _this = this;
     axios.get("http://localhost:8080/api/listofstudents")
       .then((response) => {
+
+        console.log(response);
         if (response.data.error) {
           _this.setState({ loading: false })
         } else {
-          _this.setState({ students: response.data, loading: false })
+          _this.setState({ students: response.data, loading: false , StudentClass: response.data})
         }
       })
       .catch((error) => {
@@ -70,6 +73,7 @@ class AdminDashboard extends Component {
             <tbody>
 
               {this.state.students && this.state.students.map(function (student) {
+                console.log(student);
                 return (
                   <tr key={student._id}>
                     <th scope="row">{student.StudentID}</th>
