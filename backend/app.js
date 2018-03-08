@@ -174,14 +174,14 @@ app.post('/student/login', studentLoginValidation, function (req, res) {
 });
 
 
-<<<<<<< HEAD
-=======
+
+
 const changeRequestValidation = [
   check('title', 'Please enter a title').not().isEmpty(),
   check('Text', 'Sorry but you can not send empty requests').not().isEmpty()
 ];
 
->>>>>>> anthony
+
 //student ChangeRequest
 app.post('/student/changereq', changeRequestValidation, function (req, res) {
   console.log(req.body);
