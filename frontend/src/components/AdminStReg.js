@@ -21,6 +21,7 @@ class AdminStReg extends Component {
                 linkedinLink: '',
                 githubLink: '',
                 hackerRankLink: '',
+                StudentClass: '',
                 CVlink: ''
             },
             error: {
@@ -165,6 +166,8 @@ class AdminStReg extends Component {
                 if (response.data.error) {
                     _this.setState({ loading: false })
                 } else {
+                    let newData = this.state.data;
+                    newData.StudentClass = response.data[0]._id;
                     _this.setState({ studentClasses: response.data, loading: false })
                 }
             })
