@@ -3,6 +3,7 @@ import axios from 'axios';
 import '../styles/home.css';
 
 
+
 class HomePage extends React.Component{
   constructor(props){
     super(props)
@@ -47,7 +48,7 @@ class HomePage extends React.Component{
         else{
            console.log(response.data);
           _this.props.history.push(
-            { pathname: '/student/profile',
+            { pathname: `/student/profile/${_this.state.StudentID}`,
               state: { detail: response.data }
           })
         }
@@ -79,6 +80,12 @@ class HomePage extends React.Component{
   render(){
     //console.log(this.state.studId);
     return(
+        <div>
+          <video playsInline autoPlay muted loop>
+          <source src="/Restart.mp4" type="video/mp4" />
+          </video>
+
+
         <div className="container">
           <ul className="headerList">
               <li> <a className="btn btn-danger" onClick={this.handleAdminLogin}>Admin Login</a> </li>
@@ -102,6 +109,7 @@ class HomePage extends React.Component{
             </form>
           </div>
         </div>
+      </div>
     )
   }
 }

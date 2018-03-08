@@ -1,24 +1,29 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import ChangeRequest from './ChangeRequest';
+import RestartLinks from './RestartLinks';
 import '../styles/studentDashboard.css';
+import {Animated} from "react-animated-css";
 
 class StudentDashboard extends Component {
   constructor(props){
     super(props);
-    console.log(this.props.location.state.unicorn);
+    console.log('before 1');
+    console.log(this.props.location.state.student);
+    console.log("after 1")
 
     if(props.location.state !== undefined) {
     this.state = {
-      student: [this.props.location.state.unicorn],
-      currentStudentName: this.props.location.state.unicorn.FirstName
-
+      student: this.props.location.state.student,
+      currentStudentName: this.props.location.state.student.FirstName
     }
+
   }
 
 
 
     this.handleChangeRequest = this.handleChangeRequest.bind(this);
+    this.handleModifyLinks = this.handleModifyLinks.bind(this);
   }
 
 
@@ -27,14 +32,17 @@ class StudentDashboard extends Component {
 
     this.props.history.push({
       pathname: '/student/changereq',
-      state: {detail: this.state.student}
+      state: {student: this.state.student}
     });
 
   }
 
   handleModifyLinks(){
 
-    window.location.href = '/student/modifylinks';
+    this.props.history.push({
+      pathname: '/student/modifylinks',
+      state: {student: this.state.student}
+    })
   }
 
   render() {
@@ -46,32 +54,58 @@ class StudentDashboard extends Component {
             <li> <a className="btn btn-danger" onClick={this.handleModifyLinks}>Modify Links</a> </li>
         </ul>
         <div className="main-container">
-          <h1 id="welcome"> Welcome to the student dashboard </h1> <br />
-
+          <h1 id="welcome">Hey {this.state.student.FirstName} Welcome to your dashboard </h1> <br />
         </div>
 
-        <ul className="link-list">
-          {this.state.student ?
-            this.state.student.map(student => {
-              return (
+        <ul className="dashboard-link-list">
               <div>
                 <li>
+                <div id="imgBounce">
+                <a href={this.state.student.LinkedIn_link}>
                   <img
-                    className="link-icon"
-                    src=""
-                    alt='Icon for LinkedIn' />
-                    <a href={student.LinkedIn_link}> LinkedIn </a>
+                    className="dashboard-link-icon"
+                    src="/linkedin-logo.png"
+                    alt='Icon for LinkedIn'/>
+                    </a>
+                    <a href={this.state.student.LinkedIn_link}> LinkedIn </a>
+                  </div>
                 </li>
-                <p> linkedin{student.LinkedIn_link} </p>
-                <p> github{student.Github_link} </p>
-                <p>hack {student.hackerRank_link} </p>
-                <p>cv {student.CV_link} </p>
+                <li>
+                  <div id="imgBounce">
+                  <a href={this.state.student.Github_link}>
+                  <img
+                    className="dashboard-link-icon"
+                    src="/Github-logo.png"
+                    alt="Icon for Github"/>
+                    </a>
+                    <a href={this.state.student.Github_link}> Github </a>
+                    </div>
+                </li>
+                <li>
+                  <div id="imgBounce">
+                  <a href={this.state.student.hackerRank_link}>
+                  <img
+                    className="dashboard-link-icon"
+                    src="/HackerRank-logo.png"
+                    alt="Icon for HackerRank"/>
+                    </a>
+                    <a href={this.state.student.hackerRank_link}> HackerRank</a>
+                    </div>
+                </li>
+                <li>
+                  <div id="imgBounce">
+                  <a href={this.state.student.CV_link}>
+                  <img
+                    className="dashboard-link-icon"
+                    src="/CV-logo.png"
+                    alt="Icon for CV"/>
+                    </a>
+                    <a href={this.state.student.CV_link}> CV </a>
+                    </div>
+                  </li>
+
+                  <RestartLinks />
               </div>
-            )
-            })
-            :
-            <p> student links should be shown here </p>
-          }
         </ul>
       </div>
     )

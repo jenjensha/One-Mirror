@@ -7,8 +7,14 @@
   margin-top:20px;
   margin-bottom: 20px;
 }
+.StudentProfile-container h2{
+  padding-bottom: 40px;
+  color: #e74c3c;
+}
+
 .StudentProfile-MainContainer{
   margin-top: 2%;
+  margin-bottom: 3%;
 }
 .StudentProfile-leftContainer{
   width: 30%;
@@ -16,7 +22,7 @@
   /* margin-left: 10%; */
   display: inline-block;
   vertical-align: top;
-  border: 2px solid black;
+  /* border: 2px solid black; */
   overflow: hidden;
 }
 
@@ -26,16 +32,30 @@
 }
 
 .StudentProfile-rightContainer{
-  width: 70%;
+    width: 70%;
     height: auto;
     display: inline-block;
-    border: 2px solid black;
+    border: 4px inset grey;
     overflow: auto;
     padding: 1%;
+    background-color: #272932; /*In case image doesn't load*/
+    /* background: url("http://opentechsummit.net/img/grey-bg.jpg"); */
+    background-position: right top;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border: none;
+    z-index: -2;
+    /* -webkit-box-shadow: inset 0px 0px 20px 0px rgba(0,0,0,0.37), -8px 5px 8px 5px rgba(0,0,0,0.54); */
+    /* -moz-box-shadow: inset 0px 0px 20px 0px rgba(0,0,0,0.37), -8px 5px 8px 5px rgba(0,0,0,0.54); */
+    /* box-shadow: inset 0px 5px 30px 5px rgba(0,0,0,0.35), -8px 5px 8px 5px rgba(0,0,0,0.54); */
+    box-shadow: inset 0px 5px 30px 5px rgba(253, 253, 253, 0.35), -8px 5px 8px 5px rgba(207, 220, 222, 0.54);
+    -webkit-box-shadow: inset 0px 5px 30px 5px rgba(253, 253, 253, 0.35), -8px 5px 8px 5px rgba(207, 220, 222, 0.54);
+    -moz-box-shadow: inset 0px 5px 30px 5px rgba(253, 253, 253, 0.35), -8px 5px 8px 5px rgba(207, 220, 222, 0.54);
 }
 
 .StudentProfile-rightContainer p{
   text-align: justify;
+  padding: 5px;
 }
 
 .StudentProfile-leftList{
@@ -63,8 +83,36 @@
 
 .StudentProfile-firstCol{
   width: 40%;
+  height: 50px;
 }
 
 .StudentProfile-secCol{
   width: 60%;
+    height: 50px;
+}
+
+.StudentProfile-link-style{
+  color: blue;
+}
+
+.StudentProfile-button{
+  margin-right: 70%;
+  height: 50px;
+  width: 200px;
+}
+
+#calcBody {
+ background-color: lightgray; /*In case image doesn't load*/
+ background: url("http://opentechsummit.net/img/grey-bg.jpg");
+ background-position: right top;
+ background-size: cover;
+ background-repeat: no-repeat;
+ text-align: center;
+ width: 300px;
+ margin: 10% auto 5% auto;
+ border: none;
+ z-index: -2;
+ -webkit-box-shadow: inset 0px 0px 20px 0px rgba(0,0,0,0.37), -8px 5px 8px 5px rgba(0,0,0,0.54);
+ -moz-box-shadow: inset 0px 0px 20px 0px rgba(0,0,0,0.37), -8px 5px 8px 5px rgba(0,0,0,0.54);
+ box-shadow: inset 0px 5px 30px 5px rgba(0,0,0,0.35), -8px 5px 8px 5px rgba(0,0,0,0.54);
 }

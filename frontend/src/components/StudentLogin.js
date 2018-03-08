@@ -52,7 +52,7 @@ class StudentLogin extends Component {
       } else {
         _this.props.history.push(
           { pathname: '/student/dashboard',
-            state: {unicorn: response.data}
+            state: {student: response.data}
           }) //react router will sent user to this link
       }
     }).catch(function (error) {

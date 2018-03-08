@@ -2,6 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import '../styles/StudentProfile.css';
 import StudentLinks from './StudentLinks';
+import Header from './Header';
+import Footer from './Footer';
 
 class StudentProfile extends React.Component{
   constructor(props){
@@ -20,19 +22,20 @@ class StudentProfile extends React.Component{
       this.handleBadgesClick = this.handleBadgesClick.bind(this);
   }
 
-  // componentDidMount(){
-  //   let _this = this;
-  //
-  //   axios.get('http://localhost:8080/student/profileinfo')
-  //   .then(function(response){
-  //       _this.setState({
-  //           studentInfo: response.data
-  //       })
-  //   })
-  //   .catch(function(error){
-  //       console.log(error);
-  //   })
-  // }
+  componentDidMount(){
+    let _this = this;
+    console.log(this.props.match.params.id);
+    axios.post('http://localhost:8080/student/profileinfo/' + this.props.match.params.id)
+    .then(function(response){
+        _this.setState({
+            studentInfo: response.data
+        })
+    })
+    .catch(function(error){
+        console.log(error);
+    })
+  }
+
   handleBadgesClick(){
     this.props.history.push({
       pathname: '/student/badges',
@@ -41,20 +44,23 @@ class StudentProfile extends React.Component{
   }
 
   render(){
-    if(this.state.StudentID === 'No student')
-    {return <p>Please enter a valid StudentID</p>}
-      console.log(this.state.studentInfo);
-      console.log(this.state.studentInfo.FirstName);
-      var DOBdate = new Date(this.state.studentInfo.DateOfBirth);
-      var DOBdateFormat = DOBdate.toISOString().substring(0, 10);
-    //console.log(DOBdateFormat);
+        // if(this.state.studentInfo === 'No student')
+        // {return <p>Please enter a valid StudentID</p>
+        // }
+        if(this.state.studentInfo !== 'No student'){
+        var DOBdate = new Date(this.state.studentInfo.DateOfBirth);
+        var DOBdateFormat = DOBdate.toISOString().substring(0, 10);
+      }
     return(
+        <div>
+            <Header />
+            <a className="btn btn-danger btn-lg StudentProfile-button" onClick={this.handleBadgesClick}>Badges Earned</a>
         <div className="container StudentProfile-container">
             <h2> Student Profile </h2>
-            <a className="btn btn-danger" onClick={this.handleBadgesClick}>Badges Earned</a>
                     <div className="StudentProfile-MainContainer">
                         <div className="StudentProfile-leftContainer">
-                          <img src={`http://localhost:8080/uploads/${this.state.studentInfo.profilePic}`} className="img-rounded img-responsive" />
+                          <img src={`http://localhost:8080/uploads/${this.state.studentInfo.profilePic}`}
+                          className="img-rounded img-responsive" alt="Profile Picture" />
                         </div>
 
                         <div className="StudentProfile-rightContainer">
@@ -69,16 +75,17 @@ class StudentProfile extends React.Component{
                                </tr>
 
                                <tr>
-                                  <td><li> Email: </li> </td>
-                                  <td> <li> {this.state.studentInfo.Email} </li></td>
+                                  <td className="StudentProfile-firstCol"><li> Email: </li> </td>
+                                  <td className="StudentProfile-secCol"> <li> {this.state.studentInfo.Email} </li></td>
                                </tr>
                                <tr>
-                                  <td><li> Status: </li> </td>
-                                  <td> <li> {this.state.studentInfo.Status} </li></td>
+                                  <td className="StudentProfile-firstCol"><li> Status: </li> </td>
+                                  <td className="StudentProfile-secCol"> <li> {this.state.studentInfo.Status} </li></td>
                                </tr>
                                <tr>
-                                  <td><li> Story of You: </li> </td>
-                                  <td>  <li> <a href= {this.state.studentInfo.Video}> {this.state.studentInfo.Video} </a> </li></td>
+                                  <td className="StudentProfile-firstCol"><li> Story of You: </li> </td>
+                                  <td className="StudentProfile-secCol">  <li> <a href= {this.state.studentInfo.Video}
+                                    className="StudentProfile-link-style"> {this.state.studentInfo.Video} </a> </li></td>
                                </tr>
                                </tbody>
                             </table>
@@ -87,6 +94,8 @@ class StudentProfile extends React.Component{
                         </div>
                     </div>
             <StudentLinks obj={this.state.studentInfo} />
+        </div>
+        <Footer />
         </div>
     )
   }

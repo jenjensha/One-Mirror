@@ -79,15 +79,37 @@ validateStudentId= [
 ]
 
 app.post('/student/search', validateStudentId, function (req, res) {
-  console.log(req);
+  //console.log(req);
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     //console.log(errors);
     return res.status(422).json({ errors: errors.mapped() });
   }
 
-  console.log(req.body);
+  //console.log(req.body);
   Student.findOne(req.body)
+    .then(function (user) {
+      if (!user) {
+        return res.send({ status: 'error', message: 'Student not found' });
+      }
+      //console.log(user);
+      res.send(user);
+    })
+    .catch(function (error) {
+      console.log(error);
+      res.send({ error: 'error', message: 'Something went wrong' });
+    })
+})
+
+
+// Getting the student profile using id
+
+
+app.post('/student/profileinfo/:id', function (req, res) {
+  console.log(req.params.id);
+  console.log(req.body);
+
+  Student.findOne({"StudentID" : req.params.id})
     .then(function (user) {
       if (!user) {
         return res.send({ status: 'error', message: 'Student not found' });
@@ -205,10 +227,20 @@ app.post('/student/login', studentLoginValidation, function (req, res) {
     });
 });
 
+const changeRequestValidation = [
+  check('title', 'Please enter a title').not().isEmpty(),
+  check('Text', 'Sorry but you can not send empty requests').not().isEmpty()
+];
+
 
 //student ChangeRequest
-app.post('/student/changereq', function (req, res) {
+app.post('/student/changereq', changeRequestValidation, function (req, res) {
   console.log(req.body);
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    console.log(errors.mapped());
+    return res.status(422).json({ errors: errors.mapped() });
+  }
   ChangeReq.create(req.body)
     .then(function (changereq) {
       res.send(changereq);
@@ -216,6 +248,39 @@ app.post('/student/changereq', function (req, res) {
       res.send({status: 'error', message: 'Something went wrong with change request'})
     });
 })
+
+const changeLinksValidation = [
+  check('Github_link', 'This field cannot be empty').not().isEmpty(),
+  check('hackerRank_link', 'This field cannot be empty').not().isEmpty(),
+  check('LinkedIn_link', 'This field cannot be empty').not().isEmpty(),
+  check('CV_link', 'This field cannot be empty').not().isEmpty()
+];
+
+app.post('/student/changelinks', changeLinksValidation, function (req, res) {
+  console.log(req.body);
+  //console.log(req);
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    console.log(errors.mapped());
+    return res.status(422).json({ errors: errors.mapped()});
+  }
+  Student.update({"StudentID": req.body.StudentID}, { "LinkedIn_link": req.body.LinkedIn_link,
+  "Github_link": req.body.Github_link, "hackerRank_link": req.body.hackerRank_link, "CV_link": req.body.CV_link}, {upsert: true})
+  .then(function(response) {
+    Student.findOne(req.body)
+      .then(function (user) {
+        if (!user) {
+          return res.send({ status: 'error', message: 'no student found' })
+        }
+
+        res.send(user);
+      }).catch(function (error) {
+        res.send({ error: 'error', message: 'Something went wrong' })
+    });
+}).catch(function (error) {
+  res.send({status: 'error', message: 'Something went wrong while updating student links'})
+});
+});
 
 
 

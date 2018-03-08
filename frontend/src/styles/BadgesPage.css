@@ -1,11 +1,34 @@
 .BadgesPage-container{
   margin-top: 5% ;
+  magin-bottom: 5%;
+}
+
+.BadgesPage-container h2{
+  padding-bottom: 30px;
+  color: #e74c3c;
 }
 
 .BadgesPage-main{
   height: auto;
-  border: 1px solid black;
+  border: 4px inset grey;
   display: inline-block;
+  width: 80%;
+/*  */
+  overflow: auto;
+  padding: 1%;
+  background-color: #272932; /*In case image doesn't load*/
+  /* background: url("http://opentechsummit.net/img/grey-bg.jpg"); */
+  background-position: right top;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border: none;
+  z-index: -2;
+  /* -webkit-box-shadow: inset 0px 0px 20px 0px rgba(0,0,0,0.37), -8px 5px 8px 5px rgba(0,0,0,0.54); */
+  /* -moz-box-shadow: inset 0px 0px 20px 0px rgba(0,0,0,0.37), -8px 5px 8px 5px rgba(0,0,0,0.54); */
+  /* box-shadow: inset 0px 5px 30px 5px rgba(0,0,0,0.35), -8px 5px 8px 5px rgba(0,0,0,0.54); */
+  box-shadow: inset 0px 5px 30px 5px rgba(253, 253, 253, 0.35), -8px 5px 8px 5px rgba(207, 220, 222, 0.54);
+  -webkit-box-shadow: inset 0px 5px 30px 5px rgba(253, 253, 253, 0.35), -8px 5px 8px 5px rgba(207, 220, 222, 0.54);
+  -moz-box-shadow: inset 0px 5px 30px 5px rgba(253, 253, 253, 0.35), -8px 5px 8px 5px rgba(207, 220, 222, 0.54);
 }
 
 .BadgesPage-List{
@@ -20,6 +43,8 @@
   display: inline-block;
 }
 
+
+
 .BadgesPage-mainBlock{
   height: 50%;
   margin-top: 5%;
@@ -31,5 +56,11 @@
 }
 
 .disabled{
-  opacity: 0.5;
+  opacity: 0.3;
+}
+
+.BadgesPage-button{
+  margin-right: 70%;
+  height: 50px;
+  width: 200px;
 }

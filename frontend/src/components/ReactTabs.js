@@ -38,7 +38,7 @@ class ReactTabs extends Component {
                   </div>
                   </TabPanel>
               </Tabs>
-                
+
         );
     }
 }
