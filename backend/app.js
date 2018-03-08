@@ -78,15 +78,37 @@ validateStudentId= [
 ]
 
 app.post('/student/search', validateStudentId, function (req, res) {
-  console.log(req);
+  //console.log(req);
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     //console.log(errors);
     return res.status(422).json({ errors: errors.mapped() });
   }
 
-  console.log(req.body);
+  //console.log(req.body);
   Student.findOne(req.body)
+    .then(function (user) {
+      if (!user) {
+        return res.send({ status: 'error', message: 'Student not found' });
+      }
+      //console.log(user);
+      res.send(user);
+    })
+    .catch(function (error) {
+      console.log(error);
+      res.send({ error: 'error', message: 'Something went wrong' });
+    })
+})
+
+
+// Getting the student profile using id
+
+
+app.post('/student/profileinfo/:id', function (req, res) {
+  console.log(req.params.id);
+  console.log(req.body);
+
+  Student.findOne({"StudentID" : req.params.id})
     .then(function (user) {
       if (!user) {
         return res.send({ status: 'error', message: 'Student not found' });

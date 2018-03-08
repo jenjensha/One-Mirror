@@ -7,8 +7,14 @@
   margin-top:20px;
   margin-bottom: 20px;
 }
+.StudentProfile-container h2{
+  padding-bottom: 40px;
+  color: #e74c3c;
+}
+
 .StudentProfile-MainContainer{
   margin-top: 2%;
+  margin-bottom: 3%;
 }
 .StudentProfile-leftContainer{
   width: 30%;
@@ -16,7 +22,7 @@
   /* margin-left: 10%; */
   display: inline-block;
   vertical-align: top;
-  border: 2px solid black;
+  /* border: 2px solid black; */
   overflow: hidden;
 }
 
@@ -29,13 +35,14 @@
   width: 70%;
     height: auto;
     display: inline-block;
-    border: 2px solid black;
+    border: 4px inset grey;
     overflow: auto;
     padding: 1%;
 }
 
 .StudentProfile-rightContainer p{
   text-align: justify;
+  padding: 5px;
 }
 
 .StudentProfile-leftList{
@@ -63,8 +70,20 @@
 
 .StudentProfile-firstCol{
   width: 40%;
+  height: 50px;
 }
 
 .StudentProfile-secCol{
   width: 60%;
+    height: 50px;
+}
+
+.StudentProfile-link-style{
+  color: blue;
+}
+
+.StudentProfile-button{
+  margin-right: 70%;
+  height: 50px;
+  width: 200px;
 }
