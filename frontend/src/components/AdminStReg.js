@@ -214,7 +214,7 @@ class AdminStReg extends Component {
 
                             <div className="form-group">
                                 <label htmlFor="exampleInputDateOfBirth">Date of Birth</label>
-                                <input type="date" name="dateOfBirth" value={this.state.dateOfBirth} onChange={this.handleChange} className="form-control" id="exampleInputDateOfBirth" />
+                                <input type="date" name="dateOfBirth" value={this.state.data.dateOfBirth} onChange={this.handleChange} className="form-control" id="exampleInputDateOfBirth" />
                             </div>
                             <p className="text-danger">{this.state.error.dateOfBirth}</p>
 
