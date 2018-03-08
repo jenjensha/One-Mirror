@@ -27,6 +27,7 @@ class BadgesPage extends React.Component{
       studId: this.state.studentInfo.StudentID
     })
     .then(function(response){
+      console.log(response.data);
         _this.setState({
             badgesInfo: response.data
         })
@@ -58,7 +59,7 @@ class BadgesPage extends React.Component{
                               {this.state.badgesInfo &&
                                 <ul className="BadgesPage-List">
                                   <li>
-                                      {this.state.badgesInfo.Badge1 === 0 ?
+                                      {this.state.badgesInfo.Badge1 === false ?
                                         <div className="disabled">
                                             <img src="/a-icon.png" alt="Linkedin link" width="75" height="75" />
                                             <h5> Badge1 </h5>
@@ -72,7 +73,7 @@ class BadgesPage extends React.Component{
                                   </li>
 
                                   <li>
-                                      {this.state.badgesInfo.Badge2 === 0 ?
+                                      {this.state.badgesInfo.Badge2 === false ?
                                         <div className="disabled">
                                             <img src="/b-icon.png" alt="Linkedin link" width="75" height="75" />
                                              <h5> Badge2 </h5>
@@ -86,7 +87,7 @@ class BadgesPage extends React.Component{
                                   </li>
 
                                   <li>
-                                      {this.state.badgesInfo.Badge3 === 0 ?
+                                      {this.state.badgesInfo.Badge3 === false ?
                                         <div className="disabled">
                                             <img src="/c-icon.png" alt="Linkedin link" width="75" height="75" />
                                              <h5> Badge3 </h5>
@@ -100,7 +101,7 @@ class BadgesPage extends React.Component{
                                   </li>
 
                                   <li>
-                                      {this.state.badgesInfo.Badge4 === 0 ?
+                                      {this.state.badgesInfo.Badge4 === false ?
                                         <div className="disabled">
                                             <img src="/d-icon.png" alt="Linkedin link" width="75" height="75" />
                                              <h5> Badge4 </h5>
@@ -114,21 +115,21 @@ class BadgesPage extends React.Component{
                                   </li>
 
                                   <li>
-                                      {this.state.badgesInfo.Badge5 === 0 ?
+                                      {this.state.badgesInfo.Badge5 === false ?
                                         <div className="disabled">
                                             <img src="/f-icon.png" alt="Linkedin link" width="75" height="75" />
-                                             <h5> Badge2 </h5>
+                                             <h5> Badge5 </h5>
                                         </div>
                                        :
                                        <div className="enabled">
                                              <img src="/f-icon.png" alt="Linkedin link" width="75" height="75" />
-                                              <h5> Badge2 </h5>
+                                              <h5> Badge5 </h5>
                                       </div>
                                       }
                                   </li>
 
                                   <li>
-                                      {this.state.badgesInfo.Badge6 === 0 ?
+                                      {this.state.badgesInfo.Badge6 === false ?
                                         <div className="disabled">
                                             <img src="/g-icon.png" alt="Linkedin link" width="75" height="75" />
                                              <h5> Badge6 </h5>
