@@ -1,7 +1,4 @@
 backend/node_modules
-<<<<<<< HEAD
 backend/uploads/*
-=======
 npm-debug.log
 .DS_Store
->>>>>>> master
