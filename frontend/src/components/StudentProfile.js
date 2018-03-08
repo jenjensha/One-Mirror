@@ -47,7 +47,7 @@ class StudentProfile extends React.Component{
         // if(this.state.studentInfo === 'No student')
         // {return <p>Please enter a valid StudentID</p>
         // }
-        if(!this.state.studentInfo){
+        if(this.state.studentInfo !== 'No student'){
         var DOBdate = new Date(this.state.studentInfo.DateOfBirth);
         var DOBdateFormat = DOBdate.toISOString().substring(0, 10);
       }
