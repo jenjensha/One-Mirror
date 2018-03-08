@@ -45,9 +45,8 @@ class StudentProfile extends React.Component{
     {return <p>Please enter a valid StudentID</p>}
       console.log(this.state.studentInfo);
       console.log(this.state.studentInfo.FirstName);
-    //   var DOBdate = new Date(this.state.studentInfo.DateOfBirth);
-    //  var DOBdateFormat = DOBdate.toISOString().substring(0, 10);
-      var DOBdateFormat = ''
+      var DOBdate = new Date(this.state.studentInfo.DateOfBirth);
+      var DOBdateFormat = DOBdate.toISOString().substring(0, 10);
     //  console.log(DOBdateFormat);
     return(
         <div className="container StudentProfile-container">
