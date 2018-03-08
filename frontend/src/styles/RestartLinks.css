@@ -4,16 +4,24 @@
     /* justify-content: space-around; */
     display: inline-block;
 }
+
+
+.dashboard-link-icon {
+  width: 120px;
+  height: 100px;
+}
+
 .links-title p{
     margin: 0px;
     padding: 0px;
-    
+
 }
 /* .links-title a img{
     display: inline-block;
 } */
 .element{
     display: inline-block;
+    width: 250px;
 }
 @keyframes bounce {
 	0%, 100%, 20%, 50%, 80% {
@@ -35,7 +43,7 @@
 .links-title img:hover {
   cursor: pointer;
   animation-name: bounce;
-  
+
   -webkit-animation-duration: 2s;
   animation-duration: 2s;
 

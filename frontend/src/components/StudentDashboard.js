@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import ChangeRequest from './ChangeRequest';
+import RestartLinks from './RestartLinks';
 import '../styles/studentDashboard.css';
 import {Animated} from "react-animated-css";
 
 class StudentDashboard extends Component {
   constructor(props){
     super(props);
-    console.log('before0');
+    console.log('before 1');
     console.log(this.props.location.state.student);
+    console.log("after 1")
 
     if(props.location.state !== undefined) {
     this.state = {
@@ -52,8 +54,7 @@ class StudentDashboard extends Component {
             <li> <a className="btn btn-danger" onClick={this.handleModifyLinks}>Modify Links</a> </li>
         </ul>
         <div className="main-container">
-          <h1 id="welcome"> Welcome to the student dashboard </h1> <br />
-
+          <h1 id="welcome">Hey {this.state.student.FirstName} Welcome to your dashboard </h1> <br />
         </div>
 
         <ul className="dashboard-link-list">
@@ -101,7 +102,9 @@ class StudentDashboard extends Component {
                     </a>
                     <a href={this.state.student.CV_link}> CV </a>
                     </div>
-                </li>
+                  </li>
+
+                  <RestartLinks />
               </div>
         </ul>
       </div>
