@@ -2,6 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import '../styles/StudentProfile.css';
 import StudentLinks from './StudentLinks';
+import Header from './Header';
+import Footer from './Footer';
 
 class StudentProfile extends React.Component{
   constructor(props){
@@ -20,19 +22,20 @@ class StudentProfile extends React.Component{
       this.handleBadgesClick = this.handleBadgesClick.bind(this);
   }
 
-  // componentDidMount(){
-  //   let _this = this;
-  //
-  //   axios.get('http://localhost:8080/student/profileinfo')
-  //   .then(function(response){
-  //       _this.setState({
-  //           studentInfo: response.data
-  //       })
-  //   })
-  //   .catch(function(error){
-  //       console.log(error);
-  //   })
-  // }
+  componentDidMount(){
+    let _this = this;
+    console.log(this.props.match.params.id);
+    axios.post('http://localhost:8080/student/profileinfo/' + this.props.match.params.id)
+    .then(function(response){
+        _this.setState({
+            studentInfo: response.data
+        })
+    })
+    .catch(function(error){
+        console.log(error);
+    })
+  }
+
   handleBadgesClick(){
     this.props.history.push({
       pathname: '/student/badges',
@@ -41,14 +44,16 @@ class StudentProfile extends React.Component{
   }
 
   render(){
-    if(this.state.StudentID === 'No student')
-    {return <p>Please enter a valid StudentID</p>}
-      console.log(this.state.studentInfo);
-      console.log(this.state.studentInfo.FirstName);
-      var DOBdate = new Date(this.state.studentInfo.DateOfBirth);
-     var DOBdateFormat = DOBdate.toISOString().substring(0, 10);
-     console.log(DOBdateFormat);
+        // if(this.state.studentInfo === 'No student')
+        // {return <p>Please enter a valid StudentID</p>
+        // }
+        if(!this.state.studentInfo){
+        var DOBdate = new Date(this.state.studentInfo.DateOfBirth);
+        var DOBdateFormat = DOBdate.toISOString().substring(0, 10);
+      }
     return(
+        <div>
+            <Header />
         <div className="container StudentProfile-container">
             <h2> Student Profile </h2>
             <a className="btn btn-danger" onClick={this.handleBadgesClick}>Badges Earned</a>
@@ -87,6 +92,8 @@ class StudentProfile extends React.Component{
                         </div>
                     </div>
             <StudentLinks obj={this.state.studentInfo} />
+        </div>
+        <Footer />
         </div>
     )
   }

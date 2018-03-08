@@ -48,7 +48,7 @@ class App extends Component {
                     <Route path='/student/login' component={StudentLogin} />
                     <Route path='/admin' component={AdminLog} />
                     <Route path='/student/dashboard' component={StudentDashboard} />
-                    <Route path='/student/profile' component={StudentProfile} />
+                    <Route exact path='/student/profile/:id' component={StudentProfile} />
 
                     <Route path='/student/badges' component={BadgesPage} />
 

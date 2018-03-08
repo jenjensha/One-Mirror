@@ -47,7 +47,7 @@ class HomePage extends React.Component{
         else{
            console.log(response.data);
           _this.props.history.push(
-            { pathname: '/student/profile',
+            { pathname: `/student/profile/${_this.state.StudentID}`,
               state: { detail: response.data }
           })
         }

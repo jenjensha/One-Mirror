@@ -9,17 +9,15 @@ import Footer from './Footer';
 class BadgesPage extends React.Component{
   constructor(props){
     super(props);
+    console.log(props);
     if(props.location.state !== undefined){
             this.state = {
                 studentInfo: this.props.location.state.detail,
                 badgesInfo: null
             }
         }
-        else{
-            this.state ={
-                StudentID: []
-            }
-        }
+
+  this.handleProfileClick =  this.handleProfileClick.bind(this);
   }
 
   componentDidMount(){
@@ -38,6 +36,12 @@ class BadgesPage extends React.Component{
     })
   }
 
+  handleProfileClick(){
+    this.props.history.push({
+      pathname: `/student/profile/${this.state.studentInfo.StudentID}`,
+      state: { detail: this.props.location.state.detail }
+    });
+  }
 
   render(){
         console.log(this.state.badgesInfo);
@@ -46,6 +50,7 @@ class BadgesPage extends React.Component{
           <Header />
             <div className="container BadgesPage-container">
                 <h2> Badges Earned </h2>
+                <a className="btn btn-danger" onClick={this.handleProfileClick}>Profile</a>
                 <div className="BadgesPage-mainBlock">
 
                         <div className="BadgesPage-main">
