@@ -17,7 +17,7 @@ class ChangeRequest extends Component {
       },
       successMsg: null,
       errorMessage: null,
-      student: this.props.location.state.detail
+      student: this.props.location.state.student
     }
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -58,7 +58,7 @@ class ChangeRequest extends Component {
       } else {
         _this.props.history.push(
           { pathname: '/student/Dashboard',
-            state: {unicorn: this.state.student}
+            state: {student: this.state.student}
         })
       }
     }).catch(function (error) {
@@ -76,14 +76,14 @@ class ChangeRequest extends Component {
 
     this.props.history.push(
       { pathname: '/student/Dashboard',
-        state: {unicorn : this.state.student}
+        state: {student : this.state.student}
     })
   }
 
   render() {
     return (
     <div>
-      <a className="btn btn-danger" onClick={this.handleBackClick}>Back</a>
+      <a className="btn btn-primary changeReqBackBtn" onClick={this.handleBackClick}>Back</a>
       <h3 className="changeReqHeader"> Change Request </h3>
       <form onSubmit={this.handleSubmit}>
         <div className="form-group changeReqForm">

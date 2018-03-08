@@ -13,6 +13,7 @@ import StudentProfile from './StudentProfile';
 import BadgesPage from './BadgesPage';
 import AdminChangeReqList from './AdminChangeReqList'
 import ChangeRequest from './ChangeRequest';
+import StudentChangeLinks from './StudentChangeLinks';
 
 
 class App extends Component {
@@ -38,6 +39,8 @@ class App extends Component {
                     <Route path='/student/badges' component={BadgesPage} />
 
                     <Route path='/student/changereq' component={ChangeRequest} />
+
+                    <Route path='/student/modifylinks' component={StudentChangeLinks} />
 
 
                     <Route render={function(){

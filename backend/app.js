@@ -144,7 +144,7 @@ app.post('/student/login', studentLoginValidation, function (req, res) {
 
 const changeRequestValidation = [
   check('title', 'Please enter a title').not().isEmpty(),
-  check('Text', 'Sorry but you can not send empty requests').not().isEmpty(),
+  check('Text', 'Sorry but you can not send empty requests').not().isEmpty()
 ];
 
 //student ChangeRequest
@@ -162,6 +162,31 @@ app.post('/student/changereq', changeRequestValidation, function (req, res) {
       res.send({status: 'error', message: 'Something went wrong with change request'})
     });
 })
+
+const changeLinksValidation = [
+  check('Github_link', 'This field cannot be empty').not().isEmpty(),
+  check('hackerRank_link', 'This field cannot be empty').not().isEmpty(),
+  check('LinkedIn_link', 'This field cannot be empty').not().isEmpty(),
+  check('CV_link', 'This field cannot be empty').not().isEmpty()
+];
+
+app.post('/student/changelinks', changeLinksValidation, function (req, res) {
+  console.log(req.body);
+  //console.log(req);
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    console.log(errors.mapped());
+    return res.status(422).json({ errors: errors.mapped()});
+  }
+  Student.update({"StudentID": req.body.StudentID}, { "LinkedIn_link": req.body.LinkedIn_link,
+  "Github_link": req.body.Github_link, "hackerRank_link": req.body.hackerRank_link, "CV_link": req.body.CV_link}, {upsert: true})
+  .then(function(response) {
+  console.log(response);
+  res.send(response)
+}).catch(function (error) {
+  res.send({status: 'error', message: 'Something went wrong while updating student links'})
+});
+});
 
 
 

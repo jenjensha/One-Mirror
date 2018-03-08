@@ -7,12 +7,13 @@ import {Animated} from "react-animated-css";
 class StudentDashboard extends Component {
   constructor(props){
     super(props);
-    console.log(this.props.location.state.unicorn);
+    console.log('before0');
+    console.log(this.props.location.state.student);
 
     if(props.location.state !== undefined) {
     this.state = {
-      student: this.props.location.state.unicorn,
-      currentStudentName: this.props.location.state.unicorn.FirstName
+      student: this.props.location.state.student,
+      currentStudentName: this.props.location.state.student.FirstName
     }
 
   }
@@ -20,6 +21,7 @@ class StudentDashboard extends Component {
 
 
     this.handleChangeRequest = this.handleChangeRequest.bind(this);
+    this.handleModifyLinks = this.handleModifyLinks.bind(this);
   }
 
 
@@ -28,14 +30,17 @@ class StudentDashboard extends Component {
 
     this.props.history.push({
       pathname: '/student/changereq',
-      state: {detail: this.state.student}
+      state: {student: this.state.student}
     });
 
   }
 
   handleModifyLinks(){
 
-    window.location.href = '/student/modifylinks';
+    this.props.history.push({
+      pathname: '/student/modifylinks',
+      state: {student: this.state.student}
+    })
   }
 
   render() {
