@@ -67,6 +67,9 @@ class AdminBadges extends Component {
       return <p>Oops something went wrong</p>
     } else {
       return (
+        <div>
+          <AdminNav />
+
         <form onSubmit={this.handleSubmit}>
           {this.state.success && <p>{this.state.success}</p>}
           <div>
@@ -97,6 +100,7 @@ class AdminBadges extends Component {
           </div>
           <button type="submit" className="btn btn-primary">Save Badges</button>
         </form>
+        </div>
       )
     }
   }
