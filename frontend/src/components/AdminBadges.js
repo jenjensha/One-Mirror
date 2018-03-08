@@ -71,27 +71,27 @@ class AdminBadges extends Component {
           {this.state.success && <p>{this.state.success}</p>}
           <div>
             <div className="form-check">
-              <input onChange={this.handleChange} name="Badge1" checked={this.state.Badge1} className="form-check-input" type="checkbox" defaultValue id="Badge1" />
+              <input onChange={this.handleChange} name="Badge1" checked={this.state.badge.Badge1} className="form-check-input" type="checkbox" defaultValue id="Badge1" />
               <label className="form-check-label" htmlFor="Badge1">Badge1</label>
             </div>
             <div className="form-check">
-              <input onChange={this.handleChange} name="Badge2" checked={this.state.Badge2} className="form-check-input" type="checkbox" defaultValue id="Badge2" />
+              <input onChange={this.handleChange} name="Badge2" checked={this.state.badge.Badge2} className="form-check-input" type="checkbox" defaultValue id="Badge2" />
               <label className="form-check-label" htmlFor="Badge2">Badge2</label>
             </div>
             <div className="form-check">
-              <input onChange={this.handleChange} name="Badge3" checked={this.state.Badge3} className="form-check-input" type="checkbox" defaultValue id="Badge3" />
+              <input onChange={this.handleChange} name="Badge3" checked={this.state.badge.Badge3} className="form-check-input" type="checkbox" defaultValue id="Badge3" />
               <label className="form-check-label" htmlFor="Badge3">Badge3</label>
             </div>
             <div className="form-check">
-              <input onChange={this.handleChange} name="Badge4" checked={this.state.Badge4} className="form-check-input" type="checkbox" defaultValue id="Badge4" />
+              <input onChange={this.handleChange} name="Badge4" checked={this.state.badge.Badge4} className="form-check-input" type="checkbox" defaultValue id="Badge4" />
               <label className="form-check-label" htmlFor="Badge4">Badge4</label>
             </div>
             <div className="form-check">
-              <input onChange={this.handleChange} name="Badge5" checked={this.state.Badge5} className="form-check-input" type="checkbox" defaultValue id="Badge5" />
+              <input onChange={this.handleChange} name="Badge5" checked={this.state.badge.Badge5} className="form-check-input" type="checkbox" defaultValue id="Badge5" />
               <label className="form-check-label" htmlFor="Badge5">Badge5</label>
             </div>
             <div className="form-check">
-              <input onChange={this.handleChange} name="Badge6" checked={this.state.Badge6} className="form-check-input" type="checkbox" defaultValue id="Badge6" />
+              <input onChange={this.handleChange} name="Badge6" checked={this.state.badge.Badge6} className="form-check-input" type="checkbox" defaultValue id="Badge6" />
               <label className="form-check-label" htmlFor="Badge6">Badge6</label>
             </div>
           </div>

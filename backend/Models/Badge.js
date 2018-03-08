@@ -8,28 +8,28 @@ var BadgeSchema = new Schema({
         required: true
     },
     Badge1:{
-        type: Number,
-        Default: 0
+        type: Boolean,
+        default: false
     },
     Badge2:{
-        type: Number,
-        Default: 0
+        type: Boolean,
+        default: false
     },
     Badge3:{
-        type: Number,
-        Default: 0
+        type: Boolean,
+        default: false
     },
     Badge4:{
-        type: Number,
-        Default: 0
+        type: Boolean,
+        default: false
     },
     Badge5:{
-        type: Number,
-        Default: 0
+        type: Boolean,
+        default: false
     },
     Badge6:{
-        type: Number,
-        Default: 0
+        type: Boolean,
+        default: false
     }
 })
 
