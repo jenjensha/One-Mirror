@@ -1,0 +1,45 @@
+.nav-bar{
+    text-align: left;
+}
+.center{
+    text-align: center;
+    vertical-align: top;
+    width: 600px;
+    height: 300px;
+    margin: 100px auto;
+    border-style: inset;
+    border-width: 5px;
+    /* border-left-width: 100px; */
+
+}
+.react-tabs__tab{
+    margin: 0px;
+    padding: 0px
+}
+.sidenav {
+    margin-top: 100px;
+    margin-left: 100px;
+    padding-top: 50px;
+    text-align: left;
+    height: 300px;
+    width: 160px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: tomato;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+.sidenav p {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: white;
+    display: block;
+}
+
+.sidenav p:hover {
+    color: red;
+}

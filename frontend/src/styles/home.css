@@ -18,7 +18,7 @@ margin-right: 70%;
 
 body {
   margin: 0;
-  background: #000;
+  background: rgb(170, 164, 164);
 }
 video {
     position: fixed;
@@ -80,7 +80,7 @@ h1 {
   padding: .5rem;
   transition: .6s background;
 } */
-a:hover{
+.headerList a:hover{
   background:rgba(0,0,0,0.9);
 }
 @media screen and (max-width: 500px) {
