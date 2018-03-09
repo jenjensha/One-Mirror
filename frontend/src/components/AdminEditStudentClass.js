@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-
+import AdminNav from './AdminNav'
 
 class AdminEditStudentClass extends Component {
   constructor(props) {
@@ -59,6 +59,7 @@ class AdminEditStudentClass extends Component {
   render() {
     return (
       <div>
+        <AdminNav />
         {this.state.error && <p>{this.state.error}</p>}
         {this.state.success && <p>{this.state.success}</p>}
 

@@ -9,7 +9,7 @@ class AddScore extends Component {
     super(props);
     console.log(props);
     this.state = {
-      challenge: '',
+      challenge: 'frontend',
       score: '',
       //addbadge:'',
       enablebadge:'',
@@ -50,19 +50,22 @@ class AddScore extends Component {
   handleSubmit(event) {
     event.preventDefault();
     let _this = this;
-    console.log(this.props);
+    
     axios.post(`http://localhost:8080/api/admin/${this.props.match.params.StudentID}/addscores`, {
       challenge: _this.state.challenge,
       score: _this.state.score
     })
       .then(function (response) {
+        if(response.data.errors) {
+          _this.setState({ errors: response.data.errors })
+        } else {
         _this.setState({
           score: "",
-
+          errors: null
         })
         _this.getScoreCard();
 
-        console.log(response);
+       }
       })
       .catch(function (error) {
         console.log(error);
@@ -209,7 +212,7 @@ class AddScore extends Component {
 
 
         <form onSubmit={this.handleSubmit}>
-          <select name="challenge" onChange={this.selectKey}>
+          <select name="challenge" onChange={this.selectKey} value={this.state.challenge}>
             <option key={1} value='frontend'>Front-end Challenge</option>
             <option key={2} value='algorithm'>Algorithm Challenge</option>
             <option key={3} value='lamp'>LAMP Challenge</option>
@@ -219,7 +222,11 @@ class AddScore extends Component {
           <div className="form-group">
             <label htmlFor="inputScore">Score</label>
             <input onChange={this.handleInputChange} name="score" type="text" value={this.state.score} className="form-control" id="inputScore" aria-describedby="Score" placeholder="Score" />
-            <button type="submit" name="addScore" className="btn btn-primary" >Add Score</button>
+
+            {this.state.errors && this.state.errors.score  && 
+              <p>{this.state.errors.score.ms}</p>}
+
+            <button type="submit" name="addScore" className="btn btn-primary mb-3" >Add Score</button>
 
           </div>
         </form>
@@ -235,7 +242,7 @@ class AddScore extends Component {
           </div>
         </form> */}
 
-         <form onSubmit={this.handleEnableBadgeSubmit}>
+         {/* <form onSubmit={this.handleEnableBadgeSubmit}>
           <select name="enablebadge" onChange={this.selectEnableBadge}>
             <option key={1} value='Badge1'>Badge1</option>
             <option key={2} value='Badge2'>Badge2</option>
@@ -248,7 +255,7 @@ class AddScore extends Component {
           <div className="form-group">
             <button type="submit" name="enableBadge" className="btn btn-primary">Enable Badge</button>
           </div>
-        </form>
+        </form> */}
       </div>
     )
   }

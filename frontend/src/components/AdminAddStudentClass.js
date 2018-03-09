@@ -31,6 +31,7 @@ class AdminAddStudentClass extends Component {
         console.log(response.data);
 
         if(response.data.errors) {
+         
           _this.setState({ errors: response.data.errors})
         } 
         else {
@@ -58,7 +59,7 @@ class AdminAddStudentClass extends Component {
             <input name="name" type="text" className="form-control" id="studentClass" aria-describedby="emailHelp" placeholder="Enter Student Class" value={this.state.name}
               onChange={this.handleChange} />
 
-            {this.state.errors && this.state.errors.name && <p>{this.state.errors.name.msg}</p>}
+            {this.state.errors && this.state.errors.name && this.state.errors.name.mg && <p>{this.state.errors.name.msg}</p>}
           </div>
 
           <button type="submit" className="btn btn-primary">Add Class</button>
