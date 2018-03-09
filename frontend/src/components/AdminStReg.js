@@ -296,7 +296,6 @@ class AdminStReg extends Component {
                                 })}
 
                             </select>
-                            <p className="text-danger">{this.state.error.status}</p>
 
                         </div>
 
