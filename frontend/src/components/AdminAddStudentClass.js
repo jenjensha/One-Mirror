@@ -47,7 +47,7 @@ class AdminAddStudentClass extends Component {
   render() {
     console.log(this.state);
     return (
-      <div className="container">
+      <div>
         <AdminNav />
         {this.state.success && <p>{this.state.success}</p>}
 
