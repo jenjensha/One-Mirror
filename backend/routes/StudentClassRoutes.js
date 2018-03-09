@@ -32,7 +32,7 @@ routes.get('/:id', function(req, res) {
 // route: /api/admin/student/class/add
 routes.post('/add',[
   check('name')
-    
+    .not().isEmpty().withMessage('Name cannot be empty')
     .custom(value => {
       return StudentClass.findOne({ name: value })
         .then(function (studentClass) {
