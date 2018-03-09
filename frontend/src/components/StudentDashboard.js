@@ -4,6 +4,8 @@ import ChangeRequest from './ChangeRequest';
 import RestartLinks from './RestartLinks';
 import '../styles/studentDashboard.css';
 import {Animated} from "react-animated-css";
+import Header from './Header';
+import Footer from './Footer';
 
 class StudentDashboard extends Component {
   constructor(props){
@@ -48,6 +50,8 @@ class StudentDashboard extends Component {
   render() {
     console.log(this.state.student);
     return (
+      <div>
+      <Header />
       <div className="container">
         <ul className="btn-List pull-right">
             <li> <a className="btn btn-danger" onClick={this.handleChangeRequest}>Change Request</a> </li>
@@ -107,6 +111,8 @@ class StudentDashboard extends Component {
                   <RestartLinks />
               </div>
         </ul>
+      </div>
+      <Footer />
       </div>
     )
   }

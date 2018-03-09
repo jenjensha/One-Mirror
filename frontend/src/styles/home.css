@@ -18,7 +18,8 @@ margin-right: 70%;
 
 body {
   margin: 0;
-  background: rgb(170, 164, 164);
+  background: rgb(119, 114, 114);
+  /* background: #000; */
 }
 video {
     position: fixed;
