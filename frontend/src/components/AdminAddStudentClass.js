@@ -31,6 +31,7 @@ class AdminAddStudentClass extends Component {
         console.log(response.data);
 
         if(response.data.errors) {
+         
           _this.setState({ errors: response.data.errors})
         } 
         else {
@@ -46,7 +47,7 @@ class AdminAddStudentClass extends Component {
   render() {
     console.log(this.state);
     return (
-      <div className="container">
+      <div>
         <AdminNav />
         {this.state.success && <p>{this.state.success}</p>}
 

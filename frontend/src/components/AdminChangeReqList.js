@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-
+import { Link } from 'react-router-dom';
+import AdminNav from './AdminNav'
 
 class AdminChangeReqList extends Component {
     constructor(props){
@@ -8,39 +9,22 @@ class AdminChangeReqList extends Component {
         super(props);
         this.state={
             requests:null,
-            error:'',
+
         }
-        axios.post("http://localhost:8080/admin/logedin")
-            .then(res => {
-                this.setState({
-                    error:''
-                })
-            })
-            .catch(error =>{
-                this.setState({
-                    error:'Please Login'
-                })
-            })
+        this.handleDeleteRequestClick=this.handleDeleteRequestClick.bind(this);
+
     }
-    handleEditProfile(req){
+
+    handleDeleteRequestClick(id){
         let _this = this;
-        // props.history.push({
-        //     pathname:'/admin/editprofile/'+req.studentID,
-        //     state:req.text
-        // })
-    }
-    handleDelete(id){
-        let _this = this;
-        //confirm("Press a button!");
-        //alert("Sure you want tp delete this request");
-        axios.delete("http://localhost:8080/admin/deletechangerequest/"+id)
+        axios.delete("http://localhost:8080/api/deletechangerequests/"+id)
             .then(res => {
-                window.location.href="/admin/studen/changerequest"
+                window.location.href="/admin/student/changerequests"
             })
             .catch(error => console.log(error))
     }
     componentDidMount(){
-        axios.get("http://localhost:8080/admin/changerequests")
+        axios.get("http://localhost:8080/api/listofrequests")
         .then(res => {
             this.setState({
                 requests: res.data
@@ -48,69 +32,55 @@ class AdminChangeReqList extends Component {
         })
         .catch(error => console.log(error))
     }
-    render() {
-        // if(this.state.error === 'Please Login'){return <h1 className="text-danger">{this.state.error}</h1>}
-        return (
-            <div>
-                <h1>Links Change Request</h1>
-                {this.state.requests
-                    ?
-                    <div>
-                    <div className="table-responsive-md">
-                    <table className="table table-hover">
-                        <thead>
-                            <tr>
-                                <th scope="col" colSpan={1}>Student ID</th>
-                                <th scope="col" colSpan={1}>Name</th>
-                                <th scope="col" colSpan={1}>Request message</th>
-                                <th scope="col" colSpan={5}>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                {this.state.requests.map(function(req){  
-                    return(
-                        <tr>
-                            <th scope="row">{req.studentID}</th>
-                            <td>{req.firstName}{req.lastName}</td>
-                            <td>{req.text}</td>
-                            <td colSpan={2}><button onClick={this.handleEditProfile(req)}  className="btn btn-success" >Edit profile</button></td>
-                            <td colSpan={2}><button onClick={this.handleDelete(req._id)}  className="btn btn-danger" >Delete</button></td>
-                        </tr>
-                    )
-                }.bind(this))}
-                        </tbody>
-                    </table>
-                </div>
-                </div>
-                :
-                <h1 className="text-danger"> There is no Requests </h1>
-                }
-                <h1>Links Change Request</h1>
-                <div className="table-responsive-md">
-                    <table className="table table-hover">
-                        <thead>
-                            <tr>
-                                <th scope="col" colSpan={1}>Student ID</th>
-                                <th scope="col" colSpan={1}>Name</th>
-                                <th scope="col" colSpan={1}>Request message</th>
-                                <th scope="col" colSpan={5}>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">12453</th>
-                                <td>Jac Thon</td>
-                                <td>my name is wrong</td>
-                                <td colSpan={2}><button onClick={this.handleEditProfile}  className="btn btn-success" >Edit profile</button></td>
-                                <td colSpan={2}><button onClick={this.handleDelete}  className="btn btn-danger" >Delete</button></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <h1>{this.state.message}</h1>
-            </div>
-        );
-    }
-}
 
+          render() {
+            let _this = this;
+            console.log(this.state.requests);
+            return (
+              <div>
+                <AdminNav />
+                <h1>Change Requests</h1>
+
+                <div className="table-responsive-md">
+                  <table className="table table-hover">
+                    <thead>
+                      <tr>
+                        <th scope="col" colSpan={1}>#</th>
+                        <th scope="col" colSpan={2}>Student Name</th>
+                        <th scope="col" colSpan={1}>Text</th>
+                        <th scope="col" colSpan={1}>Title</th>
+                        <th scope="col" colSpan={1}>Status</th>
+                        <th scope="col" colSpan={2}>Actions</th>
+
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                      {_this.state.requests && _this.state.requests.map(function (request) {
+                        console.log(request);
+                        return (
+                          <tr key={request._id}>
+                            <th scope="row">{request.StudentID}</th>
+
+
+                            <td scope="col" colSpan={2}>{request.FirstName} {request.LastName}</td>
+                            <td>{request.Text}</td>
+                            <td>{request.title}</td>
+                            <td>{request.changeStatus}</td>
+                            <td ><Link className="btn btn-primary" to={`/admin/${request.StudentID}/editdetails`}>Approve</Link>
+                            <a className="btn btn-danger" onClick={this.handleDeleteRequestClick(request._id)}>Delete</a></td>
+
+
+
+                          </tr>
+                        )
+                      }.bind(_this))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          )
+
+          }
+        }
 export default AdminChangeReqList;

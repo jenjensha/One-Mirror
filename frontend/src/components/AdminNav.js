@@ -54,11 +54,16 @@ class AdminNav extends Component {
 
           <ul className="nav navbar-nav">
 
-            <NavLink to="/admin/dashboard" className="nav-item nav-link">List of Students</NavLink>
-            <NavLink to="/admin/student/register" className="nav-item nav-link">Registration</NavLink>
-            <NavLink to="/admin/student/class" className="nav-item nav-link">Student Classes</NavLink>
+            <NavLink exact to="/admin/dashboard" className="nav-item nav-link">List of Students</NavLink>
+            <NavLink exact to="/admin/student/register" className="nav-item nav-link">Registration</NavLink>
+            <NavLink exact to="/admin/student/class" className="nav-item nav-link">Student Classes</NavLink>
 
             <NavLink to="/admin/student/class/add" className="nav-item nav-link">Add Classes</NavLink>
+            <NavLink to="/admin/student/changerequests" className="nav-item nav-link">View Change Requests</NavLink>
+
+
+
+
 
           </ul>
 
@@ -83,4 +88,3 @@ class AdminNav extends Component {
 }
 
 export default AdminNav
-

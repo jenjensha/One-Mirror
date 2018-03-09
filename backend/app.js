@@ -145,7 +145,7 @@ app.get('/student/:StudentID/badges' , function(req, res) {
     } else {
       res.send('not_found');
     }
-    
+
   })
   .catch(function(error) {
     res.send('error');
@@ -173,7 +173,7 @@ app.post('/student/:StudentID/badges/update', function(req, res) {
         Badge4 : req.body.Badge4,
         Badge5 : req.body.Badge5,
         Badge6 : req.body.Badge6
-       
+
         })
         .then(function(badge) {
           res.send('success')
@@ -187,7 +187,7 @@ app.post('/student/:StudentID/badges/update', function(req, res) {
       console.log(error);
         })
 
-    
+
 })
 
 // Student Login
@@ -516,6 +516,31 @@ app.get('/api/listofstudents', function (req, res) {
       res.send({ status: error, message: 'Cannot find students' });
     })
 })
+
+//Retrieve the Change Requests for the Admin
+
+app.get('/api/listofrequests', function (req, res) {
+  ChangeReq.find({})
+  .then(function(requests){
+    res.send(requests)
+  }).catch((error) => {
+    res.send({ status: error, message: 'No Requests Found' });
+  })
+})
+
+//Delete Change Requests for the Admin
+
+app.delete('/api/deletechangerequests/:id', function (req, res) {
+  console.log("req.id "+ req.params.id);
+  ChangeReq.remove({_id:req.params.id})
+  .then(function(requests){
+    //res.send(requests)
+  }).catch((error) => {
+    res.send({ status: error, message: 'Something Wrong' });
+  })
+})
+
+
 
 //Admin Student View Profile
 app.get('/api/student/:StudentID/viewprofile', function (req, res) {
