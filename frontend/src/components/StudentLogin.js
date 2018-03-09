@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import '../styles/AdminLog.css';
+import Header from './Header';
+import Footer from './Footer';
 
 
 class StudentLogin extends Component {
@@ -73,7 +75,10 @@ class StudentLogin extends Component {
 
   render() {
     return (
-      <div className="admin-log-main">
+      <div>
+      <Header />
+      <div>
+      {/* <div className="admin-log-main"> */}
         <h1>Student Login</h1>
           <form onSubmit={this.handleSubmit}>
               <div className="form-group">
@@ -92,6 +97,8 @@ class StudentLogin extends Component {
           <br />
           <br />
 
+      </div>
+      <Footer />
       </div>
     )
   }

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import '../styles/AdminLog.css';
+import Header from './Header';
+import Footer from './Footer';
 
 axios.defaults.withCredentials = true;
 
@@ -50,7 +52,10 @@ class AdminLog extends Component {
     }
     render() {
         return (
-            <div className="admin-log-main">
+            <div>
+                <Header />
+                <div>
+            {/* <div className="admin-log-main"> */}
                 <h1>Admin Login</h1>
                 <form onSubmit={this.handleSubmit}>
                     <div className="form-group">
@@ -67,6 +72,8 @@ class AdminLog extends Component {
                 <br />
                 <br />
 
+            </div>
+            <Footer />
             </div>
         );
     }

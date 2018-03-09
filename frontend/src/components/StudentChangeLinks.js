@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import '../styles/StudentchangeLinks.css'
+import '../styles/StudentchangeLinks.css';
+import Header from './Header';
+import Footer from './Footer';
 
 class StudentChangeLinks extends Component {
   constructor(props){
@@ -79,6 +81,7 @@ class StudentChangeLinks extends Component {
   render() {
     return (
       <div>
+        <Header />
       <a className="btn btn-primary changeReqBackBtn" onClick={this.handleBackClick}>Back</a>
       <h1> change them links </h1>
       <span className="text-success">{this.state.success}</span>
@@ -103,6 +106,7 @@ class StudentChangeLinks extends Component {
         <button type="submit" className="btn btn-primary changelinkbtn">Submit</button>
 
       </form>
+      <Footer />
       </div>
     )
   }

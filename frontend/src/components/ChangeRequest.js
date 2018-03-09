@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import '../styles/ChangeRequest.css';
+import Header from './Header';
+import Footer from './Footer';
 
 class ChangeRequest extends Component {
   constructor(props){
@@ -83,6 +85,7 @@ class ChangeRequest extends Component {
   render() {
     return (
     <div>
+      <Header />
       <a className="btn btn-primary changeReqBackBtn" onClick={this.handleBackClick}>Back</a>
       <h3 className="changeReqHeader"> Change Request </h3>
       <form onSubmit={this.handleSubmit}>
@@ -97,7 +100,7 @@ class ChangeRequest extends Component {
         <button type="submit" className="btn btn-primary changeReqBtn">Send Request</button>
       </form>
       <span className="text-success">{this.state.successMsg}</span>
-
+      <Footer />
     </div>
     )
   }
