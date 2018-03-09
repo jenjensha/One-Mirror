@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-
+import AdminNav from './AdminNav'
 
 class AdminChangeReqList extends Component {
     constructor(props){
@@ -38,7 +38,7 @@ class AdminChangeReqList extends Component {
             console.log(this.state.requests);
             return (
               <div>
-
+                <AdminNav />
                 <h1>Change Requests</h1>
 
                 <div className="table-responsive-md">
