@@ -15,7 +15,7 @@ class AdminDashboard extends Component {
       studentClass: null,
 
     }
-    this.handleProfileClick=this.handleProfileClick.bind(this);
+    //this.handleProfileClick=this.handleProfileClick.bind(this);
   }
   handleAddscore() {
     window.location.href = '/admin/addscore';
@@ -24,12 +24,12 @@ class AdminDashboard extends Component {
   {
     window.location.href='/admin/editdetails';
   }
-  handleProfileClick(){
-    this.props.history.push({
-      pathname: '/student/profile',
-      state: { detail: this.state.students }
-    });
-  }
+  // handleProfileClick(){
+  //   this.props.history.push({
+  //     pathname: '/student/profile',
+  //     state: { detail: this.state.students }
+  //   });
+  // }
 
   componentDidMount() {
     let _this = this;
@@ -57,7 +57,7 @@ class AdminDashboard extends Component {
       <div>
         <AdminNav />
         <h1>Admin Dashboard</h1>
-       
+
         <div className="table-responsive-md">
           <table className="table table-hover">
             <thead>
@@ -85,7 +85,7 @@ class AdminDashboard extends Component {
                     <td colSpan={3}>{student.FirstName} {student.LastName}</td>
 
                     <td><Link className="btn btn-primary" to={`/admin/${student.StudentID}/editdetails`}>Edit</Link></td>
-                    <td><a className="btn btn-danger" onClick={this.handleProfileClick}>View Profile</a></td>
+                    <td><Link className="btn btn-primary" to={`/student/profile/${student.StudentID}`}>View Profile</Link></td>
                     <td><Link className="btn btn-success" to={`/admin/${student.StudentID}/addscore`}>Add Scores</Link></td>
                     <td><Link className="btn btn-primary" to={`/admin/${student.StudentID}/badges`}>Badges</Link></td>
                   </tr>
