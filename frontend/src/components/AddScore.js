@@ -155,9 +155,9 @@ class AddScore extends Component {
       <div>
 
         <AdminNav />
-
+        <div className="container">
         {this.state.scorecard && this.state.scorecard.student &&
-        <h2>{this.state.scorecard.student.FirstName}{this.state.scorecard.student.LastName}</h2>}
+        <h2>{this.state.scorecard.student.FirstName} {this.state.scorecard.student.LastName}</h2>}
         <div className="challengTable">
           <table className="table ">
             <thead>
@@ -224,10 +224,11 @@ class AddScore extends Component {
             <input onChange={this.handleInputChange} name="score" type="text" value={this.state.score} className="form-control" id="inputScore" aria-describedby="Score" placeholder="Score" />
 
             {this.state.errors && this.state.errors.score  && 
-              <p>{this.state.errors.score.ms}</p>}
-
-            <button type="submit" name="addScore" className="btn btn-primary mb-3" >Add Score</button>
-
+              <p>{this.state.errors.score.msg}</p>}
+            
+            
+            <button type="submit" name="addScore" className="btn btn-primary mb-3 mt-3" >Add Score</button>
+            
           </div>
         </form>
         {/* <form onSubmit={this.handleAddBadgeSubmit}>
@@ -256,6 +257,7 @@ class AddScore extends Component {
             <button type="submit" name="enableBadge" className="btn btn-primary">Enable Badge</button>
           </div>
         </form> */}
+      </div>
       </div>
     )
   }
