@@ -114,7 +114,7 @@ class AdminStReg extends Component {
                             githubLink: '',
                             hackerRankLink: '',
                             CVlink: '',
-                            studentClasses :"",
+                            studentClass:"",
                         },
                         error: {
                             firstName: '',

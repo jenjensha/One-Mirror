@@ -393,9 +393,6 @@ app.post('/api/student/register',
 
   ],
   function (req, res) {
-    console.log(req.body)
-    //console.log(req.files.photo[0].filename);
-    //console.log('register student')
     var errors = validationResult(req);
     console.log(errors.mapped());
     if (!errors.isEmpty()) {
@@ -404,8 +401,6 @@ app.post('/api/student/register',
       return res.send({ errors: errors.mapped() });
     }
 
-    console.log('create student')
-    console.log(req.body);
     filename = null
     if (req.files && req.files.photo && req.files.photo[0]) {
       filename = req.files.photo[0].filename
@@ -428,20 +423,8 @@ app.post('/api/student/register',
       CV_link: req.body.CVlink,
       StudentClass: req.body.StudentClass,
 
-    });
-    Badge.create({
-      StudentID:req.body.ID,
-      Badge1: false,
-      Badge2: false,
-      Badge3: false,
-      Badge4: false,
-      Badge5: false,
-      Badge6: false,
     })
       .then(function (student) {
-        console.log(student)
-        res.send(student);
-
         // Generate test SMTP service account from mailcatcher
         // Only needed if you don't have a real mail account for testing
         nodemailer.createTestAccount((err, account) => {
@@ -493,7 +476,18 @@ app.post('/api/student/register',
             // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
           });
         })
-        res.send('done');
+        res.send(student);
+      })
+      .then(function() {
+        Badge.create({
+          StudentID: req.body.ID,
+          Badge1: false,
+          Badge2: false,
+          Badge3: false,
+          Badge4: false,
+          Badge5: false,
+          Badge6: false,
+        })
       })
       .catch(function (error) {
         console.log(error);
